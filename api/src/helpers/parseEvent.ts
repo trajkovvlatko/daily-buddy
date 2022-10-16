@@ -1,4 +1,4 @@
-import { Event, Occurance } from 'types/shared';
+import { Event, Occurance, ParsedEvent } from 'types/shared';
 import { getDateTime } from './getDateTime';
 import { isOccurance } from './isOccurance';
 
@@ -7,7 +7,7 @@ interface ParseEventProps {
   name: string;
 }
 
-export const parseEvent = ({ e, name }: ParseEventProps) => {
+export const parseEvent = ({ e, name }: ParseEventProps): ParsedEvent => {
   const startAt = getDateTime(e.startDate);
   const endAt = getDateTime(e.endDate);
 
@@ -24,5 +24,7 @@ export const parseEvent = ({ e, name }: ParseEventProps) => {
     },
     summary: isOccurance(e) ? e.item.summary : e.summary,
     description: isOccurance(e) ? e.item.description : e.description,
+    startDate: startAt.split(' ')[0],
+    startTime: startAt.split(' ')[1],
   };
 };

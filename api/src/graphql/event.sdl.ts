@@ -12,10 +12,17 @@ export const schema = gql`
     description: String
     startAt: String!
     endAt: String!
+    startDate: String!
+    startTime: String!
     duration: Duration!
   }
 
+  type EventsByDate {
+    startDate: String!
+    events: [Event!]!
+  }
+
   type Query {
-    getEvents(from: String!, to: String!): [Event!]! @skipAuth
+    getEvents(from: String!, to: String!): [EventsByDate!]! @skipAuth
   }
 `;
