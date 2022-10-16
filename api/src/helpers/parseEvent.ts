@@ -12,6 +12,7 @@ export const parseEvent = ({ e, name }: ParseEventProps) => {
   const endAt = getDateTime(e.endDate);
 
   return {
+    id: isOccurance(e) ? e.item.uid : e.uid,
     calendar: name,
     startTimestamp: Date.parse(startAt),
     startAt,

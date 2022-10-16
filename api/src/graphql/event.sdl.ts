@@ -6,9 +6,10 @@ export const schema = gql`
   }
 
   type Event {
+    id: ID!
     calendar: String!
     summary: String!
-    description: String!
+    description: String
     startAt: String!
     endAt: String!
     duration: Duration!

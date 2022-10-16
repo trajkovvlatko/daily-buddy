@@ -16,6 +16,7 @@ export interface EventDuration {
 }
 
 export interface Event {
+  uid: string;
   startDate: EventDate;
   endDate: EventDate;
   duration: EventDuration;
@@ -27,6 +28,7 @@ export interface Occurance {
   startDate: EventDate;
   endDate: EventDate;
   item: {
+    uid: string;
     duration: EventDuration;
     summary: string;
     description: string;

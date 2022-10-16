@@ -20,12 +20,8 @@ export const getCalendarParser = ({ from, to }: GetCalendarParserProps) => {
     const icalExpander = new IcalExpander(options);
     const events = icalExpander.between(new Date(from), new Date(to));
 
-    const mappedEvents = events.events.map((e: Event) =>
-      parseEvent({ e, name })
-    );
-    const mappedOccurrences = events.occurrences.map((e: Occurance) =>
-      parseEvent({ e, name })
-    );
+    const mappedEvents = events.events.map((e: Event) => parseEvent({ e, name }));
+    const mappedOccurrences = events.occurrences.map((e: Occurance) => parseEvent({ e, name }));
 
     return [...mappedEvents, ...mappedOccurrences];
   };
