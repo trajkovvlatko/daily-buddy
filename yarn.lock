@@ -7769,6 +7769,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "axios@npm:1.1.3"
+  dependencies:
+    follow-redirects: ^1.15.0
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: 78aea19cc15019fb0fb86ec737a9dccb88a8f8e8f00b0e6c5024a76d8df523daf88a7abf8c6593b0cdd9a346806be9f41285d793d8b6653c99877de11245bfa4
+  languageName: node
+  linkType: hard
+
 "axobject-query@npm:^2.2.0":
   version: 2.2.0
   resolution: "axobject-query@npm:2.2.0"
@@ -12488,7 +12499,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.15.0":
   version: 1.15.2
   resolution: "follow-redirects@npm:1.15.2"
   peerDependenciesMeta:
@@ -13851,6 +13862,22 @@ __metadata:
   dependencies:
     decamelize: ^2.0.0
   checksum: a0ed69264b5069137afb369b46e18e8dbeb67edc7fb2ad1de18554108943e2fc59155f898013fb7a2f03522879adad7c9a93f1c88428844bcbee006c98db8f0a
+  languageName: node
+  linkType: hard
+
+"ical-expander@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "ical-expander@npm:3.1.0"
+  dependencies:
+    ical.js: ^1.2.2
+  checksum: 52a5162f10521619fc97a9abacc4cefe1ce3c987dcf17256ba7c3955a92d8660d72ff33e661ded020f1fcf124f6e51512cd6daee6c4c47d90eef3328a15f6c0b
+  languageName: node
+  linkType: hard
+
+"ical.js@npm:^1.2.2":
+  version: 1.5.0
+  resolution: "ical.js@npm:1.5.0"
+  checksum: ea7afafbc3cbfae1ef3474ccb098f529187f8dd1e2d6c110e094179a4cc7b4b96c8700efd3fa46306774739cc3a96ad599d59e3df387f51c1f4f17e264617340
   languageName: node
   linkType: hard
 
@@ -19093,6 +19120,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: fe7dd8b1bdbbbea18d1459107729c3e4a2243ca870d26d34c2c1bcd3e4425b7bcc5112362df2d93cc7fb9746f6142b5e272fd1cc5c86ddf8580175186f6ad42b
+  languageName: node
+  linkType: hard
+
 "proxyquire@npm:2.1.3":
   version: 2.1.3
   resolution: "proxyquire@npm:2.1.3"
@@ -20188,6 +20222,8 @@ __metadata:
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
     "@redwoodjs/core": 3.2.0
+    axios: ^1.1.3
+    ical-expander: ^3.1.0
   languageName: unknown
   linkType: soft
 
