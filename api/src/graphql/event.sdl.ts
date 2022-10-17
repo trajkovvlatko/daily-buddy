@@ -22,6 +22,6 @@ export const schema = gql`
   }
 
   type Query {
-    getEvents(from: String!, to: String!): [EventsByDate!]! @skipAuth
+    getEvents(from: String!, to: String!): [EventsByDate!]! @requireAuth
   }
 `;
