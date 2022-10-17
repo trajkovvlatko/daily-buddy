@@ -10,7 +10,7 @@ export const EventsByDateRow = ({ row }: Props) => {
       <small>{row.startDate}</small>
       {row.events.map((event) => {
         return (
-          <p>
+          <p key={`event-${event.id}`}>
             {event.startTime} - {event.summary} <small>({event.calendar})</small>
           </p>
         );

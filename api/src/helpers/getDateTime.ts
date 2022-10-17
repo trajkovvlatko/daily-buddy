@@ -1,9 +1,8 @@
-import { EventDate } from 'types/shared';
 import { pad } from './pad';
 
-export const getDateTime = (obj: EventDate) => {
-  const date = [pad(obj.year), pad(obj.month), pad(obj.day)].join('-');
-  const time = [pad(obj.hour), pad(obj.minute)].join(':');
+export const getDateTime = (obj: Date) => {
+  const date = [obj.getFullYear(), pad(obj.getMonth() + 1), pad(obj.getDate())].join('-');
+  const time = [pad(obj.getHours()), pad(obj.getMinutes())].join(':');
 
   return [date, time].join(' ');
 };

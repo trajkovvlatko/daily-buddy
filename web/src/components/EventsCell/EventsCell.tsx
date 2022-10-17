@@ -1,5 +1,5 @@
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
-import { EventsQuery } from 'types/graphql';
+import { EventFields, EventsQuery } from 'types/graphql';
 import { EventsByDateRow } from './EventsByDateRow';
 
 interface Props {
@@ -15,24 +15,26 @@ export const beforeQuery = ({ from, to }: Props) => {
 };
 
 export const QUERY = gql`
+  fragment EventFields on EventsByDate {
+    startDate
+    events {
+      id
+      calendar
+      summary
+      description
+      startAt
+      startDate
+      startTime
+      duration {
+        days
+        hours
+        minutes
+      }
+    }
+  }
   query EventsQuery($from: String!, $to: String!) {
     getEvents(from: $from, to: $to) {
-      startDate
-      events {
-        id
-        calendar
-        summary
-        description
-        startAt
-        endAt
-        startDate
-        startTime
-        duration {
-          days
-          hours
-          minutes
-        }
-      }
+      ...EventFields
     }
   }
 `;
@@ -46,9 +48,9 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 export const Success = ({ getEvents: events }: CellSuccessProps<EventsQuery>) => {
   return (
     <ul>
-      {events.map((row: any) => (
-        <EventsByDateRow row={row} />
-      ))}
+      {events.map((row: EventFields) => {
+        return <EventsByDateRow row={row} key={`event-by-date-${row.startDate}`} />;
+      })}
     </ul>
   );
 };

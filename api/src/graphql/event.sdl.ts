@@ -11,7 +11,6 @@ export const schema = gql`
     summary: String!
     description: String
     startAt: String!
-    endAt: String!
     startDate: String!
     startTime: String!
     duration: Duration!

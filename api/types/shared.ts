@@ -7,6 +7,7 @@ export interface EventDate {
   second: number;
   isDate: boolean;
   timezone: string;
+  _cachedUnixTime: number;
 }
 
 export interface EventDuration {
@@ -40,7 +41,6 @@ export interface ParsedEvent {
   calendar: string;
   startTimestamp: number;
   startAt: string;
-  endAt: string;
   duration: EventDuration;
   summary: string;
   description?: string;
