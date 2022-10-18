@@ -1,15 +1,11 @@
-import type { APIGatewayProxyEvent, Context } from 'aws-lambda'
+import type { APIGatewayProxyEvent, Context } from 'aws-lambda';
 
-import { DbAuthHandler } from '@redwoodjs/api'
-import type { DbAuthHandlerOptions } from '@redwoodjs/api'
+import { DbAuthHandler } from '@redwoodjs/api';
+import type { DbAuthHandlerOptions } from '@redwoodjs/api';
 
-import { db } from 'src/lib/db'
+import { db } from 'src/lib/db';
 
-export const handler = async (
-  event: APIGatewayProxyEvent,
-  context: Context
-) => {
-
+export const handler = async (event: APIGatewayProxyEvent, context: Context) => {
   const forgotPasswordOptions: DbAuthHandlerOptions['forgotPassword'] = {
     // handler() is invoked after verifying that a user was found with the given
     // username. This is where you can send the user an email with a link to
@@ -24,7 +20,7 @@ export const handler = async (
     // address in a toast message so the user will know it worked and where
     // to look for the email.
     handler: (user) => {
-      return user
+      return user;
     },
 
     // How long the resetToken is valid for, in seconds (default is 24 hours)
@@ -38,7 +34,7 @@ export const handler = async (
       // if the user somehow gets around client validation
       usernameRequired: 'Username is required',
     },
-  }
+  };
 
   const loginOptions: DbAuthHandlerOptions['login'] = {
     // handler() is called after finding the user that matches the
@@ -53,7 +49,7 @@ export const handler = async (
     // by the `logIn()` function from `useAuth()` in the form of:
     // `{ message: 'Error message' }`
     handler: (user) => {
-      return user
+      return user;
     },
 
     errors: {
@@ -67,7 +63,7 @@ export const handler = async (
 
     // How long a user will remain logged in, in seconds
     expires: 60 * 60 * 24 * 365 * 10,
-  }
+  };
 
   const resetPasswordOptions: DbAuthHandlerOptions['resetPassword'] = {
     // handler() is invoked after the password has been successfully updated in
@@ -75,7 +71,7 @@ export const handler = async (
     // in. Return `false` otherwise, and in the Reset Password page redirect the
     // user to the login page.
     handler: (_user) => {
-      return true
+      return true;
     },
 
     // If `false` then the new password MUST be different from the current one
@@ -91,7 +87,7 @@ export const handler = async (
       // new password is the same as the old password (apparently they did not forget it)
       reusedPassword: 'Must choose a new password',
     },
-  }
+  };
 
   const signupOptions: DbAuthHandlerOptions['signup'] = {
     // Whatever you want to happen to your data on new user signup. Redwood will
@@ -117,14 +113,16 @@ export const handler = async (
           salt: salt,
           // name: userAttributes.name
         },
-      })
+      });
     },
+
+    enabled: false,
 
     // Include any format checks for password here. Return `true` if the
     // password is valid, otherwise throw a `PasswordValidationError`.
     // Import the error along with `DbAuthHandler` from `@redwoodjs/api` above.
     passwordValidation: (_password) => {
-      return true
+      return true;
     },
 
     errors: {
@@ -132,7 +130,7 @@ export const handler = async (
       fieldMissing: '${field} is required',
       usernameTaken: 'Username `${username}` already in use',
     },
-  }
+  };
 
   const authHandler = new DbAuthHandler(event, context, {
     // Provide prisma db client
@@ -171,7 +169,7 @@ export const handler = async (
     login: loginOptions,
     resetPassword: resetPasswordOptions,
     signup: signupOptions,
-  })
+  });
 
-  return await authHandler.invoke()
-}
+  return await authHandler.invoke();
+};
