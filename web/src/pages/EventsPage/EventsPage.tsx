@@ -10,7 +10,6 @@ const EventsPage = () => {
 
   const from = toDateString(today);
   const to = toDateString(new Date(endAt.setDate(today.getDate() + 20)));
-  console.log(from, to);
 
   return (
     <>

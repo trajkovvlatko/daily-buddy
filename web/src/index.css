@@ -1,0 +1,41 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: Arial;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  padding-left: 20px;
+  font-size: 25px;
+}
+
+.events-by-date-row {
+  padding-bottom: 25px;
+  list-style-type: none;
+}
+
+.event-by-day {
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #f8f8f8;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}
+
+.event {
+  padding-top: 15px;
+  padding-left: 43px;
+}
+
+.duration {
+  font-style: italic;
+  font-size: 13px;
+  padding-left: 62px;
+  padding-top: 5px;
+}
