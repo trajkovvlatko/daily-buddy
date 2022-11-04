@@ -1,21 +1,35 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 // Define your own datamodels here and run `yarn redwood prisma migrate dev`
 // to create migrations for them and apply to your dev DB.
+
 model User {
-  id                  Int     @id @default(autoincrement())
-  email               String  @unique
+  id                  Int        @id @default(autoincrement())
+  email               String     @unique
   hashedPassword      String
   salt                String
   resetToken          String?
   resetTokenExpiresAt DateTime?
+  Calendar            Calendar[]
+}
+
+model Calendar {
+  id        Int      @id @default(autoincrement())
+  title     String
+  color     String
+  url       String   @db.Text
+  User      User     @relation(references: [id], fields: [userId])
+  createdAt DateTime @default(now())
+  userId    Int
+
+  @@index([userId], name: "user")
 }

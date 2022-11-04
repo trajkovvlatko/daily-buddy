@@ -4,15 +4,15 @@ import { convertToTimeZone } from './convertToTimeZone';
 
 interface ParseEventProps {
   e: Event | Occurance;
-  name: string;
+  title: string;
 }
 
-export const parseEvent = ({ e, name }: ParseEventProps): ParsedEvent => {
+export const parseEvent = ({ e, title }: ParseEventProps): ParsedEvent => {
   const startAt = convertToTimeZone({ date: e.startDate._cachedUnixTime * 1000, timeZone: 'Europe/Stockholm' });
 
   return {
     id: isOccurance(e) ? e.item.uid : e.uid,
-    calendar: name,
+    calendar: title,
     startTimestamp: Date.parse(startAt),
     startAt,
     duration: {
