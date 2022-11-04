@@ -1,15 +1,12 @@
 import axios from 'axios';
 
 interface FetchCalendarResponse {
-  name: string;
+  title: string;
   data: string;
 }
 
-export const fetchCalendar = async (
-  calendar: string
-): Promise<FetchCalendarResponse> => {
-  const [name, url] = calendar.split('=');
+export const fetchCalendar = async ({ url, title }: { url: string; title: string }): Promise<FetchCalendarResponse> => {
   const { data } = await axios({ method: 'get', url });
 
-  return { name, data };
+  return { title, data };
 };

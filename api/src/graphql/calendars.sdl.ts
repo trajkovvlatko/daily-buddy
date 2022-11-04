@@ -18,14 +18,12 @@ export const schema = gql`
     title: String!
     color: String!
     url: String!
-    userId: Int!
   }
 
   input UpdateCalendarInput {
     title: String
     color: String
     url: String
-    userId: Int
   }
 
   type Mutation {
