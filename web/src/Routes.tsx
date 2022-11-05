@@ -20,6 +20,7 @@ const Routes = () => {
         <Route path="/calendars/{id:Int}" page={CalendarCalendarPage} name="calendar" />
         <Route path="/calendars" page={CalendarCalendarsPage} name="calendars" />
         <Route path="/dashboard" page={DashboardPage} name="dashboard" />
+        <Route path="/tasks" page={TasksPage} name="tasks" />
       </Set>
       <Route path="/login" page={LoginPage} name="login" />
       <Route path="/signup" page={SignupPage} name="signup" />
