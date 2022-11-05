@@ -116,7 +116,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
       });
     },
 
-    enabled: !!process.env.ENABLE_REGISTRATIONS,
+    enabled: process.env.ENABLE_REGISTRATIONS === 'true',
 
     // Include any format checks for password here. Return `true` if the
     // password is valid, otherwise throw a `PasswordValidationError`.
