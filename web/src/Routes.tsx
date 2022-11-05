@@ -20,7 +20,7 @@ const Routes = () => {
         <Route path="/calendars/{id:Int}" page={CalendarCalendarPage} name="calendar" />
         <Route path="/calendars" page={CalendarCalendarsPage} name="calendars" />
       </Set>
-      <Route path="/events" page={EventsPage} name="events" />
+      <Route path="/dashboard" page={DashboardPage} name="dashboard" />
       <Route path="/login" page={LoginPage} name="login" />
       <Route path="/signup" page={SignupPage} name="signup" />
       <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
