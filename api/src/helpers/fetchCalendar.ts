@@ -1,12 +1,13 @@
 import axios from 'axios';
+import { CalendarData } from 'types/shared';
 
 interface FetchCalendarResponse {
-  title: string;
+  calendar: CalendarData;
   data: string;
 }
 
-export const fetchCalendar = async ({ url, title }: { url: string; title: string }): Promise<FetchCalendarResponse> => {
-  const { data } = await axios({ method: 'get', url });
+export const fetchCalendar = async (calendar: CalendarData): Promise<FetchCalendarResponse> => {
+  const { data } = await axios({ method: 'get', url: calendar.url });
 
-  return { title, data };
+  return { calendar, data };
 };

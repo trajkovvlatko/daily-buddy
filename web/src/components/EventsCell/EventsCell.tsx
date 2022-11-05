@@ -19,7 +19,11 @@ export const QUERY = gql`
     startDate
     events {
       id
-      calendar
+      calendar {
+        id
+        title
+        color
+      }
       summary
       description
       startAt
@@ -32,6 +36,7 @@ export const QUERY = gql`
       }
     }
   }
+
   query EventsQuery($from: String!, $to: String!) {
     getEvents(from: $from, to: $to) {
       ...EventFields
@@ -39,7 +44,7 @@ export const QUERY = gql`
   }
 `;
 
-export const Loading = () => <div>Loading...</div>;
+export const Loading = () => <div className="loading">Loading...</div>;
 
 export const Empty = () => <div>Empty</div>;
 

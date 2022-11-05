@@ -5,9 +5,15 @@ export const schema = gql`
     minutes: Int!
   }
 
+  type CalendarData {
+    id: ID!
+    title: String!
+    color: String!
+  }
+
   type Event {
     id: ID!
-    calendar: String!
+    calendar: CalendarData!
     summary: String!
     description: String
     startAt: String!

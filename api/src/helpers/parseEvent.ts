@@ -1,18 +1,18 @@
-import { Event, Occurance, ParsedEvent } from 'types/shared';
+import { CalendarData, Event, Occurance, ParsedEvent } from 'types/shared';
 import { isOccurance } from './isOccurance';
 import { convertToTimeZone } from './convertToTimeZone';
 
 interface ParseEventProps {
   e: Event | Occurance;
-  title: string;
+  calendar: CalendarData;
 }
 
-export const parseEvent = ({ e, title }: ParseEventProps): ParsedEvent => {
+export const parseEvent = ({ e, calendar }: ParseEventProps): ParsedEvent => {
   const startAt = convertToTimeZone({ date: e.startDate._cachedUnixTime * 1000, timeZone: 'Europe/Stockholm' });
 
   return {
     id: isOccurance(e) ? e.item.uid : e.uid,
-    calendar: title,
+    calendar,
     startTimestamp: Date.parse(startAt),
     startAt,
     duration: {

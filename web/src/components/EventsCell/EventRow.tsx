@@ -15,14 +15,15 @@ const EventRow = ({ event }: Props) => {
   ]
     .filter(Boolean)
     .join(', ');
+  const border = { borderLeft: `4px solid ${event.calendar.color}` };
 
   return (
-    <div className="event">
+    <div className="event" style={border}>
       <div>
         <b>{event.startTime}</b> - {event.summary}
       </div>
       <div className="duration">
-        {event.calendar} - {duration}
+        {event.calendar.title} - {duration}
       </div>
     </div>
   );

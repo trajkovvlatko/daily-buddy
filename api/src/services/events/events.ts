@@ -12,7 +12,10 @@ interface GetEventsProps {
 export const getEvents = async ({ from, to }: GetEventsProps, { context }) => {
   const userId = context.currentUser['id'];
   const calendarParser = getCalendarParser({ from, to });
-  const calendars = await db.calendar.findMany({ where: { userId }, select: { url: true, title: true } });
+  const calendars = await db.calendar.findMany({
+    where: { userId },
+    select: { id: true, url: true, title: true, color: true },
+  });
   const calendarsData = await Promise.all(calendars.map(fetchCalendar));
 
   return calendarsData.flatMap(calendarParser).sort(sortByTimestamp).reduce(groupByStartDate, []);

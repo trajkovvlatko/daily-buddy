@@ -38,7 +38,7 @@ export interface Occurance {
 
 export interface ParsedEvent {
   id: string;
-  calendar: string;
+  calendar: CalendarData;
   startTimestamp: number;
   startAt: string;
   duration: EventDuration;
@@ -46,4 +46,11 @@ export interface ParsedEvent {
   description?: string;
   startDate: string;
   startTime: string;
+}
+
+export interface CalendarData {
+  id: number;
+  title: string;
+  url: string;
+  color: string;
 }
