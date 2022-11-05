@@ -7,7 +7,7 @@ export const calendars: QueryResolvers['calendars'] = (_, { context }) => {
   return db.calendar.findMany({ where: { userId } });
 };
 
-export const calendar: QueryResolvers['calendar'] = ({ id }) => {
+export const calendar: QueryResolvers['calendar'] = ({ id }, { context }) => {
   const userId = context.currentUser['id'];
 
   return db.calendar.findFirst({
@@ -15,7 +15,7 @@ export const calendar: QueryResolvers['calendar'] = ({ id }) => {
   });
 };
 
-export const createCalendar: MutationResolvers['createCalendar'] = ({ input }) => {
+export const createCalendar: MutationResolvers['createCalendar'] = ({ input }, { context }) => {
   const userId = context.currentUser['id'];
 
   return db.calendar.create({
@@ -23,14 +23,14 @@ export const createCalendar: MutationResolvers['createCalendar'] = ({ input }) =
   });
 };
 
-export const updateCalendar: MutationResolvers['updateCalendar'] = async ({ id, input }) => {
+export const updateCalendar: MutationResolvers['updateCalendar'] = async ({ id, input }, { context }) => {
   const userId = context.currentUser['id'];
   await db.calendar.findFirstOrThrow({ where: { userId, id } });
 
   return db.calendar.update({ data: input, where: { id } });
 };
 
-export const deleteCalendar: MutationResolvers['deleteCalendar'] = async ({ id }) => {
+export const deleteCalendar: MutationResolvers['deleteCalendar'] = async ({ id }, { context }) => {
   const userId = context.currentUser['id'];
   await db.calendar.findFirstOrThrow({ where: { userId, id } });
 
