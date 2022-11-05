@@ -12,11 +12,9 @@ const DashboardPage = () => {
   const to = toDateString(new Date(endAt.setDate(today.getDate() + 20)));
 
   return (
-    <>
-      <h1>Events</h1>
-
+    <div>
       <EventsCell from={from} to={to} />
-    </>
+    </div>
   );
 };
 

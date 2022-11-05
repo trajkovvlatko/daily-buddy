@@ -52,10 +52,14 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 
 export const Success = ({ getEvents: events }: CellSuccessProps<EventsQuery>) => {
   return (
-    <ul>
-      {events.map((row: EventFields) => {
-        return <EventsByDateRow row={row} key={`event-by-date-${row.startDate}`} />;
-      })}
-    </ul>
+    <div>
+      <h1 className="mb-4">Agenda</h1>
+
+      <ul>
+        {events.map((row: EventFields) => {
+          return <EventsByDateRow row={row} key={`event-by-date-${row.startDate}`} />;
+        })}
+      </ul>
+    </div>
   );
 };

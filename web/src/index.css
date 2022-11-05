@@ -1,3 +1,16 @@
+/**
+ * START --- SETUP TAILWINDCSS EDIT
+ *
+ * `yarn rw setup ui tailwindcss` placed these imports here
+ * to inject Tailwind's styles into your CSS.
+ * For more information, see: https://tailwindcss.com/docs/installation#include-tailwind-in-your-css
+ */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/**
+ * END --- SETUP TAILWINDCSS EDIT
+ */
 html, body {
   padding: 0;
   margin: 0;
@@ -16,38 +29,4 @@ h1 {
 
 .loading {
   padding-left: 20px;
-}
-
-.events-by-date-row {
-  padding-bottom: 25px;
-  list-style-type: none;
-}
-
-.event-by-day {
-  font-weight: bold;
-  font-size: 18px;
-  background-color: #f8f8f8;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
-}
-
-.event {
-  padding-top: 10px;
-  margin-left: 40px;
-  padding-left: 20px;
-  margin-top: 5px;
-}
-
-.duration {
-  font-style: italic;
-  font-size: 13px;
-  padding-left: 57px;
-  padding-top: 5px;
-}
-
-@media (max-width: 600px) {
-  .event {
-    margin-left: 22px;
-  }
 }

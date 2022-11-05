@@ -14,13 +14,13 @@ import ScaffoldLayout from 'src/layouts/ScaffoldLayout';
 const Routes = () => {
   return (
     <Router>
-      <Set wrap={ScaffoldLayout} title="Calendars" titleTo="calendars" buttonLabel="New Calendar" buttonTo="newCalendar">
+      <Set wrap={ScaffoldLayout}>
         <Route path="/calendars/new" page={CalendarNewCalendarPage} name="newCalendar" />
         <Route path="/calendars/{id:Int}/edit" page={CalendarEditCalendarPage} name="editCalendar" />
         <Route path="/calendars/{id:Int}" page={CalendarCalendarPage} name="calendar" />
         <Route path="/calendars" page={CalendarCalendarsPage} name="calendars" />
+        <Route path="/dashboard" page={DashboardPage} name="dashboard" />
       </Set>
-      <Route path="/dashboard" page={DashboardPage} name="dashboard" />
       <Route path="/login" page={LoginPage} name="login" />
       <Route path="/signup" page={SignupPage} name="signup" />
       <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
