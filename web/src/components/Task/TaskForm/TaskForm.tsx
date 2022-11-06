@@ -4,20 +4,14 @@ import {
   FieldError,
   Label,
   TextField,
-  DatetimeLocalField,
   NumberField,
   CheckboxField,
   Submit,
+  DateField,
 } from '@redwoodjs/forms';
 
 import type { EditTaskById, UpdateTaskInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
-
-const formatDatetime = (value) => {
-  if (value) {
-    return value.replace(/:\d{2}\.\d{3}\w/, '');
-  }
-};
 
 type FormTask = NonNullable<EditTaskById['task']>;
 
@@ -61,9 +55,9 @@ const TaskForm = (props: TaskFormProps) => {
           Due date
         </Label>
 
-        <DatetimeLocalField
+        <DateField
           name="dueDate"
-          defaultValue={formatDatetime(props.task?.dueDate)}
+          defaultValue={props.task?.dueDate}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
         />
@@ -101,9 +95,9 @@ const TaskForm = (props: TaskFormProps) => {
           Completed at
         </Label>
 
-        <DatetimeLocalField
+        <DateField
           name="completedAt"
-          defaultValue={formatDatetime(props.task?.completedAt)}
+          defaultValue={props.task?.completedAt}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
         />

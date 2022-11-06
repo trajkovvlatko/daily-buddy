@@ -266,7 +266,6 @@
   background-color: #ffffff;
   color: #1a202c;
 }
-.rw-table tr:nth-child(odd) td,
 .rw-table tr:nth-child(odd) th {
   background-color: #f7fafc;
 }
