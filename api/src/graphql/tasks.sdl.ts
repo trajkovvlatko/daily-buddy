@@ -11,8 +11,15 @@ export const schema = gql`
     userId: Int!
   }
 
+  type Tasks {
+    todaysAgenda: [Task!]!
+    notScheduledYet: [Task!]!
+    next: [Task!]!
+    doneRecently: [Task!]!
+  }
+
   type Query {
-    tasks: [Task!]! @requireAuth
+    tasks: Tasks @requireAuth
     task(id: Int!): Task @requireAuth
   }
 

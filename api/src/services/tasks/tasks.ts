@@ -1,7 +1,7 @@
 import type { QueryResolvers, MutationResolvers, TaskRelationResolvers } from 'types/graphql';
 import { db } from 'src/lib/db';
 
-export const tasks: QueryResolvers['tasks'] = (_, { context }) => {
+export const tasks: QueryResolvers['tasks'] = async (_, { context }) => {
   const userId = context.currentUser['id'];
   const today = new Date();
   const tomorrow = new Date(today);
@@ -10,16 +10,36 @@ export const tasks: QueryResolvers['tasks'] = (_, { context }) => {
   tomorrow.setMinutes(0);
   tomorrow.setSeconds(0);
 
-  return db.task.findMany({
-    where: {
-      userId,
-      dueDate: { lt: tomorrow },
-      completed: false,
-    },
-    orderBy: {
-      dueDate: 'asc',
-    },
+  const todaysAgendaPromise = db.task.findMany({
+    where: { userId, dueDate: { lt: tomorrow }, completed: false },
+    orderBy: { dueDate: 'asc' },
   });
+
+  const notScheduledYetPromise = db.task.findMany({
+    where: { userId, dueDate: null, completed: false },
+    orderBy: { dueDate: 'asc' },
+  });
+
+  const nextPromise = db.task.findMany({
+    where: { userId, dueDate: { gt: tomorrow }, completed: false },
+    orderBy: { dueDate: 'asc' },
+    take: 5,
+  });
+
+  const doneRecentlyPromise = db.task.findMany({
+    where: { userId, completed: true },
+    orderBy: { dueDate: 'asc' },
+    take: 5,
+  });
+
+  const [todaysAgenda, notScheduledYet, next, doneRecently] = await Promise.all([
+    todaysAgendaPromise,
+    notScheduledYetPromise,
+    nextPromise,
+    doneRecentlyPromise,
+  ]);
+
+  return { todaysAgenda, notScheduledYet, next, doneRecently };
 };
 
 export const task: QueryResolvers['task'] = ({ id }) => {

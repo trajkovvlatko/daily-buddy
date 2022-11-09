@@ -1,11 +1,9 @@
 import { Link, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-
 import { QUERY } from 'src/components/Task/TasksCell';
-import { checkboxInputTag, timeTag, truncate } from 'src/lib/formatters';
-
-import type { DeleteTaskMutationVariables, FindTasks } from 'types/graphql';
+import { truncate } from 'src/lib/formatters';
+import type { DeleteTaskMutationVariables, TaskFields } from 'types/graphql';
 
 const DELETE_TASK_MUTATION = gql`
   mutation DeleteTaskMutation($id: Int!) {
@@ -15,7 +13,7 @@ const DELETE_TASK_MUTATION = gql`
   }
 `;
 
-const TasksList = ({ tasks }: FindTasks) => {
+const TasksList = ({ tasks }: { tasks: TaskFields[] }) => {
   const [deleteTask] = useMutation(DELETE_TASK_MUTATION, {
     onCompleted: () => {
       toast.success('Task deleted');
@@ -38,7 +36,6 @@ const TasksList = ({ tasks }: FindTasks) => {
 
   return (
     <div>
-      <h1 className="pb-6">Today's agenda</h1>
       <div className="rw-segment rw-table-wrapper-responsive">
         <table className="rw-table">
           <thead>
@@ -53,7 +50,7 @@ const TasksList = ({ tasks }: FindTasks) => {
             {tasks.map((task) => (
               <tr key={task.id}>
                 <td>{truncate(task.title)}</td>
-                <td>{task.dueDate.split('T')[0]}</td>
+                <td>{task.dueDate ? task.dueDate.split('T')[0] : 'No due date'}</td>
                 <td>{truncate(task.priority)}</td>
                 <td>
                   <nav className="rw-table-actions">

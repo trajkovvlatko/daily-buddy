@@ -57,7 +57,7 @@ const TaskForm = (props: TaskFormProps) => {
 
         <DateField
           name="dueDate"
-          defaultValue={props.task?.dueDate}
+          defaultValue={props.task?.dueDate?.split('T')[0]}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
         />
