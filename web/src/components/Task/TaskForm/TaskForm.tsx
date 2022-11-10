@@ -41,14 +41,11 @@ const TaskForm = (props: TaskFormProps) => {
             </tr>
             <tr>
               <td>
-                <Label name="title" className="rw-label" errorClassName="rw-label rw-label-error">
-                  Title
-                </Label>
-
                 <TextField
                   name="title"
                   className="rw-input"
                   errorClassName="rw-input rw-input-error"
+                  placeholder="Add a todo here"
                   validation={{ required: true }}
                   ref={refTitle}
                 />
@@ -58,13 +55,10 @@ const TaskForm = (props: TaskFormProps) => {
             </tr>
             <tr>
               <td>
-                <Label name="dueDate" className="rw-label" errorClassName="rw-label rw-label-error">
-                  Due date
-                </Label>
-
                 <DateField
                   name="dueDate"
                   className="rw-input"
+                  placeholder="Due date"
                   errorClassName="rw-input rw-input-error"
                   ref={refDueDate}
                 />
@@ -74,16 +68,13 @@ const TaskForm = (props: TaskFormProps) => {
             </tr>
             <tr>
               <td>
-                <Label name="priority" className="rw-label" errorClassName="rw-label rw-label-error">
-                  Priority
-                </Label>
-
                 <NumberField
                   name="priority"
                   defaultValue={3}
                   className="rw-input"
                   errorClassName="rw-input rw-input-error"
                   validation={{ required: true }}
+                  placeholder="Priority"
                   ref={refPriority}
                 />
 

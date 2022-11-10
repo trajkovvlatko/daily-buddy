@@ -53,19 +53,35 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 export const Success = ({ tasks }: CellSuccessProps<FindTasks>) => {
   return (
     <div>
-      <h1 className="pb-6">Today's agenda</h1>
-      <Tasks tasks={tasks.todaysAgenda} />
+      {tasks.todaysAgenda.length > 0 && (
+        <>
+          <h1 className="pb-4">Today's tasks</h1>
+          <Tasks tasks={tasks.todaysAgenda} />
+        </>
+      )}
 
-      <h1 className="mt-12 pb-6">Not scheduled yet</h1>
-      <Tasks tasks={tasks.notScheduledYet} />
-
-      <h1 className="mt-12 pb-6">Next</h1>
-      <Tasks tasks={tasks.next} />
-
-      <h1 className="mt-12 pb-6">Done recently</h1>
-      <Tasks tasks={tasks.doneRecently} />
+      {tasks.notScheduledYet.length > 0 && (
+        <>
+          <h1 className="mt-12 pb-6">Not scheduled yet</h1>
+          <Tasks tasks={tasks.notScheduledYet} />
+        </>
+      )}
 
       <NewTask />
+
+      {tasks.next.length > 0 && (
+        <>
+          <h1 className="mt-12 pb-6">Next</h1>
+          <Tasks tasks={tasks.next} />
+        </>
+      )}
+
+      {tasks.doneRecently.length > 0 && (
+        <>
+          <h1 className="mt-12 pb-6">Done recently</h1>
+          <Tasks tasks={tasks.doneRecently} />
+        </>
+      )}
     </div>
   );
 };

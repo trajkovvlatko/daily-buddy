@@ -1,3 +1,4 @@
+import TasksCell from 'src/components/Task/TasksCell';
 import EventsCell from '../../components/EventsCell';
 
 const toDateString = (date: Date) => {
@@ -12,8 +13,13 @@ const DashboardPage = () => {
   const to = toDateString(new Date(endAt.setDate(today.getDate() + 20)));
 
   return (
-    <div>
-      <EventsCell from={from} to={to} />
+    <div className="grid grid-cols-2 gap-16">
+      <div>
+        <EventsCell from={from} to={to} />
+      </div>
+      <div>
+        <TasksCell />
+      </div>
     </div>
   );
 };
