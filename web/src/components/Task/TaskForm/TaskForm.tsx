@@ -25,64 +25,84 @@ const TaskForm = (props: TaskFormProps) => {
   };
 
   return (
-    <div className="rw-form-wrapper">
+    <div className="rw-segment rw-table-wrapper-responsive">
       <Form<FormTask> onSubmit={onSubmit} error={props.error}>
-        <FormError
-          error={props.error}
-          wrapperClassName="rw-form-error-wrapper"
-          titleClassName="rw-form-error-title"
-          listClassName="rw-form-error-list"
-        />
+        <table className="rw-table table-fixed">
+          <tbody>
+            <tr>
+              <td>
+                <FormError
+                  error={props.error}
+                  wrapperClassName="rw-form-error-wrapper"
+                  titleClassName="rw-form-error-title"
+                  listClassName="rw-form-error-list"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Label name="title" className="rw-label" errorClassName="rw-label rw-label-error">
+                  Title
+                </Label>
 
-        <Label name="title" className="rw-label" errorClassName="rw-label rw-label-error">
-          Title
-        </Label>
+                <TextField
+                  name="title"
+                  defaultValue={props.task?.title}
+                  className="rw-input"
+                  errorClassName="rw-input rw-input-error"
+                  validation={{ required: true }}
+                  ref={refTitle}
+                />
 
-        <TextField
-          name="title"
-          defaultValue={props.task?.title}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-          ref={refTitle}
-        />
+                <FieldError name="title" className="rw-field-error" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Label name="dueDate" className="rw-label" errorClassName="rw-label rw-label-error">
+                  Due date
+                </Label>
 
-        <FieldError name="title" className="rw-field-error" />
+                <DateField
+                  name="dueDate"
+                  defaultValue={props.task?.dueDate?.split('T')[0]}
+                  className="rw-input"
+                  errorClassName="rw-input rw-input-error"
+                  ref={refDueDate}
+                />
 
-        <Label name="dueDate" className="rw-label" errorClassName="rw-label rw-label-error">
-          Due date
-        </Label>
+                <FieldError name="dueDate" className="rw-field-error" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Label name="priority" className="rw-label" errorClassName="rw-label rw-label-error">
+                  Priority
+                </Label>
 
-        <DateField
-          name="dueDate"
-          defaultValue={props.task?.dueDate?.split('T')[0]}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          ref={refDueDate}
-        />
+                <NumberField
+                  name="priority"
+                  defaultValue={props.task?.priority ?? 3}
+                  className="rw-input"
+                  errorClassName="rw-input rw-input-error"
+                  validation={{ required: true }}
+                  ref={refPriority}
+                />
 
-        <FieldError name="dueDate" className="rw-field-error" />
-
-        <Label name="priority" className="rw-label" errorClassName="rw-label rw-label-error">
-          Priority
-        </Label>
-
-        <NumberField
-          name="priority"
-          defaultValue={props.task?.priority ?? 3}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-          ref={refPriority}
-        />
-
-        <FieldError name="priority" className="rw-field-error" />
-
-        <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
-            Save
-          </Submit>
-        </div>
+                <FieldError name="priority" className="rw-field-error" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div className="rw-button-group">
+                  <Submit disabled={props.loading} className="rw-button rw-button-blue">
+                    Save
+                  </Submit>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </Form>
     </div>
   );

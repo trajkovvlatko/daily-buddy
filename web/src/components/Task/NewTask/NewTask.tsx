@@ -27,14 +27,12 @@ const NewTask = () => {
   };
 
   return (
-    <div className="rw-segment mt-12">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">New Task</h2>
-      </header>
-      <div className="rw-segment-main">
+    <>
+      <h1 className="mt-12 pb-6">New Task</h1>
+      <div className="">
         <TaskForm onSave={onSave} loading={loading} error={error} />
       </div>
-    </div>
+    </>
   );
 };
 

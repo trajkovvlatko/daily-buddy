@@ -288,9 +288,6 @@
     width: 20%;
   }
 }
-.rw-table tbody tr {
-  border-top-width: 1px;
-}
 .rw-table input {
   margin-left: 0;
 }
