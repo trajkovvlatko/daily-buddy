@@ -266,7 +266,6 @@
   background-color: #ffffff;
   color: #1a202c;
 }
-.rw-table tr:nth-child(odd) td,
 .rw-table tr:nth-child(odd) th {
   background-color: #f7fafc;
 }
@@ -288,9 +287,6 @@
   .rw-table tbody th {
     width: 20%;
   }
-}
-.rw-table tbody tr {
-  border-top-width: 1px;
 }
 .rw-table input {
   margin-left: 0;

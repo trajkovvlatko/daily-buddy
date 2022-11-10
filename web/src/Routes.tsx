@@ -15,11 +15,17 @@ const Routes = () => {
   return (
     <Router>
       <Set wrap={ScaffoldLayout}>
+        <Route path="/dashboard" page={DashboardPage} name="dashboard" />
+
         <Route path="/calendars/new" page={CalendarNewCalendarPage} name="newCalendar" />
         <Route path="/calendars/{id:Int}/edit" page={CalendarEditCalendarPage} name="editCalendar" />
         <Route path="/calendars/{id:Int}" page={CalendarCalendarPage} name="calendar" />
         <Route path="/calendars" page={CalendarCalendarsPage} name="calendars" />
-        <Route path="/dashboard" page={DashboardPage} name="dashboard" />
+
+        <Route path="/tasks/new" page={TaskNewTaskPage} name="newTask" />
+        <Route path="/tasks/{id:Int}/edit" page={TaskEditTaskPage} name="editTask" />
+        <Route path="/tasks/{id:Int}" page={TaskTaskPage} name="task" />
+        <Route path="/tasks" page={TaskTasksPage} name="tasks" />
       </Set>
       <Route path="/login" page={LoginPage} name="login" />
       <Route path="/signup" page={SignupPage} name="signup" />

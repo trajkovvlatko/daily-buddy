@@ -20,6 +20,7 @@ model User {
   resetToken          String?
   resetTokenExpiresAt DateTime?
   Calendar            Calendar[]
+  Task                Task[]
 }
 
 model Calendar {
@@ -30,6 +31,20 @@ model Calendar {
   User      User     @relation(references: [id], fields: [userId])
   createdAt DateTime @default(now())
   userId    Int
+
+  @@index([userId], name: "user")
+}
+
+model Task {
+  id          Int         @id @default(autoincrement())
+  title       String
+  dueDate     DateTime?   @db.Date
+  priority    Int         @default(3)
+  completed   Boolean     @default(false)
+  completedAt DateTime?
+  createdAt   DateTime    @default(now())
+  User        User        @relation(references: [id], fields: [userId])
+  userId      Int
 
   @@index([userId], name: "user")
 }
