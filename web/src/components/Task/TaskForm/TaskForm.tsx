@@ -47,7 +47,6 @@ const TaskForm = (props: TaskFormProps) => {
 
                 <TextField
                   name="title"
-                  defaultValue={props.task?.title}
                   className="rw-input"
                   errorClassName="rw-input rw-input-error"
                   validation={{ required: true }}
@@ -65,7 +64,6 @@ const TaskForm = (props: TaskFormProps) => {
 
                 <DateField
                   name="dueDate"
-                  defaultValue={props.task?.dueDate?.split('T')[0]}
                   className="rw-input"
                   errorClassName="rw-input rw-input-error"
                   ref={refDueDate}
@@ -82,7 +80,7 @@ const TaskForm = (props: TaskFormProps) => {
 
                 <NumberField
                   name="priority"
-                  defaultValue={props.task?.priority ?? 3}
+                  defaultValue={3}
                   className="rw-input"
                   errorClassName="rw-input rw-input-error"
                   validation={{ required: true }}

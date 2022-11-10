@@ -58,7 +58,7 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
       </td>
       <td>
         <input
-          type="text"
+          type="date"
           defaultValue={dueDate}
           onKeyUp={onKeyUp}
           ref={refDueDate}
