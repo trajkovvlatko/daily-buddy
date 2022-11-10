@@ -4,6 +4,7 @@ import { Link, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 
 import Tasks from 'src/components/Task/Tasks';
+import NewTask from '../NewTask';
 
 export const QUERY = gql`
   fragment TaskFields on Task {
@@ -63,6 +64,8 @@ export const Success = ({ tasks }: CellSuccessProps<FindTasks>) => {
 
       <h1 className="mt-12 pb-6">Done recently</h1>
       <Tasks tasks={tasks.doneRecently} />
+
+      <NewTask />
     </div>
   );
 };

@@ -27,7 +27,7 @@ export const schema = gql`
     title: String!
     dueDate: DateTime
     priority: Int!
-    completed: Boolean!
+    completed: Boolean
     completedAt: DateTime
   }
 

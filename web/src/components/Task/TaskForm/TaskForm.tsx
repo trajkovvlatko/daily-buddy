@@ -1,17 +1,7 @@
-import {
-  Form,
-  FormError,
-  FieldError,
-  Label,
-  TextField,
-  NumberField,
-  CheckboxField,
-  Submit,
-  DateField,
-} from '@redwoodjs/forms';
-
+import { Form, FormError, FieldError, Label, TextField, NumberField, Submit, DateField } from '@redwoodjs/forms';
 import type { EditTaskById, UpdateTaskInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
+import { useRef } from 'react';
 
 type FormTask = NonNullable<EditTaskById['task']>;
 
@@ -23,8 +13,15 @@ interface TaskFormProps {
 }
 
 const TaskForm = (props: TaskFormProps) => {
+  const refTitle = useRef<HTMLInputElement | null>(null);
+  const refDueDate = useRef<HTMLInputElement | null>(null);
+  const refPriority = useRef<HTMLInputElement | null>(null);
+
   const onSubmit = (data: FormTask) => {
     props.onSave(data, props?.task?.id);
+    refTitle.current.value = '';
+    refDueDate.current.value = '';
+    refPriority.current.value = '3';
   };
 
   return (
@@ -47,6 +44,7 @@ const TaskForm = (props: TaskFormProps) => {
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
+          ref={refTitle}
         />
 
         <FieldError name="title" className="rw-field-error" />
@@ -60,6 +58,7 @@ const TaskForm = (props: TaskFormProps) => {
           defaultValue={props.task?.dueDate?.split('T')[0]}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
+          ref={refDueDate}
         />
 
         <FieldError name="dueDate" className="rw-field-error" />
@@ -74,35 +73,10 @@ const TaskForm = (props: TaskFormProps) => {
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
+          ref={refPriority}
         />
 
         <FieldError name="priority" className="rw-field-error" />
-
-        <Label name="completed" className="rw-label" errorClassName="rw-label rw-label-error">
-          Completed
-        </Label>
-
-        <CheckboxField
-          name="completed"
-          defaultChecked={props.task?.completed}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-        />
-
-        <FieldError name="completed" className="rw-field-error" />
-
-        <Label name="completedAt" className="rw-label" errorClassName="rw-label rw-label-error">
-          Completed at
-        </Label>
-
-        <DateField
-          name="completedAt"
-          defaultValue={props.task?.completedAt}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-        />
-
-        <FieldError name="completedAt" className="rw-field-error" />
 
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">

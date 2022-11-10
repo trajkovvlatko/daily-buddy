@@ -1,39 +1,7 @@
-import { Link, routes } from '@redwoodjs/router';
-import { useMutation } from '@redwoodjs/web';
-import { toast } from '@redwoodjs/web/toast';
-import { QUERY } from 'src/components/Task/TasksCell';
-import { truncate } from 'src/lib/formatters';
-import type { DeleteTaskMutationVariables, TaskFields } from 'types/graphql';
-
-const DELETE_TASK_MUTATION = gql`
-  mutation DeleteTaskMutation($id: Int!) {
-    deleteTask(id: $id) {
-      id
-    }
-  }
-`;
+import type { TaskFields } from 'types/graphql';
+import TaskRow from './TaskRow';
 
 const TasksList = ({ tasks }: { tasks: TaskFields[] }) => {
-  const [deleteTask] = useMutation(DELETE_TASK_MUTATION, {
-    onCompleted: () => {
-      toast.success('Task deleted');
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-    // This refetches the query on the list page. Read more about other ways to
-    // update the cache over here:
-    // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
-    refetchQueries: [{ query: QUERY }],
-    awaitRefetchQueries: true,
-  });
-
-  const onDeleteClick = (id: DeleteTaskMutationVariables['id']) => {
-    if (confirm('Are you sure you want to delete task ' + id + '?')) {
-      deleteTask({ variables: { id } });
-    }
-  };
-
   return (
     <div>
       <div className="rw-segment rw-table-wrapper-responsive">
@@ -48,30 +16,7 @@ const TasksList = ({ tasks }: { tasks: TaskFields[] }) => {
           </thead>
           <tbody>
             {tasks.map((task) => (
-              <tr key={task.id}>
-                <td>{truncate(task.title)}</td>
-                <td>{task.dueDate ? task.dueDate.split('T')[0] : 'No due date'}</td>
-                <td>{truncate(task.priority)}</td>
-                <td>
-                  <nav className="rw-table-actions">
-                    <Link
-                      to={routes.editTask({ id: task.id })}
-                      title={'Edit task ' + task.id}
-                      className="rw-button rw-button-small rw-button-blue"
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      type="button"
-                      title={'Delete task ' + task.id}
-                      className="rw-button rw-button-small rw-button-red"
-                      onClick={() => onDeleteClick(task.id)}
-                    >
-                      Delete
-                    </button>
-                  </nav>
-                </td>
-              </tr>
+              <TaskRow task={task} key={task.id} />
             ))}
           </tbody>
         </table>

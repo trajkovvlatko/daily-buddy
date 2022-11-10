@@ -1,11 +1,11 @@
-import type { EditTaskById, UpdateTaskInput } from 'types/graphql'
+import type { EditTaskById, UpdateTaskInput } from 'types/graphql';
 
-import { navigate, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import TaskForm from 'src/components/Task/TaskForm'
+import TaskForm from 'src/components/Task/TaskForm';
 
 export const QUERY = gql`
   query EditTaskById($id: Int!) {
@@ -20,7 +20,7 @@ export const QUERY = gql`
       userId
     }
   }
-`
+`;
 const UPDATE_TASK_MUTATION = gql`
   mutation UpdateTaskMutation($id: Int!, $input: UpdateTaskInput!) {
     updateTask(id: $id, input: $input) {
@@ -34,34 +34,26 @@ const UPDATE_TASK_MUTATION = gql`
       userId
     }
   }
-`
+`;
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div>Loading...</div>;
 
-export const Failure = ({ error }: CellFailureProps) => (
-  <div className="rw-cell-error">{error?.message}</div>
-)
+export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 export const Success = ({ task }: CellSuccessProps<EditTaskById>) => {
-  const [updateTask, { loading, error }] = useMutation(
-    UPDATE_TASK_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('Task updated')
-        navigate(routes.tasks())
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    }
-  )
+  const [updateTask, { loading, error }] = useMutation(UPDATE_TASK_MUTATION, {
+    onCompleted: () => {
+      toast.success('Task updated');
+      navigate(routes.tasks());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
-  const onSave = (
-    input: UpdateTaskInput,
-    id: EditTaskById['task']['id']
-  ) => {
-    updateTask({ variables: { id, input } })
-  }
+  const onSave = (input: UpdateTaskInput, id: EditTaskById['task']['id']) => {
+    updateTask({ variables: { id, input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -72,5 +64,5 @@ export const Success = ({ task }: CellSuccessProps<EditTaskById>) => {
         <TaskForm task={task} onSave={onSave} error={error} loading={loading} />
       </div>
     </div>
-  )
-}
+  );
+};
