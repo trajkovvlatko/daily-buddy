@@ -19,6 +19,23 @@ const UPDATE_TASK_MUTATION = gql`
   }
 `;
 
+const getPrioColor = (prio: number) => {
+  switch (prio) {
+    case 1:
+      return 'bg-white';
+    case 2:
+      return 'bg-red-50';
+    case 3:
+      return 'bg-red-100';
+    case 4:
+      return 'bg-red-200';
+    case 5:
+      return 'bg-red-300';
+    default:
+      return 'bg-white';
+  }
+};
+
 const TaskRow = ({ task }: { task: TaskFields }) => {
   const refTitle = useRef<HTMLInputElement>(null);
   const refDueDate = useRef<HTMLInputElement>(null);
@@ -35,7 +52,7 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
   });
 
   const toggleComplete = () => {
-    updateTask({ variables: { id: task.id, input: { completed: !task.completed } } });
+    updateTask({ variables: { id: task.id, input: { completed: !task.completed, completedAt: new Date() } } });
   };
 
   const onKeyUp = (event: { key: string }) => {
@@ -68,11 +85,11 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
       </td>
       <td>
         <input
-          type="number"
+          type="text"
           defaultValue={truncate(task.priority)}
           ref={refPriority}
           onKeyUp={onKeyUp}
-          className="w-12"
+          className={`w-12 text-center ${getPrioColor(task.priority)}`}
         />
       </td>
       <td>
@@ -81,14 +98,14 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
             className={`rounded border border-orange-700 bg-orange-500 py-1 px-4 font-bold text-white hover:bg-orange-700`}
             onClick={toggleComplete}
           >
-            Mark as incomplete
+            &#x2715;
           </button>
         ) : (
           <button
             className={`rounded border border-blue-700 bg-blue-500 py-1 px-4 font-bold text-white hover:bg-blue-700`}
             onClick={toggleComplete}
           >
-            Mark as complete
+            &#10003;
           </button>
         )}
       </td>

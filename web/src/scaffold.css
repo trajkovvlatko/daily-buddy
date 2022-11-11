@@ -42,11 +42,6 @@
   justify-content: space-between;
   padding: 1rem 2rem 1rem 2rem;
 }
-.rw-main {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  padding-bottom: 1rem;
-}
 .rw-segment {
   border-radius: 0.5rem;
   border-width: 1px;
@@ -251,7 +246,7 @@
   overflow-x: auto;
 }
 .rw-table-wrapper-responsive .rw-table {
-  min-width: 48rem;
+  min-width: 30rem;
 }
 .rw-table {
   table-layout: auto;

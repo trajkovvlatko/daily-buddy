@@ -8,9 +8,9 @@ type LayoutProps = {
 const ScaffoldLayout = ({ children }: LayoutProps) => {
   return (
     <div className="rw-scaffold">
-      <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
+      <Toaster toastOptions={{ className: 'rw-toast', duration: 6000, position: 'top-right' }} />
       <Header />
-      <main className="rw-main">{children}</main>
+      <main>{children}</main>
     </div>
   );
 };

@@ -10,7 +10,7 @@ const Header = () => {
   };
 
   return (
-    <header className="mb-6 h-16 bg-gray-50">
+    <header className="mb-2 h-16 shadow-lg">
       <ul className="flex h-full items-center">
         <li className="ml-6 mr-6">
           <Link to={routes.dashboard()} className="text-blue-500 hover:text-blue-800">

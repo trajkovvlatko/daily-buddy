@@ -28,7 +28,6 @@ const NewTask = () => {
 
   return (
     <>
-      <h1 className="mt-12 pb-6">New Task</h1>
       <div className="">
         <TaskForm onSave={onSave} loading={loading} error={error} />
       </div>

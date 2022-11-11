@@ -44,7 +44,7 @@ export const QUERY = gql`
   }
 `;
 
-export const Loading = () => <div className="loading">Loading...</div>;
+export const Loading = () => <div className="loading pb-6">Loading...</div>;
 
 export const Empty = () => <div>Empty</div>;
 
