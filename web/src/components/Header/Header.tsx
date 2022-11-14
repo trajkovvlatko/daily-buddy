@@ -27,6 +27,11 @@ const Header = () => {
             Tasks
           </Link>
         </li>
+        <li className="mr-6">
+          <Link to={routes.notes()} className="text-blue-500 hover:text-blue-800">
+            Notes
+          </Link>
+        </li>
         {isAuthenticated && (
           <li className="mr-6">
             <button type="button" onClick={handleLogOut}>
