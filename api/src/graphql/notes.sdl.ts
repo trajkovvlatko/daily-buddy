@@ -4,11 +4,16 @@ export const schema = gql`
     parentId: Int!
     title: String!
     content: String!
-    createdAt: DateTime!
+  }
+
+  type NoteTree {
+    id: Int!
+    parentId: Int!
+    path: String!
   }
 
   type Query {
-    notes: [Note!]! @requireAuth
+    notes: [NoteTree!]! @requireAuth
     note(id: Int!): Note @requireAuth
   }
 

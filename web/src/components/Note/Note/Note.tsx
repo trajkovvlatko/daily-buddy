@@ -1,8 +1,7 @@
 import { Link, routes, navigate } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-
-import { timeTag } from 'src/lib/formatters';
+import { marked } from 'marked';
 
 import type { DeleteNoteMutationVariables, FindNoteById } from 'types/graphql';
 
@@ -37,35 +36,11 @@ const Note = ({ note }: Props) => {
 
   return (
     <>
-      <div className="rw-segment">
-        <header className="rw-segment-header">
-          <h2 className="rw-heading rw-heading-secondary">Note {note.id} Detail</h2>
-        </header>
-        <table className="rw-table">
-          <tbody>
-            <tr>
-              <th>Id</th>
-              <td>{note.id}</td>
-            </tr>
-            <tr>
-              <th>Parent id</th>
-              <td>{note.parentId}</td>
-            </tr>
-            <tr>
-              <th>Title</th>
-              <td>{note.title}</td>
-            </tr>
-            <tr>
-              <th>Content</th>
-              <td>{note.content}</td>
-            </tr>
-            <tr>
-              <th>Created at</th>
-              <td>{timeTag(note.createdAt)}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div>
+        <h2 className="text-2xl">{note.title}</h2>
+        <div dangerouslySetInnerHTML={{ __html: marked.parse(note.content) }}></div>
       </div>
+
       <nav className="rw-button-group">
         <Link to={routes.editNote({ id: note.id })} className="rw-button rw-button-blue">
           Edit

@@ -1,4 +1,4 @@
-import { Form, FormError, FieldError, Label, NumberField, TextField, Submit } from '@redwoodjs/forms';
+import { Form, FormError, FieldError, Label, NumberField, TextField, Submit, TextAreaField } from '@redwoodjs/forms';
 
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
@@ -59,7 +59,7 @@ const NoteForm = (props: NoteFormProps) => {
           Content
         </Label>
 
-        <TextField
+        <TextAreaField
           name="content"
           defaultValue={props.note?.content}
           className="rw-input"

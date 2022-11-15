@@ -41,7 +41,7 @@ export const tasks: QueryResolvers['tasks'] = async (_, { context }) => {
   return { todaysAgenda, notScheduledYet, next, doneRecently };
 };
 
-export const task: QueryResolvers['task'] = ({ id }) => {
+export const task: QueryResolvers['task'] = ({ id }, { context }) => {
   const userId = context.currentUser['id'];
 
   return db.task.findFirst({

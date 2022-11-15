@@ -11,7 +11,6 @@ export const QUERY = gql`
       parentId
       title
       content
-      createdAt
     }
   }
 `;

@@ -6015,6 +6015,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/marked@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "@types/marked@npm:4.0.7"
+  checksum: 799ca4b1c2fdde2ea00c2f2eba8792098798fa2d1cbe2150db65c2f4ab395f5e6962456c1b5647a7985a978933ad04b074ca4220d184dc7bb667814580df4e82
+  languageName: node
+  linkType: hard
+
 "@types/mdast@npm:^3.0.0":
   version: 3.0.10
   resolution: "@types/mdast@npm:3.0.10"
@@ -16575,6 +16582,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"marked@npm:^4.2.2":
+  version: 4.2.2
+  resolution: "marked@npm:4.2.2"
+  bin:
+    marked: bin/marked.js
+  checksum: 18aa3837d76e59f74de771ef0cc2a98fc7cc0e39b41aeccf9925fe650a8c92605b565c49a5eab90b397270acef7db71661bb4dcdd83ef06367d4cc2777be996e
+  languageName: node
+  linkType: hard
+
 "md5.js@npm:^1.3.4":
   version: 1.3.5
   resolution: "md5.js@npm:1.3.5"
@@ -23398,8 +23414,10 @@ __metadata:
     "@redwoodjs/forms": 3.2.0
     "@redwoodjs/router": 3.2.0
     "@redwoodjs/web": 3.2.0
+    "@types/marked": ^4.0.7
     autoprefixer: ^10.4.13
     humanize-string: 2.1.0
+    marked: ^4.2.2
     postcss: ^8.4.18
     postcss-loader: ^7.0.1
     prop-types: 15.8.1

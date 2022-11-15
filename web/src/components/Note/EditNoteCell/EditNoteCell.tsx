@@ -14,7 +14,6 @@ export const QUERY = gql`
       parentId
       title
       content
-      createdAt
     }
   }
 `;
@@ -25,7 +24,6 @@ const UPDATE_NOTE_MUTATION = gql`
       parentId
       title
       content
-      createdAt
     }
   }
 `;
