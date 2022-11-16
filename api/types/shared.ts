@@ -8,6 +8,14 @@ export interface EventDate {
   isDate: boolean;
   timezone: string;
   _cachedUnixTime: number;
+  toJSDate: () => any;
+  _time: {
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+  };
 }
 
 export interface EventDuration {

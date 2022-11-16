@@ -1,6 +1,5 @@
 import { CalendarData, Event, Occurance, ParsedEvent } from 'types/shared';
 import { isOccurance } from './isOccurance';
-import { convertToTimeZone } from './convertToTimeZone';
 
 interface ParseEventProps {
   e: Event | Occurance;
@@ -8,7 +7,12 @@ interface ParseEventProps {
 }
 
 export const parseEvent = ({ e, calendar }: ParseEventProps): ParsedEvent => {
-  const startAt = convertToTimeZone({ date: e.startDate._cachedUnixTime * 1000, timeZone: 'Europe/Stockholm' });
+  const jsDate = e.startDate.toJSDate();
+  const isoString = jsDate.toISOString();
+  const local = new Date(isoString);
+  // TODO: Fix this ` + 1`
+  local.setHours(local.getHours() + 1);
+  const startAt = local.toISOString();
 
   return {
     id: isOccurance(e) ? e.item.uid : e.uid,
@@ -22,7 +26,7 @@ export const parseEvent = ({ e, calendar }: ParseEventProps): ParsedEvent => {
     },
     summary: isOccurance(e) ? e.item.summary : e.summary,
     description: isOccurance(e) ? e.item.description : e.description,
-    startDate: startAt.split(' ')[0],
-    startTime: startAt.split(' ')[1].slice(0, 5),
+    startDate: startAt.split('T')[0],
+    startTime: startAt.split('T')[1].slice(0, 5),
   };
 };
