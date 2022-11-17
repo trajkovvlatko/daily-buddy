@@ -3,6 +3,7 @@ import { Link, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useState } from 'react';
 import NoteCell from '../NoteCell';
+import EditNoteCell from '../EditNoteCell';
 
 export const QUERY = gql`
   query FindNotes {
@@ -31,6 +32,11 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 
 export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
+  const [editMode, setEditMode] = useState<boolean>(false);
+
+  const onUpdate = () => {
+    setEditMode(false);
+  };
 
   return (
     <div className="grid grid-cols-12 bg-gray-100 pt-6">
@@ -39,7 +45,14 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
           <div onClick={() => setSelectedNoteId(note.id)}>{note.path}</div>
         ))}
       </div>
-      <div className="col-span-10">{selectedNoteId && <NoteCell id={selectedNoteId} />}</div>
+      <div className="col-span-10">
+        {selectedNoteId && (
+          <>
+            {editMode ? <EditNoteCell id={selectedNoteId} onUpdate={onUpdate} /> : <NoteCell id={selectedNoteId} />}
+            <button onClick={() => setEditMode(!editMode)}>Toggle edit</button>
+          </>
+        )}
+      </div>
     </div>
   );
 };

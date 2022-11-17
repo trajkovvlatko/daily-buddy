@@ -1,11 +1,17 @@
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
-
-import { navigate, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-
 import NoteForm from 'src/components/Note/NoteForm';
+import type { DeleteNoteMutationVariables } from 'types/graphql';
+
+const DELETE_NOTE_MUTATION = gql`
+  mutation DeleteNoteMutation($id: Int!) {
+    deleteNote(id: $id) {
+      id
+    }
+  }
+`;
 
 export const QUERY = gql`
   query EditNoteById($id: Int!) {
@@ -32,11 +38,23 @@ export const Loading = () => <div>Loading...</div>;
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
-export const Success = ({ note }: CellSuccessProps<EditNoteById>) => {
+export const Success = ({ note, onUpdate }: CellSuccessProps<EditNoteById> & { onUpdate: () => void }) => {
+  const [deleteNote] = useMutation(DELETE_NOTE_MUTATION, {
+    onCompleted: () => {
+      toast.success('Note deleted');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const [updateNote, { loading, error }] = useMutation(UPDATE_NOTE_MUTATION, {
     onCompleted: () => {
       toast.success('Note updated');
-      navigate(routes.notes());
+      onUpdate();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -47,6 +65,12 @@ export const Success = ({ note }: CellSuccessProps<EditNoteById>) => {
     updateNote({ variables: { id, input } });
   };
 
+  const onDeleteClick = (id: DeleteNoteMutationVariables['id']) => {
+    if (confirm('Are you sure you want to delete note ' + id + '?')) {
+      deleteNote({ variables: { id } });
+    }
+  };
+
   return (
     <div className="rw-segment">
       <header className="rw-segment-header">
@@ -54,6 +78,10 @@ export const Success = ({ note }: CellSuccessProps<EditNoteById>) => {
       </header>
       <div className="rw-segment-main">
         <NoteForm note={note} onSave={onSave} error={error} loading={loading} />
+
+        <button type="button" className="rw-button rw-button-red" onClick={() => onDeleteClick(note.id)}>
+          Delete
+        </button>
       </div>
     </div>
   );
