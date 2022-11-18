@@ -22,10 +22,51 @@ ul {
   margin: 0;
 }
 
-h1 {
-  font-size: 25px;
-}
-
 .loading {
   padding-left: 20px;
+}
+
+.note-markdown h1 {
+  font-size: 2.2rem;
+  margin-top: 1rem;
+}
+
+.note-markdown h2 {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.note-markdown h3 {
+  font-size: 1.7rem;
+  line-height: 2.5;
+  margin-top: 1rem;
+}
+
+.note-markdown h4 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.note-markdown h5 {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.note-markdown h6 {
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.note-markdown ul li {
+  list-style-type: initial;
+  margin-left: 20px;
+  padding-bottom: 5px;
+}
+
+.note-markdown a {
+  color: rgb(59, 130, 246);
+}
+
+.note-menu:hover button {
+  display: block;
 }
