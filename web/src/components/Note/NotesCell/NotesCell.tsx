@@ -5,6 +5,7 @@ import { useState } from 'react';
 import NoteCell from '../NoteCell';
 import EditNoteCell from '../EditNoteCell';
 import { NoteLink } from './NoteLink';
+import { AddNewNote } from './AddNewNote';
 
 export const QUERY = gql`
   query FindNotes {
@@ -49,11 +50,21 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
       <div className="col-span-2"></div>
       <div className="col-span-8 mb-6 grid grid-cols-12 gap-8 bg-white pt-6 shadow-lg">
         <div className="col-span-3 border-r pb-6">
-          {notes.map((note) => (
-            <NoteLink onClick={() => setSelectedNoteId(note.id)} note={note} key={note.id} />
-          ))}
+          <h2 className="mb-5 pl-5 text-3xl">Notes</h2>
+          {notes.map((note) => {
+            return (
+              <div className="note-menu flex flex-wrap" key={note.id}>
+                <NoteLink
+                  onClick={() => setSelectedNoteId(note.id)}
+                  note={note}
+                  isSelected={selectedNoteId === note.id}
+                />
+                <AddNewNote note={note} />
+              </div>
+            );
+          })}
         </div>
-        <div className="col-span-8 pb-3">
+        <div className="col-span-9 pb-3 pl-2 pr-6">
           {selectedNoteId && (
             <>
               <button

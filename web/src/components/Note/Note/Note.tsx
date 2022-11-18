@@ -8,8 +8,8 @@ interface Props {
 const Note = ({ note }: Props) => {
   return (
     <>
-      <div>
-        <h2 className="text-2xl">{note.title}</h2>
+      <div className="note-markdown">
+        <h1 className="mb-6 mt-3">{note.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: marked.parse(note.content) }}></div>
       </div>
     </>
