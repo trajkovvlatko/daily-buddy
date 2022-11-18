@@ -27,9 +27,6 @@ const Routes = () => {
         <Route path="/tasks/{id:Int}" page={TaskTaskPage} name="task" />
         <Route path="/tasks" page={TaskTasksPage} name="tasks" />
 
-        <Route path="/notes/new" page={NoteNewNotePage} name="newNote" />
-        <Route path="/notes/{id:Int}/edit" page={NoteEditNotePage} name="editNote" />
-        <Route path="/notes/{id:Int}" page={NoteNotePage} name="note" />
         <Route path="/notes" page={NoteNotesPage} name="notes" />
       </Set>
       <Route path="/login" page={LoginPage} name="login" />
