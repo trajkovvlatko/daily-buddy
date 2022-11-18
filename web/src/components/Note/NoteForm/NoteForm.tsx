@@ -1,4 +1,4 @@
-import { Form, FormError, FieldError, Label, NumberField, TextField, Submit, TextAreaField } from '@redwoodjs/forms';
+import { Form, FormError, FieldError, Label, TextField, Submit, TextAreaField } from '@redwoodjs/forms';
 
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
@@ -18,64 +18,44 @@ const NoteForm = (props: NoteFormProps) => {
   };
 
   return (
-    <div className="rw-form-wrapper">
-      <Form<FormNote> onSubmit={onSubmit} error={props.error}>
-        <FormError
-          error={props.error}
-          wrapperClassName="rw-form-error-wrapper"
-          titleClassName="rw-form-error-title"
-          listClassName="rw-form-error-list"
-        />
+    <Form<FormNote> onSubmit={onSubmit} error={props.error}>
+      <FormError error={props.error} />
 
-        <Label name="parentId" className="rw-label" errorClassName="rw-label rw-label-error">
-          Parent id
-        </Label>
+      <Label name="title" className="rw-label" errorClassName="rw-label rw-label-error">
+        Title
+      </Label>
 
-        <NumberField
-          name="parentId"
-          defaultValue={props.note?.parentId}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
+      <TextField
+        name="title"
+        defaultValue={props.note?.title}
+        className="rw-input"
+        errorClassName="rw-input rw-input-error"
+        validation={{ required: true }}
+      />
 
-        <FieldError name="parentId" className="rw-field-error" />
+      <FieldError name="title" className="rw-field-error" />
 
-        <Label name="title" className="rw-label" errorClassName="rw-label rw-label-error">
-          Title
-        </Label>
+      <Label name="content" className="rw-label" errorClassName="rw-label rw-label-error">
+        Content
+      </Label>
 
-        <TextField
-          name="title"
-          defaultValue={props.note?.title}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
+      <TextAreaField
+        name="content"
+        defaultValue={props.note?.content}
+        className="rw-input"
+        errorClassName="rw-input rw-input-error"
+        validation={{ required: true }}
+        rows={50}
+      />
 
-        <FieldError name="title" className="rw-field-error" />
+      <FieldError name="content" className="rw-field-error" />
 
-        <Label name="content" className="rw-label" errorClassName="rw-label rw-label-error">
-          Content
-        </Label>
-
-        <TextAreaField
-          name="content"
-          defaultValue={props.note?.content}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
-
-        <FieldError name="content" className="rw-field-error" />
-
-        <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
-            Save
-          </Submit>
-        </div>
-      </Form>
-    </div>
+      <div className="float-right">
+        <Submit disabled={props.loading} className="mt-3 rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700">
+          Save
+        </Submit>
+      </div>
+    </Form>
   );
 };
 

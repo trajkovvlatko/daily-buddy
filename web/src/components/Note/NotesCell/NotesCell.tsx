@@ -4,6 +4,7 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useState } from 'react';
 import NoteCell from '../NoteCell';
 import EditNoteCell from '../EditNoteCell';
+import { NoteLink } from './NoteLink';
 
 export const QUERY = gql`
   query FindNotes {
@@ -38,20 +39,37 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
     setEditMode(false);
   };
 
+  const onDelete = () => {
+    setEditMode(false);
+    setSelectedNoteId(null);
+  };
+
   return (
     <div className="grid grid-cols-12 bg-gray-100 pt-6">
-      <div className="col-span-2">
-        {notes.map((note) => (
-          <div onClick={() => setSelectedNoteId(note.id)}>{note.path}</div>
-        ))}
-      </div>
-      <div className="col-span-10">
-        {selectedNoteId && (
-          <>
-            {editMode ? <EditNoteCell id={selectedNoteId} onUpdate={onUpdate} /> : <NoteCell id={selectedNoteId} />}
-            <button onClick={() => setEditMode(!editMode)}>Toggle edit</button>
-          </>
-        )}
+      <div className="col-span-2"></div>
+      <div className="col-span-8 mb-6 grid grid-cols-12 gap-8 bg-white pt-6 shadow-lg">
+        <div className="col-span-3 border-r pb-6">
+          {notes.map((note) => (
+            <NoteLink onClick={() => setSelectedNoteId(note.id)} note={note} key={note.id} />
+          ))}
+        </div>
+        <div className="col-span-8 pb-3">
+          {selectedNoteId && (
+            <>
+              <button
+                onClick={() => setEditMode(!editMode)}
+                className="float-right rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700"
+              >
+                {editMode ? 'Preview' : 'Edit'}
+              </button>
+              {editMode ? (
+                <EditNoteCell id={selectedNoteId} onUpdate={onUpdate} onDelete={onDelete} />
+              ) : (
+                <NoteCell id={selectedNoteId} />
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

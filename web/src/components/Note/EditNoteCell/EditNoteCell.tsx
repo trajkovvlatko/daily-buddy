@@ -23,6 +23,7 @@ export const QUERY = gql`
     }
   }
 `;
+
 const UPDATE_NOTE_MUTATION = gql`
   mutation UpdateNoteMutation($id: Int!, $input: UpdateNoteInput!) {
     updateNote(id: $id, input: $input) {
@@ -38,14 +39,18 @@ export const Loading = () => <div>Loading...</div>;
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
-export const Success = ({ note, onUpdate }: CellSuccessProps<EditNoteById> & { onUpdate: () => void }) => {
+interface ExtraProps {
+  onUpdate: () => void;
+  onDelete: () => void;
+}
+
+export const Success = ({ note, onUpdate, onDelete }: CellSuccessProps<EditNoteById> & ExtraProps) => {
   const [deleteNote] = useMutation(DELETE_NOTE_MUTATION, {
     onCompleted: () => {
       toast.success('Note deleted');
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      onDelete();
     },
+    refetchQueries: ['FindNotes'],
     onError: (error) => {
       toast.error(error.message);
     },
@@ -56,6 +61,7 @@ export const Success = ({ note, onUpdate }: CellSuccessProps<EditNoteById> & { o
       toast.success('Note updated');
       onUpdate();
     },
+    refetchQueries: ['FindNotes'],
     onError: (error) => {
       toast.error(error.message);
     },
@@ -72,17 +78,16 @@ export const Success = ({ note, onUpdate }: CellSuccessProps<EditNoteById> & { o
   };
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">Edit Note {note?.id}</h2>
-      </header>
-      <div className="rw-segment-main">
-        <NoteForm note={note} onSave={onSave} error={error} loading={loading} />
+    <div>
+      <NoteForm note={note} onSave={onSave} error={error} loading={loading} />
 
-        <button type="button" className="rw-button rw-button-red" onClick={() => onDeleteClick(note.id)}>
-          Delete
-        </button>
-      </div>
+      <button
+        type="button"
+        className="mt-3 rounded bg-red-500 py-1 px-4 text-white hover:bg-red-700"
+        onClick={() => onDeleteClick(note.id)}
+      >
+        Delete
+      </button>
     </div>
   );
 };
