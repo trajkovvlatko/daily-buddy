@@ -47,10 +47,10 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
   };
 
   return (
-    <div className="grid grid-cols-12 bg-gray-100 pt-6">
-      <div className="col-span-2"></div>
-      <div className="col-span-8 mb-6 grid grid-cols-12 gap-8 bg-white pt-6 shadow-lg">
-        <div className="col-span-3 border-r pb-6">
+    <div className="bg-gray-100 pt-6 md:grid md:grid-cols-12">
+      <div className="md:col-span-2"></div>
+      <div className="mb-6 bg-white pt-6 shadow-lg md:col-span-8 md:grid md:grid-cols-12 md:gap-8">
+        <div className="border-r pb-6 md:col-span-3">
           <h2 className="mb-5 pl-5 text-3xl">Notes</h2>
           {notes.map((note) => {
             return (
@@ -65,12 +65,12 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
             );
           })}
         </div>
-        <div className="col-span-9 pb-3 pl-2 pr-6">
+        <div className="pb-3 pl-2 pr-6 md:col-span-9">
           {selectedNoteId && (
             <>
               <button
                 onClick={toggleEditMode}
-                className="float-right rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700"
+                className="rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700 md:float-right"
               >
                 {editMode ? 'Preview' : 'Edit'}
               </button>

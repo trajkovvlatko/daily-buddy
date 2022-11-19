@@ -2,6 +2,7 @@ import { Form, FormError, FieldError, Label, TextField, Submit, TextAreaField } 
 
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
+import { isMobile } from 'src/lib/helpers/isMobile';
 
 type FormNote = NonNullable<EditNoteById['note']>;
 
@@ -45,7 +46,7 @@ const NoteForm = (props: NoteFormProps) => {
         className="rw-input"
         errorClassName="rw-input rw-input-error"
         validation={{ required: true }}
-        rows={50}
+        rows={isMobile() ? 20 : 50}
       />
 
       <FieldError name="content" className="rw-field-error" />

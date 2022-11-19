@@ -33,7 +33,7 @@ export const AddNewNote = ({ note }: { note: NoteTree }) => {
 
   return (
     <>
-      <button onClick={() => setShowNewForm(!showNewForm)} className="hidden w-12 flex-auto">
+      <button onClick={() => setShowNewForm(!showNewForm)} className="w-2 flex-auto md:hidden md:w-12">
         +
       </button>
       {showNewForm && (

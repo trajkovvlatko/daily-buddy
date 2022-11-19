@@ -10,36 +10,38 @@ const Header = () => {
   };
 
   return (
-    <header className="mb-2 h-16 shadow-lg">
-      <ul className="flex h-full items-center">
-        <li className="ml-6 mr-6">
-          <Link to={routes.dashboard()} className="text-blue-500 hover:text-blue-800">
-            Dashboard
-          </Link>
-        </li>
-        <li className="mr-6">
-          <Link to={routes.calendars()} className="text-blue-500 hover:text-blue-800">
-            Calendars
-          </Link>
-        </li>
-        <li className="mr-6">
-          <Link to={routes.tasks()} className="text-blue-500 hover:text-blue-800">
-            Tasks
-          </Link>
-        </li>
-        <li className="mr-6">
-          <Link to={routes.notes()} className="text-blue-500 hover:text-blue-800">
-            Notes
-          </Link>
-        </li>
-        {isAuthenticated && (
-          <li className="mr-6">
-            <button type="button" onClick={handleLogOut}>
-              Logout
-            </button>
+    <header className="mb-2 h-16 w-full shadow-lg">
+      <div className="h-full items-center overflow-auto">
+        <ul className="flex  h-full items-center">
+          <li className="ml-6 mr-6">
+            <Link to={routes.dashboard()} className="text-blue-500 hover:text-blue-800">
+              Dashboard
+            </Link>
           </li>
-        )}
-      </ul>
+          <li className="mr-6">
+            <Link to={routes.calendars()} className="text-blue-500 hover:text-blue-800">
+              Calendars
+            </Link>
+          </li>
+          <li className="mr-6">
+            <Link to={routes.tasks()} className="text-blue-500 hover:text-blue-800">
+              Tasks
+            </Link>
+          </li>
+          <li className="mr-6">
+            <Link to={routes.notes()} className="text-blue-500 hover:text-blue-800">
+              Notes
+            </Link>
+          </li>
+          {isAuthenticated && (
+            <li className="mr-6">
+              <button type="button" onClick={handleLogOut}>
+                Logout
+              </button>
+            </li>
+          )}
+        </ul>
+      </div>
     </header>
   );
 };
