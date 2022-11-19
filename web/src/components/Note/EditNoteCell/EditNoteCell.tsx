@@ -17,8 +17,7 @@ export const QUERY = gql`
   query EditNoteById($id: Int!) {
     note: note(id: $id) {
       id
-      parentId
-      title
+      path
       content
     }
   }
@@ -28,8 +27,7 @@ const UPDATE_NOTE_MUTATION = gql`
   mutation UpdateNoteMutation($id: Int!, $input: UpdateNoteInput!) {
     updateNote(id: $id, input: $input) {
       id
-      parentId
-      title
+      path
       content
     }
   }

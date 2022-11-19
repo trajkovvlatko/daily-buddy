@@ -21,19 +21,19 @@ const NoteForm = (props: NoteFormProps) => {
     <Form<FormNote> onSubmit={onSubmit} error={props.error}>
       <FormError error={props.error} />
 
-      <Label name="title" className="rw-label" errorClassName="rw-label rw-label-error">
-        Title
+      <Label name="path" className="rw-label" errorClassName="rw-label rw-label-error">
+        Path
       </Label>
 
       <TextField
-        name="title"
-        defaultValue={props.note?.title}
+        name="path"
+        defaultValue={props.note?.path}
         className="rw-input"
         errorClassName="rw-input rw-input-error"
         validation={{ required: true }}
       />
 
-      <FieldError name="title" className="rw-field-error" />
+      <FieldError name="path" className="rw-field-error" />
 
       <Label name="content" className="rw-label" errorClassName="rw-label rw-label-error">
         Content

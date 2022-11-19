@@ -9,7 +9,7 @@ const Note = ({ note }: Props) => {
   return (
     <>
       <div className="note-markdown">
-        <h1 className="mb-6 mt-3">{note.title}</h1>
+        <h1 className="mb-6 mt-3">{note.path}</h1>
         <div dangerouslySetInnerHTML={{ __html: marked.parse(note.content) }}></div>
       </div>
     </>

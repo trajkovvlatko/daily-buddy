@@ -27,7 +27,7 @@ export const AddNewNote = ({ note }: { note: NoteTree }) => {
 
   const onSave = (e: any) => {
     if (e.key === 'Enter') {
-      createNote({ variables: { input: { parentId: note.id, title: e.target.value.trim(), content: '' } } });
+      createNote({ variables: { input: { path: e.target.value.trim(), content: '' } } });
     }
   };
 
@@ -38,7 +38,7 @@ export const AddNewNote = ({ note }: { note: NoteTree }) => {
       </button>
       {showNewForm && (
         <div className="ml-3 mr-3 w-full">
-          <input type="text" className="w-full border-2" onKeyUp={onSave} />
+          <input type="text" className="w-full border-2" onKeyUp={onSave} defaultValue={`${note.path}/`} />
         </div>
       )}
     </>
