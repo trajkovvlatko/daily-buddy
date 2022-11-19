@@ -52,14 +52,11 @@ model Task {
 
 model Note {
   id          Int         @id @default(autoincrement())
-  parentId    Int
-  title       String
+  path        String
   content     String      @db.Text
   createdAt   DateTime    @default(now())
   User        User        @relation(references: [id], fields: [userId])
   userId      Int
 
   @@index([userId], name: "user")
-  @@index([parentId], name: "parent_id")
-  @@index([id, parentId], name: "id_parent_id")
 }

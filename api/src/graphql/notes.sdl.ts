@@ -1,14 +1,12 @@
 export const schema = gql`
   type Note {
     id: Int!
-    parentId: Int!
-    title: String!
+    path: String!
     content: String!
   }
 
   type NoteTree {
     id: Int!
-    parentId: Int!
     path: String!
   }
 
@@ -18,14 +16,12 @@ export const schema = gql`
   }
 
   input CreateNoteInput {
-    parentId: Int!
-    title: String!
+    path: String!
     content: String!
   }
 
   input UpdateNoteInput {
-    parentId: Int
-    title: String
+    path: String
     content: String
   }
 

@@ -8,8 +8,7 @@ export const QUERY = gql`
   query FindNoteById($id: Int!) {
     note: note(id: $id) {
       id
-      parentId
-      title
+      path
       content
     }
   }

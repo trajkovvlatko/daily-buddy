@@ -1,5 +1,4 @@
 import type { FindNotes } from 'types/graphql';
-import { Link, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useState } from 'react';
 import NoteCell from '../NoteCell';
@@ -11,7 +10,6 @@ export const QUERY = gql`
   query FindNotes {
     notes {
       id
-      parentId
       path
     }
   }
@@ -20,14 +18,7 @@ export const QUERY = gql`
 export const Loading = () => <div>Loading...</div>;
 
 export const Empty = () => {
-  return (
-    <div className="rw-text-center">
-      {'No notes yet. '}
-      <Link to={routes.newNote()} className="rw-link">
-        {'Create one?'}
-      </Link>
-    </div>
-  );
+  return <div className="rw-text-center">{'No notes yet. '}</div>;
 };
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
@@ -43,6 +34,16 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
   const onDelete = () => {
     setEditMode(false);
     setSelectedNoteId(null);
+  };
+
+  const toggleEditMode = () => {
+    if (editMode) {
+      if (confirm('Are you sure you want to cancel?')) {
+        setEditMode(!editMode);
+      }
+    } else {
+      setEditMode(!editMode);
+    }
   };
 
   return (
@@ -68,7 +69,7 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
           {selectedNoteId && (
             <>
               <button
-                onClick={() => setEditMode(!editMode)}
+                onClick={toggleEditMode}
                 className="float-right rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700"
               >
                 {editMode ? 'Preview' : 'Edit'}
