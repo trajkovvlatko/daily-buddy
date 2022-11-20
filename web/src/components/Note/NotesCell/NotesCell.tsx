@@ -50,7 +50,7 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
     <div className="bg-gray-100 pt-6 md:grid md:grid-cols-12">
       <div className="md:col-span-2"></div>
       <div className="mb-6 bg-white pt-6 shadow-lg md:col-span-8 md:grid md:grid-cols-12 md:gap-8">
-        <div className="border-r pb-6 md:col-span-3">
+        <div className="mb-6 max-h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0">
           <h2 className="mb-5 pl-5 text-3xl">Notes</h2>
           {notes.map((note) => {
             return (
