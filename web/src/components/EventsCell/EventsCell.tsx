@@ -10,7 +10,7 @@ interface Props {
 export const beforeQuery = ({ from, to }: Props) => {
   return {
     variables: { from, to },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'cache-first',
   };
 };
 
