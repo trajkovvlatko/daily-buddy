@@ -36,12 +36,6 @@ export const QUERY = gql`
   }
 `;
 
-export const beforeQuery = () => {
-  return {
-    fetchPolicy: 'cache-first',
-  };
-};
-
 export const Loading = () => <div className="loading pb-6">Loading...</div>;
 
 export const Empty = () => {
