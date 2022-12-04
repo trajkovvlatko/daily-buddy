@@ -1,14 +1,7 @@
-import { useAuth } from '@redwoodjs/auth';
 import { Link, routes } from '@redwoodjs/router';
+import ProfileMenu from '../ProfileMenu/ProfileMenu';
 
 const Header = () => {
-  const { isAuthenticated, logOut } = useAuth();
-
-  const handleLogOut = async () => {
-    await logOut();
-    window.location.pathname = '/';
-  };
-
   return (
     <header className="mb-2 h-16 w-full shadow-lg">
       <div className="h-full items-center overflow-auto">
@@ -19,27 +12,11 @@ const Header = () => {
             </Link>
           </li>
           <li className="mr-6">
-            <Link to={routes.calendars()} className="text-blue-500 hover:text-blue-800">
-              Calendars
-            </Link>
-          </li>
-          <li className="mr-6">
-            <Link to={routes.tasks()} className="text-blue-500 hover:text-blue-800">
-              Tasks
-            </Link>
-          </li>
-          <li className="mr-6">
             <Link to={routes.notes()} className="text-blue-500 hover:text-blue-800">
               Notes
             </Link>
           </li>
-          {isAuthenticated && (
-            <li className="mr-6">
-              <button type="button" onClick={handleLogOut}>
-                Logout
-              </button>
-            </li>
-          )}
+          <ProfileMenu />
         </ul>
       </div>
     </header>

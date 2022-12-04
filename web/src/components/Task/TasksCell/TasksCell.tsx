@@ -36,6 +36,12 @@ export const QUERY = gql`
   }
 `;
 
+export const beforeQuery = () => {
+  return {
+    fetchPolicy: 'cache-first',
+  };
+};
+
 export const Loading = () => <div className="loading pb-6">Loading...</div>;
 
 export const Empty = () => {
@@ -76,7 +82,7 @@ export const Success = ({ tasks }: CellSuccessProps<FindTasks>) => {
 
       {hasTodaysAgenda && (
         <div className="mb-12">
-          <h1 className="pb-4">Today's tasks</h1>
+          <h1 className="pb-4 pt-1 text-lg font-semibold">Today's tasks</h1>
           <Tasks tasks={tasks.todaysAgenda} />
         </div>
       )}

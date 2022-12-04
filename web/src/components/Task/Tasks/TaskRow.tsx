@@ -69,11 +69,11 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
   const dueDate = task.dueDate?.split('T')[0] ?? null;
 
   return (
-    <tr>
-      <td>
+    <div className="flex content-center items-center justify-between gap-5 p-3 text-sm">
+      <div>
         <input type="text" defaultValue={truncate(task.title)} onKeyUp={onKeyUp} ref={refTitle} className="w-full" />
-      </td>
-      <td>
+      </div>
+      <div>
         <input
           type="date"
           defaultValue={dueDate}
@@ -82,8 +82,8 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
           className="w-full"
           placeholder="No due date"
         />
-      </td>
-      <td>
+      </div>
+      <div>
         <input
           type="text"
           defaultValue={truncate(task.priority)}
@@ -91,8 +91,8 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
           onKeyUp={onKeyUp}
           className={`w-12 text-center ${getPrioColor(task.priority)}`}
         />
-      </td>
-      <td>
+      </div>
+      <div>
         {task.completed ? (
           <button
             className={`rounded border border-orange-700 bg-orange-500 py-1 px-4 font-bold text-white hover:bg-orange-700`}
@@ -108,8 +108,8 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
             &#10003;
           </button>
         )}
-      </td>
-    </tr>
+      </div>
+    </div>
   );
 };
 
