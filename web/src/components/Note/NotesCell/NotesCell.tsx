@@ -47,7 +47,7 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 pt-6 md:grid md:grid-cols-12">
+    <div className="min-h-screen bg-gray-100 pt-0 md:grid md:grid-cols-12 md:pt-6">
       <div className="md:col-span-2"></div>
       <div className="mb-6 min-h-[85vh] bg-white pt-6 shadow-lg md:col-span-8 md:grid md:grid-cols-12 md:gap-8">
         <div className="mb-6 h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0 md:h-auto md:max-h-[80vh]">

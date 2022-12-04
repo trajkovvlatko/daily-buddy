@@ -16,13 +16,17 @@ const ProfileMenu = () => {
     open ? 'block' : 'hidden',
   ].join(' ');
 
+  const toggleOpen = () => {
+    setOpen((oldValue) => !oldValue);
+  };
+
   return (
     <>
-      <div onClick={() => setOpen(!open)} className="ml-auto mr-7 ">
+      <div onClick={toggleOpen} className="ml-auto mr-7 ">
         <Icon />
       </div>
       <div className={className}>
-        <MenuList />
+        <MenuList callback={toggleOpen} />
       </div>
     </>
   );

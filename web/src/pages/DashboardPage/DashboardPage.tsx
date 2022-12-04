@@ -19,7 +19,7 @@ const DashboardPage = () => {
         <div className="max-h-[40vh] overflow-y-auto px-2 md:order-first md:col-span-5 md:max-h-[100vh] md:px-0 md:pl-6 ">
           <EventsCell from={from} to={to} />
         </div>
-        <div className="mt-12 px-2 md:col-span-7 md:mt-0 md:mt-0 md:mt-12 md:px-0 md:pr-6 ">
+        <div className="mt-12 px-2 md:col-span-7 md:mt-0 md:px-0 md:pr-6 ">
           <TasksCell />
         </div>
       </div>

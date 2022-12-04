@@ -61,7 +61,6 @@ ul {
   font-size: 0.9rem;
 }
 
-.note-markdown a,
 .note-markdown p {
   margin-bottom: 1rem;
   margin-top: 1rem;
@@ -70,12 +69,18 @@ ul {
 
 .note-markdown ul li {
   list-style-type: initial;
-  margin-left: 20px;
-  padding-bottom: 5px;
+  margin-left: 1.5rem;
+  padding-bottom: 0.8rem;
 }
 
 .note-markdown a {
   color: rgb(59, 130, 246);
+  display: inline-block;
+}
+
+.note-markdown li a {
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .note-menu:hover button {
