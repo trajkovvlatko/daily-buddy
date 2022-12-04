@@ -53,7 +53,7 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 export const Success = ({ getEvents: events }: CellSuccessProps<EventsQuery>) => {
   return (
     <div>
-      <h1 className="mb-4">Agenda</h1>
+      <h1 className="mb-4 pb-3 text-lg font-semibold">Agenda</h1>
 
       <ul>
         {events.map((row: EventFields) => {

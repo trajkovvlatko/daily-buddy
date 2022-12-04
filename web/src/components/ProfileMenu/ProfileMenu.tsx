@@ -4,7 +4,6 @@ import Icon from './Icon';
 
 const ProfileMenu = () => {
   const [open, setOpen] = useState(false);
-  console.log(open);
 
   const className = [
     'absolute',

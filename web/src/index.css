@@ -26,35 +26,46 @@ ul {
   padding-left: 20px;
 }
 
-.note-markdown h1 {
-  font-size: 2.2rem;
+.note-markdown h1,
+.note-markdown h2,
+.note-markdown h3,
+.note-markdown h4,
+.note-markdown h5,
+.note-markdown h6 {
   margin-top: 1rem;
+  margin-bottom: 1rem;
+  line-height: 2rem;
+}
+
+.note-markdown h1 {
+  font-size: 1.4rem;
 }
 
 .note-markdown h2 {
-  font-size: 2rem;
-  margin-top: 1rem;
+  font-size: 1.3rem;
 }
 
 .note-markdown h3 {
-  font-size: 1.7rem;
-  line-height: 2.5;
-  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 .note-markdown h4 {
-  font-size: 1.5rem;
-  margin-top: 1rem;
+  font-size: 1.1rem;
 }
 
 .note-markdown h5 {
-  font-size: 1.2rem;
-  margin-top: 1rem;
+  font-size: 1rem;
 }
 
 .note-markdown h6 {
-  font-size: 1rem;
+  font-size: 0.9rem;
+}
+
+.note-markdown a,
+.note-markdown p {
+  margin-bottom: 1rem;
   margin-top: 1rem;
+  display: block;
 }
 
 .note-markdown ul li {

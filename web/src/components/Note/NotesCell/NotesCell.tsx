@@ -47,11 +47,11 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
   };
 
   return (
-    <div className="bg-gray-100 pt-6 md:grid md:grid-cols-12">
+    <div className="min-h-screen bg-gray-100 pt-6 md:grid md:grid-cols-12">
       <div className="md:col-span-2"></div>
-      <div className="mb-6 bg-white pt-6 shadow-lg md:col-span-8 md:grid md:grid-cols-12 md:gap-8">
-        <div className="mb-6 max-h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0">
-          <h2 className="mb-5 pl-5 text-3xl">Notes</h2>
+      <div className="mb-6 min-h-[85vh] bg-white pt-6 shadow-lg md:col-span-8 md:grid md:grid-cols-12 md:gap-8">
+        <div className="mb-6 h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0 md:h-auto md:max-h-[80vh]">
+          <h2 className="mb-5 pl-5 text-lg font-semibold">Notes</h2>
           {notes.map((note) => {
             return (
               <div className="note-menu flex flex-wrap" key={note.id}>
@@ -65,6 +65,7 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
             );
           })}
         </div>
+
         <div className="pb-3 pl-2 pr-6 md:col-span-9">
           {selectedNoteId && (
             <>
