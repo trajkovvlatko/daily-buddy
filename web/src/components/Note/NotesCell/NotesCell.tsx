@@ -15,6 +15,12 @@ export const QUERY = gql`
   }
 `;
 
+export const beforeQuery = () => {
+  return {
+    fetchPolicy: 'cache-first',
+  };
+};
+
 export const Loading = () => <div>Loading...</div>;
 
 export const Empty = () => {
