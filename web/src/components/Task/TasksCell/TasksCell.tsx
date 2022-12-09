@@ -1,8 +1,7 @@
 import type { FindTasks } from 'types/graphql';
-
 import { Link, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
-
+import { toast } from '@redwoodjs/web/toast';
 import Tasks from 'src/components/Task/Tasks';
 import NewTask from '../NewTask';
 import { useState } from 'react';
@@ -58,7 +57,14 @@ export const Success = ({ tasks, refetch }: CellSuccessProps<FindTasks>) => {
     setShowNewTask((oldValue) => !oldValue);
   };
 
-  const onRefresh = () => refetch();
+  const onRefresh = async () => {
+    try {
+      await refetch();
+      toast.success('Tasks ready');
+    } catch (e) {
+      toast.error('Cannot refresh tasks');
+    }
+  };
 
   const hasTodaysAgenda = tasks.todaysAgenda.length > 0;
   const hasNotScheduled = tasks.notScheduledYet.length > 0;

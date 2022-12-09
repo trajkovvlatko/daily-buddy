@@ -1,5 +1,6 @@
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { EventFields, EventsQuery } from 'types/graphql';
+import { toast } from '@redwoodjs/web/toast';
 import { EventsByDateRow } from './EventsByDateRow';
 
 interface Props {
@@ -50,7 +51,14 @@ export const Empty = () => <div>Empty</div>;
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>;
 
 export const Success = ({ getEvents: events, refetch }: CellSuccessProps<EventsQuery>) => {
-  const onRefresh = () => refetch();
+  const onRefresh = async () => {
+    try {
+      await refetch();
+      toast.success('Agenda ready');
+    } catch (e) {
+      toast.error('Cannot refresh agenda');
+    }
+  };
 
   return (
     <div>
