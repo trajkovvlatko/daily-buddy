@@ -26,6 +26,14 @@ ul {
   padding-left: 20px;
 }
 
+.refresh {
+  display: inline-block;
+  transform: rotate(90deg);
+  cursor: pointer;
+  color: #aaa;
+  margin-left: 10px;
+}
+
 .note-markdown h1,
 .note-markdown h2,
 .note-markdown h3,

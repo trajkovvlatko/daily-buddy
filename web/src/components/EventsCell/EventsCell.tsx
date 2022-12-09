@@ -49,10 +49,17 @@ export const Empty = () => <div>Empty</div>;
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>;
 
-export const Success = ({ getEvents: events }: CellSuccessProps<EventsQuery>) => {
+export const Success = ({ getEvents: events, refetch }: CellSuccessProps<EventsQuery>) => {
+  const onRefresh = () => refetch();
+
   return (
     <div>
-      <h1 className="mb-4 pb-3 text-lg font-semibold">Agenda</h1>
+      <h1 className="mb-4 pb-3 text-lg font-semibold">
+        Agenda
+        <span onClick={onRefresh} className="refresh">
+          ↻
+        </span>
+      </h1>
 
       <ul>
         {events.map((row: EventFields) => {

@@ -51,12 +51,14 @@ export const Empty = () => {
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
-export const Success = ({ tasks }: CellSuccessProps<FindTasks>) => {
+export const Success = ({ tasks, refetch }: CellSuccessProps<FindTasks>) => {
   const [showNewTask, setShowNewTask] = useState(false);
 
   const toggleNewTask = () => {
     setShowNewTask((oldValue) => !oldValue);
   };
+
+  const onRefresh = () => refetch();
 
   const hasTodaysAgenda = tasks.todaysAgenda.length > 0;
   const hasNotScheduled = tasks.notScheduledYet.length > 0;
@@ -76,7 +78,12 @@ export const Success = ({ tasks }: CellSuccessProps<FindTasks>) => {
 
       {hasTodaysAgenda && (
         <div className="mb-12">
-          <h1 className="pb-4 pt-1 text-lg font-semibold">Today's tasks</h1>
+          <h1 className="pb-4 pt-1 text-lg font-semibold">
+            Today's tasks
+            <span onClick={onRefresh} className="refresh">
+              ↻
+            </span>
+          </h1>
           <Tasks tasks={tasks.todaysAgenda} />
         </div>
       )}
