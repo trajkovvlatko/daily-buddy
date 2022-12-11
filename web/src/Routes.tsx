@@ -28,6 +28,10 @@ const Routes = () => {
         <Route path="/tasks" page={TaskTasksPage} name="tasks" />
 
         <Route path="/notes" page={NoteNotesPage} name="notes" />
+
+        <Route path="/journals/new" page={JournalNewJournalPage} name="newJournal" />
+        <Route path="/journals/{id:Int}/edit" page={JournalEditJournalPage} name="editJournal" />
+        <Route path="/journals" page={JournalJournalsPage} name="journals" />
       </Set>
       <Route path="/login" page={LoginPage} name="login" />
       <Route path="/signup" page={SignupPage} name="signup" />

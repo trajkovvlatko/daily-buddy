@@ -34,6 +34,16 @@ ul {
   margin-left: 10px;
 }
 
+@layer components {
+  .sidebar {
+    @apply mb-6 h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0 md:h-auto md:max-h-[80vh];
+  }
+
+  .main-content {
+    @apply pb-3 pl-2 pr-6 md:col-span-9;
+  }
+}
+
 .note-markdown h1,
 .note-markdown h2,
 .note-markdown h3,
