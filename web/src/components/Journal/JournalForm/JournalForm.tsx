@@ -1,4 +1,4 @@
-import { Form, FormError, Label, Submit, TextAreaField } from '@redwoodjs/forms';
+import { DateField, Form, FormError, Label, Submit, TextAreaField } from '@redwoodjs/forms';
 
 import type { EditJournalById, UpdateJournalInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
@@ -32,7 +32,12 @@ const JournalForm = (props: JournalFormProps) => {
           For date
         </Label>
 
-        <input name="forDate" defaultValue={props.journal?.forDate} className="rw-input" required={true} />
+        <DateField
+          name="forDate"
+          defaultValue={props.journal?.forDate?.slice(0, 10)}
+          className="rw-input"
+          required={true}
+        />
 
         <Label name="content" className="rw-label" errorClassName="rw-label rw-label-error">
           Content
@@ -44,11 +49,11 @@ const JournalForm = (props: JournalFormProps) => {
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
-          rows={20}
+          rows={15}
         />
 
-        <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
+        <div className="float-right mt-6">
+          <Submit disabled={props.loading} className="rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700">
             Save
           </Submit>
         </div>

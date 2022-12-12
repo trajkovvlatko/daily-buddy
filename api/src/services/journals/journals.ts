@@ -2,33 +2,44 @@ import type { QueryResolvers, MutationResolvers, JournalRelationResolvers } from
 
 import { db } from 'src/lib/db';
 
-export const journals: QueryResolvers['journals'] = () => {
-  return db.journal.findMany();
-};
+export const journals: QueryResolvers['journals'] = (_, { context }) => {
+  const userId = context.currentUser['id'];
 
-export const journal: QueryResolvers['journal'] = ({ id }) => {
-  return db.journal.findUnique({
-    where: { id },
+  return db.journal.findMany({
+    where: { userId },
+    orderBy: { forDate: 'desc' },
+    take: 30,
   });
 };
 
-export const createJournal: MutationResolvers['createJournal'] = ({ input }) => {
+export const journal: QueryResolvers['journal'] = ({ id }, { context }) => {
+  const userId = context.currentUser['id'];
+
+  return db.journal.findFirst({
+    where: { id, userId },
+  });
+};
+
+export const createJournal: MutationResolvers['createJournal'] = ({ input }, { context }) => {
+  const userId = context.currentUser['id'];
+
   return db.journal.create({
-    data: input,
+    data: { ...input, userId },
   });
 };
 
-export const updateJournal: MutationResolvers['updateJournal'] = ({ id, input }) => {
-  return db.journal.update({
-    data: input,
-    where: { id },
-  });
+export const updateJournal: MutationResolvers['updateJournal'] = async ({ id, input }, { context }) => {
+  const userId = context.currentUser['id'];
+  await db.journal.findFirstOrThrow({ where: { userId, id } });
+
+  return db.journal.update({ data: input, where: { id } });
 };
 
-export const deleteJournal: MutationResolvers['deleteJournal'] = ({ id }) => {
-  return db.journal.delete({
-    where: { id },
-  });
+export const deleteJournal: MutationResolvers['deleteJournal'] = async ({ id }, { context }) => {
+  const userId = context.currentUser['id'];
+  await db.journal.findFirstOrThrow({ where: { userId, id } });
+
+  return db.journal.delete({ where: { id } });
 };
 
 export const Journal: JournalRelationResolvers = {

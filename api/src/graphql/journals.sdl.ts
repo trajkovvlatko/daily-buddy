@@ -3,9 +3,6 @@ export const schema = gql`
     id: Int!
     forDate: DateTime!
     content: String!
-    createdAt: DateTime!
-    User: User!
-    userId: Int!
   }
 
   type Query {
@@ -16,13 +13,11 @@ export const schema = gql`
   input CreateJournalInput {
     forDate: DateTime!
     content: String!
-    userId: Int!
   }
 
   input UpdateJournalInput {
     forDate: DateTime
     content: String
-    userId: Int
   }
 
   type Mutation {
