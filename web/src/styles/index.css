@@ -104,3 +104,7 @@ ul {
 .note-menu:hover button {
   display: block;
 }
+
+.w-md-editor {
+  height: 400px;
+}

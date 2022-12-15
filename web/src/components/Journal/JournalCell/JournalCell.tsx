@@ -1,8 +1,8 @@
-import type { FindJournalById } from 'types/graphql'
+import type { FindJournalById } from 'types/graphql';
 
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 
-import Journal from 'src/components/Journal/Journal'
+import Journal from 'src/components/Journal/Journal';
 
 export const QUERY = gql`
   query FindJournalById($id: Int!) {
@@ -10,20 +10,16 @@ export const QUERY = gql`
       id
       forDate
       content
-      createdAt
-      userId
     }
   }
-`
+`;
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div>Loading...</div>;
 
-export const Empty = () => <div>Journal not found</div>
+export const Empty = () => <div>Journal not found</div>;
 
-export const Failure = ({ error }: CellFailureProps) => (
-  <div className="rw-cell-error">{error?.message}</div>
-)
+export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 export const Success = ({ journal }: CellSuccessProps<FindJournalById>) => {
-  return <Journal journal={journal} />
-}
+  return <Journal journal={journal} />;
+};

@@ -1,4 +1,4 @@
-import type { FindJournals, Journal } from 'types/graphql';
+import type { FindJournals } from 'types/graphql';
 import { Link, Router, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { Row } from 'src/pages/Journal/EditJournalPage/Row';

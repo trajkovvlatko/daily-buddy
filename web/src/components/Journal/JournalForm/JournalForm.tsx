@@ -1,9 +1,21 @@
-import { DateField, Form, FormError, Label, Submit, TextAreaField } from '@redwoodjs/forms';
-
-import type { EditJournalById, UpdateJournalInput } from 'types/graphql';
+import { DateField, Form, FormError, Label, Submit } from '@redwoodjs/forms';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
+import type { DeleteJournalMutationVariables, EditJournalById, UpdateJournalInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
+import { useState } from 'react';
+import MDEditor from '@uiw/react-md-editor';
+import { navigate, routes } from '@redwoodjs/router';
 
 type FormJournal = NonNullable<EditJournalById['journal']>;
+
+const DELETE_JOURNAL_MUTATION = gql`
+  mutation DeleteJournalMutation($id: Int!) {
+    deleteJournal(id: $id) {
+      id
+    }
+  }
+`;
 
 interface JournalFormProps {
   journal?: EditJournalById['journal'];
@@ -13,9 +25,25 @@ interface JournalFormProps {
 }
 
 const JournalForm = (props: JournalFormProps) => {
-  console.log(props?.journal?.content);
+  const [content, setContent] = useState(props.journal?.content);
+  const [deleteJournal] = useMutation(DELETE_JOURNAL_MUTATION, {
+    onCompleted: () => {
+      toast.success('Journal deleted');
+      navigate(routes.journals());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const onSubmit = (data: FormJournal) => {
-    props.onSave(data, props?.journal?.id);
+    props.onSave({ ...data, content }, props?.journal?.id);
+  };
+
+  const onDeleteClick = (id: DeleteJournalMutationVariables['id']) => {
+    if (confirm('Are you sure you want to delete journal ' + id + '?')) {
+      deleteJournal({ variables: { id } });
+    }
   };
 
   return (
@@ -43,14 +71,9 @@ const JournalForm = (props: JournalFormProps) => {
           Content
         </Label>
 
-        <TextAreaField
-          name="content"
-          defaultValue={props.journal?.content}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-          rows={15}
-        />
+        <div>
+          <MDEditor value={content} onChange={setContent} preview="edit" height={400} />
+        </div>
 
         <div className="float-right mt-6">
           <Submit disabled={props.loading} className="rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700">
@@ -58,6 +81,12 @@ const JournalForm = (props: JournalFormProps) => {
           </Submit>
         </div>
       </Form>
+
+      <div className="mt-6">
+        <button type="button" className="rw-button rw-button-red" onClick={() => onDeleteClick(props.journal?.id)}>
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

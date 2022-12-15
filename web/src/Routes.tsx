@@ -29,6 +29,7 @@ const Routes = () => {
 
         <Route path="/notes" page={NoteNotesPage} name="notes" />
 
+        <Route path="/journals/{id:Int}" page={JournalJournalPage} name="journal" />
         <Route path="/journals/new" page={JournalNewJournalPage} name="newJournal" />
         <Route path="/journals/{id:Int}/edit" page={JournalEditJournalPage} name="editJournal" />
         <Route path="/journals" page={JournalJournalsPage} name="journals" />

@@ -46,7 +46,7 @@ export const Success = ({ journal }: CellSuccessProps<EditJournalById>) => {
   const [updateJournal, { loading, error }] = useMutation(UPDATE_JOURNAL_MUTATION, {
     onCompleted: () => {
       toast.success('Journal updated');
-      navigate(routes.editJournal({ id: journal.id }));
+      navigate(routes.journal({ id: journal.id }));
     },
     onError: (error) => {
       toast.error(error.message);
