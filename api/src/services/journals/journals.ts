@@ -1,4 +1,4 @@
-import type { QueryResolvers, MutationResolvers, JournalRelationResolvers } from 'types/graphql';
+import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 
 import { db } from 'src/lib/db';
 
@@ -40,10 +40,4 @@ export const deleteJournal: MutationResolvers['deleteJournal'] = async ({ id }, 
   await db.journal.findFirstOrThrow({ where: { userId, id } });
 
   return db.journal.delete({ where: { id } });
-};
-
-export const Journal: JournalRelationResolvers = {
-  User: (_obj, { root }) => {
-    return db.journal.findUnique({ where: { id: root?.id } }).User();
-  },
 };

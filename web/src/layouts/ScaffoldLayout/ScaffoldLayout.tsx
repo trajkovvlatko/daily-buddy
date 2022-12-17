@@ -1,4 +1,3 @@
-import { Head } from '@redwoodjs/web';
 import { Toaster } from '@redwoodjs/web/toast';
 import Header from 'src/components/Header/Header';
 

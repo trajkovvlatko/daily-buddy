@@ -3,8 +3,6 @@ import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 import type { DeleteJournalMutationVariables, EditJournalById, UpdateJournalInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
-import { useState } from 'react';
-import MDEditor from '@uiw/react-md-editor';
 import { navigate, routes } from '@redwoodjs/router';
 
 type FormJournal = NonNullable<EditJournalById['journal']>;
@@ -25,7 +23,6 @@ interface JournalFormProps {
 }
 
 const JournalForm = (props: JournalFormProps) => {
-  const [content, setContent] = useState(props.journal?.content);
   const [deleteJournal] = useMutation(DELETE_JOURNAL_MUTATION, {
     onCompleted: () => {
       toast.success('Journal deleted');
@@ -37,7 +34,7 @@ const JournalForm = (props: JournalFormProps) => {
   });
 
   const onSubmit = (data: FormJournal) => {
-    props.onSave({ ...data, content }, props?.journal?.id);
+    props.onSave(data, props?.journal?.id);
   };
 
   const onDeleteClick = (id: DeleteJournalMutationVariables['id']) => {
