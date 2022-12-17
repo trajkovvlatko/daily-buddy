@@ -94,17 +94,11 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
       </div>
       <div>
         {task.completed ? (
-          <button
-            className={`rounded border border-orange-700 bg-orange-500 py-1 px-4 font-bold text-white hover:bg-orange-700`}
-            onClick={toggleComplete}
-          >
+          <button className={`orange-button rounded border border-orange-700 py-1 font-bold`} onClick={toggleComplete}>
             &#x2715;
           </button>
         ) : (
-          <button
-            className={`rounded border border-blue-700 bg-blue-500 py-1 px-4 font-bold text-white hover:bg-blue-700`}
-            onClick={toggleComplete}
-          >
+          <button className={`blue-button rounded border border-blue-700 py-1 font-bold`} onClick={toggleComplete}>
             &#10003;
           </button>
         )}

@@ -22,6 +22,7 @@ model User {
   Calendar            Calendar[]
   Task                Task[]
   Note                Note[]
+  Journal             Journal[]
 }
 
 model Calendar {
@@ -59,4 +60,16 @@ model Note {
   userId      Int
 
   @@index([userId], name: "user")
+}
+
+model Journal {
+  id          Int         @id @default(autoincrement())
+  forDate     DateTime    @db.Date
+  content     String      @db.Text
+  createdAt   DateTime    @default(now())
+  User        User        @relation(references: [id], fields: [userId])
+  userId      Int
+
+  @@index([userId], name: "user")
+  @@index([forDate], name: "forDate")
 }

@@ -34,6 +34,32 @@ ul {
   margin-left: 10px;
 }
 
+@layer components {
+  .sidebar {
+    @apply mb-6 h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0 md:h-auto md:max-h-[80vh];
+  }
+
+  .main-content {
+    @apply pb-3 pl-2 pr-6 md:col-span-9;
+  }
+
+  .blue-button {
+    @apply rounded bg-blue-500 py-2 px-4 font-semibold text-white text-sm hover:bg-blue-700;
+  }
+
+  .red-button {
+    @apply rounded bg-red-500 py-2 px-4 font-semibold text-white text-sm hover:bg-red-700;
+  }
+
+  .green-button {
+    @apply rounded bg-green-500 py-2 px-4 font-semibold text-white text-sm hover:bg-green-700;
+  }
+
+  .orange-button {
+    @apply rounded bg-orange-500 py-2 px-4 font-semibold text-white text-sm hover:bg-orange-700;
+  }
+}
+
 .note-markdown h1,
 .note-markdown h2,
 .note-markdown h3,
@@ -78,7 +104,7 @@ ul {
 .note-markdown ul li {
   list-style-type: initial;
   margin-left: 1.5rem;
-  padding-bottom: 0.8rem;
+  padding-bottom: 0.2rem;
 }
 
 .note-markdown a {

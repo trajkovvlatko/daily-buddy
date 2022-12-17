@@ -26,13 +26,7 @@ const NewTask = () => {
     createTask({ variables: { input } });
   };
 
-  return (
-    <>
-      <div className="">
-        <TaskForm onSave={onSave} loading={loading} error={error} />
-      </div>
-    </>
-  );
+  return <TaskForm onSave={onSave} loading={loading} error={error} />;
 };
 
 export default NewTask;

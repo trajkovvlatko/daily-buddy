@@ -1,4 +1,4 @@
-import { Form, FormError, FieldError, Label, TextField, NumberField, Submit, DateField } from '@redwoodjs/forms';
+import { Form, FormError, FieldError, TextField, NumberField, Submit, DateField } from '@redwoodjs/forms';
 import type { EditTaskById, UpdateTaskInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
 import { useRef } from 'react';
@@ -82,12 +82,10 @@ const TaskForm = (props: TaskFormProps) => {
               </td>
             </tr>
             <tr>
-              <td>
-                <div className="rw-button-group">
-                  <Submit disabled={props.loading} className="rw-button rw-button-blue">
-                    Save
-                  </Submit>
-                </div>
+              <td className="flex justify-center">
+                <Submit disabled={props.loading} className="blue-button">
+                  Save
+                </Submit>
               </td>
             </tr>
           </tbody>
