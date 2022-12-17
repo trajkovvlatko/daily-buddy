@@ -1,4 +1,4 @@
-import { DateField, Form, FormError, Label, Submit } from '@redwoodjs/forms';
+import { DateField, Form, FormError, Label, Submit, TextAreaField } from '@redwoodjs/forms';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 import type { DeleteJournalMutationVariables, EditJournalById, UpdateJournalInput } from 'types/graphql';
@@ -71,9 +71,14 @@ const JournalForm = (props: JournalFormProps) => {
           Content
         </Label>
 
-        <div>
-          <MDEditor value={content} onChange={setContent} preview="edit" height={400} />
-        </div>
+        <TextAreaField
+          name="content"
+          defaultValue={props.journal?.content}
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+          validation={{ required: true }}
+          rows={20}
+        />
 
         <div className="float-right mt-6">
           <Submit disabled={props.loading} className="rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700">

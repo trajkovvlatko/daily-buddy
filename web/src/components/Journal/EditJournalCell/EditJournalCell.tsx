@@ -57,5 +57,25 @@ export const Success = ({ journal }: CellSuccessProps<EditJournalById>) => {
     updateJournal({ variables: { id, input } });
   };
 
-  return <JournalForm journal={journal} onSave={onSave} error={error} loading={loading} />;
+  const onPreview = () => {
+    if (confirm('Are you sure you want to cancel?')) {
+      navigate(routes.journal({ id: journal.id }));
+    }
+  };
+
+  return (
+    <div>
+      <div>
+        <button
+          onClick={onPreview}
+          className="rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700 md:float-right"
+        >
+          Preview
+        </button>
+      </div>
+      <div className="clear-both">
+        <JournalForm journal={journal} onSave={onSave} error={error} loading={loading} />
+      </div>
+    </div>
+  );
 };

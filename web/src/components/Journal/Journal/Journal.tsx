@@ -1,5 +1,5 @@
+import { marked } from 'marked';
 import { Link, routes } from '@redwoodjs/router';
-import MDEditor from '@uiw/react-md-editor';
 import type { FindJournalById } from 'types/graphql';
 
 interface Props {
@@ -7,9 +7,11 @@ interface Props {
 }
 
 const Journal = ({ journal }: Props) => {
+  const html = marked.parse(journal.content);
+
   return (
     <>
-      <nav className="rw-button-group float-right">
+      <nav className="float-right">
         <Link to={routes.editJournal({ id: journal.id })} className="rw-button rw-button-blue">
           Edit
         </Link>
@@ -19,7 +21,7 @@ const Journal = ({ journal }: Props) => {
           Journal for: <span className="font-semibold">{journal.forDate.slice(0, 10)}</span>
         </div>
         <div className="note-markdown">
-          <MDEditor.Markdown source={journal.content} />
+          <div dangerouslySetInnerHTML={{ __html: html }}></div>
         </div>
       </div>
     </>

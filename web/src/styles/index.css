@@ -88,7 +88,7 @@ ul {
 .note-markdown ul li {
   list-style-type: initial;
   margin-left: 1.5rem;
-  padding-bottom: 0.8rem;
+  padding-bottom: 0.2rem;
 }
 
 .note-markdown a {
@@ -103,8 +103,4 @@ ul {
 
 .note-menu:hover button {
   display: block;
-}
-
-.w-md-editor {
-  height: 400px;
 }
