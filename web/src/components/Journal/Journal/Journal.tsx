@@ -1,5 +1,5 @@
 import { marked } from 'marked';
-import { Link, routes } from '@redwoodjs/router';
+import { navigate, routes } from '@redwoodjs/router';
 import type { FindJournalById } from 'types/graphql';
 
 interface Props {
@@ -10,11 +10,11 @@ const Journal = ({ journal }: Props) => {
   const html = marked.parse(journal.content);
 
   return (
-    <>
+    <div className="mb-6">
       <nav className="float-right">
-        <Link to={routes.editJournal({ id: journal.id })} className="rw-button rw-button-blue">
+        <button onClick={() => navigate(routes.editJournal({ id: journal.id }))} className="blue-button">
           Edit
-        </Link>
+        </button>
       </nav>
       <div>
         <div className="mb-10 mt-1">
@@ -24,7 +24,7 @@ const Journal = ({ journal }: Props) => {
           <div dangerouslySetInnerHTML={{ __html: html }}></div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

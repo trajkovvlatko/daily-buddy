@@ -66,14 +66,11 @@ export const Success = ({ journal }: CellSuccessProps<EditJournalById>) => {
   return (
     <div>
       <div>
-        <button
-          onClick={onPreview}
-          className="rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700 md:float-right"
-        >
+        <button onClick={onPreview} className="blue-button md:float-right">
           Preview
         </button>
       </div>
-      <div className="clear-both">
+      <div className="clear-both mb-4">
         <JournalForm journal={journal} onSave={onSave} error={error} loading={loading} />
       </div>
     </div>

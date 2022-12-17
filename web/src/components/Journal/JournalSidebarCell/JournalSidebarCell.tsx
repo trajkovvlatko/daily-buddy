@@ -1,5 +1,5 @@
 import type { FindJournals } from 'types/graphql';
-import { Link, Router, routes } from '@redwoodjs/router';
+import { Link, navigate, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { Row } from 'src/pages/Journal/EditJournalPage/Row';
 
@@ -31,15 +31,15 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 export const Success = ({ journals }: CellSuccessProps<FindJournals>) => {
   return (
     <>
-      <h2 className="font-col mb-5 flex flex-row justify-between pl-5 text-lg">
+      <h2 className="font-col flex flex-row justify-between pl-5 text-lg">
         <span className="text-lg font-semibold">Journal</span>
-        <Link
-          to={routes.newJournal()}
+        <button
+          onClick={() => navigate(routes.newJournal())}
           title={'New journal'}
-          className="rw-button rw-button-green float-right mr-3 mb-6 w-16"
+          className="green-button float-right mr-3 mb-6"
         >
           New
-        </Link>
+        </button>
       </h2>
       <div className="flex flex-col">
         {journals.map((journal) => (

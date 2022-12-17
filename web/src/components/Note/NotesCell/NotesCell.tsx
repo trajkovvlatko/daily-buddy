@@ -68,10 +68,7 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
       <div className="main-content">
         {selectedNoteId && (
           <>
-            <button
-              onClick={toggleEditMode}
-              className="rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700 md:float-right"
-            >
+            <button onClick={toggleEditMode} className="blue-button md:float-right">
               {editMode ? 'Preview' : 'Edit'}
             </button>
             {editMode ? (

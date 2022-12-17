@@ -79,11 +79,7 @@ export const Success = ({ note, onUpdate, onDelete }: CellSuccessProps<EditNoteB
     <div>
       <NoteForm note={note} onSave={onSave} error={error} loading={loading} />
 
-      <button
-        type="button"
-        className="mt-3 rounded bg-red-500 py-1 px-4 text-white hover:bg-red-700"
-        onClick={() => onDeleteClick(note.id)}
-      >
+      <button type="button" className="red-button mt-3" onClick={() => onDeleteClick(note.id)}>
         Delete
       </button>
     </div>

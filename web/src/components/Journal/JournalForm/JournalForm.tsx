@@ -81,17 +81,19 @@ const JournalForm = (props: JournalFormProps) => {
         />
 
         <div className="float-right mt-6">
-          <Submit disabled={props.loading} className="rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700">
+          <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>
         </div>
       </Form>
 
-      <div className="mt-6">
-        <button type="button" className="rw-button rw-button-red" onClick={() => onDeleteClick(props.journal?.id)}>
-          Delete
-        </button>
-      </div>
+      {props.journal && (
+        <div className="mt-6">
+          <button type="button" className="red-button" onClick={() => onDeleteClick(props.journal?.id)}>
+            Delete
+          </button>
+        </div>
+      )}
     </div>
   );
 };

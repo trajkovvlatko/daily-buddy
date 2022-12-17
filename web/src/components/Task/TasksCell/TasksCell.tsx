@@ -71,7 +71,7 @@ export const Success = ({ tasks, refetch }: CellSuccessProps<FindTasks>) => {
 
   return (
     <div>
-      <button className="rw-button rw-button-green float-right mb-6 w-28" onClick={toggleNewTask}>
+      <button className="green-button float-right mb-6" onClick={toggleNewTask}>
         {showNewTask ? 'Close' : 'New task'}
       </button>
 

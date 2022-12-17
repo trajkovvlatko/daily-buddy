@@ -50,7 +50,7 @@ const NoteForm = (props: NoteFormProps) => {
       <FieldError name="content" className="rw-field-error" />
 
       <div className="float-right">
-        <Submit disabled={props.loading} className="mt-3 rounded bg-blue-500 py-1 px-4 text-white hover:bg-blue-700">
+        <Submit disabled={props.loading} className="blue-button mt-3">
           Save
         </Submit>
       </div>

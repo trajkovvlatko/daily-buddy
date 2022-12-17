@@ -42,6 +42,22 @@ ul {
   .main-content {
     @apply pb-3 pl-2 pr-6 md:col-span-9;
   }
+
+  .blue-button {
+    @apply rounded bg-blue-500 py-2 px-4 font-semibold text-white text-sm hover:bg-blue-700;
+  }
+
+  .red-button {
+    @apply rounded bg-red-500 py-2 px-4 font-semibold text-white text-sm hover:bg-red-700;
+  }
+
+  .green-button {
+    @apply rounded bg-green-500 py-2 px-4 font-semibold text-white text-sm hover:bg-green-700;
+  }
+
+  .orange-button {
+    @apply rounded bg-orange-500 py-2 px-4 font-semibold text-white text-sm hover:bg-orange-700;
+  }
 }
 
 .note-markdown h1,

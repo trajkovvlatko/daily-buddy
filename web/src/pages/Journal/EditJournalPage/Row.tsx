@@ -5,11 +5,11 @@ export const Row = ({ journal }: { journal: { id: number; forDate: string } }) =
   const active = location.pathname === `/journals/${journal.id}` ? 'bg-gray-100' : '';
 
   return (
-    <div className={`block cursor-pointer border-t-2 border-t-gray-100 py-4 px-3 ${active}`}>
+    <div className={`block cursor-pointer border-t-2 border-t-gray-100 ${active}`}>
       <Link
         to={routes.journal({ id: journal.id })}
         title={'Show journal ' + journal.id + ' detail'}
-        className="block text-sm"
+        className="block py-4 px-3 text-sm"
       >
         {journal.forDate.slice(0, 10)}
       </Link>
