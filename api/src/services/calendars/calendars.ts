@@ -36,9 +36,3 @@ export const deleteCalendar: MutationResolvers['deleteCalendar'] = async ({ id }
 
   return db.calendar.delete({ where: { id } });
 };
-
-export const Calendar: CalendarRelationResolvers = {
-  User: (_obj, { root }) => {
-    return db.calendar.findUnique({ where: { id: root?.id } }).User();
-  },
-};

@@ -22,11 +22,6 @@ const Routes = () => {
         <Route path="/calendars/{id:Int}" page={CalendarCalendarPage} name="calendar" />
         <Route path="/calendars" page={CalendarCalendarsPage} name="calendars" />
 
-        <Route path="/tasks/new" page={TaskNewTaskPage} name="newTask" />
-        <Route path="/tasks/{id:Int}/edit" page={TaskEditTaskPage} name="editTask" />
-        <Route path="/tasks/{id:Int}" page={TaskTaskPage} name="task" />
-        <Route path="/tasks" page={TaskTasksPage} name="tasks" />
-
         <Route path="/notes" page={NoteNotesPage} name="notes" />
 
         <Route path="/journals/{id:Int}" page={JournalJournalPage} name="journal" />
