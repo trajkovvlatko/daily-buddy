@@ -4,6 +4,7 @@ import { toast } from '@redwoodjs/web/toast';
 import type { DeleteJournalMutationVariables, EditJournalById, UpdateJournalInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
 import { navigate, routes } from '@redwoodjs/router';
+import { getDefaultDate } from 'src/lib/getDefaultDate';
 
 type FormJournal = NonNullable<EditJournalById['journal']>;
 
@@ -59,7 +60,7 @@ const JournalForm = (props: JournalFormProps) => {
 
         <DateField
           name="forDate"
-          defaultValue={props.journal?.forDate?.slice(0, 10)}
+          defaultValue={props.journal?.forDate?.slice(0, 10) ?? getDefaultDate()}
           className="rw-input"
           required={true}
         />

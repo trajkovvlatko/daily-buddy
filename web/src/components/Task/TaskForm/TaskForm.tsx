@@ -2,6 +2,7 @@ import { Form, FormError, FieldError, TextField, NumberField, Submit, DateField 
 import type { EditTaskById, UpdateTaskInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
 import { useRef } from 'react';
+import { getDefaultDate } from 'src/lib/getDefaultDate';
 
 type FormTask = NonNullable<EditTaskById['task']>;
 
@@ -60,6 +61,7 @@ const TaskForm = (props: TaskFormProps) => {
                   className="rw-input"
                   placeholder="Due date"
                   errorClassName="rw-input rw-input-error"
+                  defaultValue={getDefaultDate()}
                   ref={refDueDate}
                 />
 
