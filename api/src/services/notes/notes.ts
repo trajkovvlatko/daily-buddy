@@ -1,4 +1,4 @@
-import type { QueryResolvers, MutationResolvers, NoteTree } from 'types/graphql';
+import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 import { db } from 'src/lib/db';
 
 export const notes: QueryResolvers['notes'] = (_, { context }) => {

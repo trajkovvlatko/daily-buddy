@@ -70,9 +70,3 @@ export const deleteTask: MutationResolvers['deleteTask'] = async ({ id }, { cont
 
   return db.task.delete({ where: { id } });
 };
-
-export const Task: TaskRelationResolvers = {
-  User: (_obj, { root }) => {
-    return db.task.findUnique({ where: { id: root?.id } }).User();
-  },
-};

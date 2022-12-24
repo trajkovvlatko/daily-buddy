@@ -18,7 +18,7 @@ const NewJournal = () => {
   const [createJournal, { loading, error }] = useMutation(CREATE_JOURNAL_MUTATION, {
     onCompleted: (newJournal) => {
       if (newJournal?.createJournal?.id) {
-        navigate(routes.editJournal({ id: newJournal.createJournal.id }));
+        navigate(routes.journal({ id: newJournal.createJournal.id }));
       }
       toast.success('Journal created');
     },

@@ -1,7 +1,7 @@
 import type { FindJournals } from 'types/graphql';
 import { Link, navigate, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
-import { Row } from 'src/pages/Journal/EditJournalPage/Row';
+import { Row } from './Row';
 
 export const QUERY = gql`
   query FindJournals {
