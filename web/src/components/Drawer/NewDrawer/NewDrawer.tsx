@@ -1,10 +1,10 @@
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import DrawerForm from 'src/components/Drawer/DrawerForm'
+import DrawerForm from 'src/components/Drawer/DrawerForm';
 
-import type { CreateDrawerInput } from 'types/graphql'
+import type { CreateDrawerInput } from 'types/graphql';
 
 const CREATE_DRAWER_MUTATION = gql`
   mutation CreateDrawerMutation($input: CreateDrawerInput!) {
@@ -12,25 +12,22 @@ const CREATE_DRAWER_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const NewDrawer = () => {
-  const [createDrawer, { loading, error }] = useMutation(
-    CREATE_DRAWER_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('Drawer created')
-        navigate(routes.drawers())
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    }
-  )
+  const [createDrawer, { loading, error }] = useMutation(CREATE_DRAWER_MUTATION, {
+    onCompleted: () => {
+      toast.success('Drawer created');
+      navigate(routes.drawers());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const onSave = (input: CreateDrawerInput) => {
-    createDrawer({ variables: { input } })
-  }
+    createDrawer({ variables: { input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -41,7 +38,7 @@ const NewDrawer = () => {
         <DrawerForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewDrawer
+export default NewDrawer;

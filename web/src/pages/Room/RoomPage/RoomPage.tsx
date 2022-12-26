@@ -1,11 +1,11 @@
-import RoomCell from 'src/components/Room/RoomCell'
+import RoomCell from 'src/components/Room/RoomCell';
 
 type RoomPageProps = {
-  id: number
-}
+  id: number;
+};
 
 const RoomPage = ({ id }: RoomPageProps) => {
-  return <RoomCell id={id} />
-}
+  return <RoomCell id={id} />;
+};
 
-export default RoomPage
+export default RoomPage;

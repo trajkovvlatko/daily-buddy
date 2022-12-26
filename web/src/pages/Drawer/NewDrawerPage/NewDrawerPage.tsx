@@ -1,7 +1,7 @@
-import NewDrawer from 'src/components/Drawer/NewDrawer'
+import NewDrawer from 'src/components/Drawer/NewDrawer';
 
 const NewDrawerPage = () => {
-  return <NewDrawer />
-}
+  return <NewDrawer />;
+};
 
-export default NewDrawerPage
+export default NewDrawerPage;

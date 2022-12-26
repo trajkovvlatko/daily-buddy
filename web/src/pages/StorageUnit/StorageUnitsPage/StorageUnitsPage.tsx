@@ -1,7 +1,7 @@
-import StorageUnitsCell from 'src/components/StorageUnit/StorageUnitsCell'
+import StorageUnitsCell from 'src/components/StorageUnit/StorageUnitsCell';
 
 const StorageUnitsPage = () => {
-  return <StorageUnitsCell />
-}
+  return <StorageUnitsCell />;
+};
 
-export default StorageUnitsPage
+export default StorageUnitsPage;

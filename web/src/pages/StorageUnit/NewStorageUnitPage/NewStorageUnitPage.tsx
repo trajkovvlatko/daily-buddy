@@ -1,7 +1,7 @@
-import NewStorageUnit from 'src/components/StorageUnit/NewStorageUnit'
+import NewStorageUnit from 'src/components/StorageUnit/NewStorageUnit';
 
 const NewStorageUnitPage = () => {
-  return <NewStorageUnit />
-}
+  return <NewStorageUnit />;
+};
 
-export default NewStorageUnitPage
+export default NewStorageUnitPage;

@@ -1,11 +1,11 @@
-import EditDrawerCell from 'src/components/Drawer/EditDrawerCell'
+import EditDrawerCell from 'src/components/Drawer/EditDrawerCell';
 
 type DrawerPageProps = {
-  id: number
-}
+  id: number;
+};
 
 const EditDrawerPage = ({ id }: DrawerPageProps) => {
-  return <EditDrawerCell id={id} />
-}
+  return <EditDrawerCell id={id} />;
+};
 
-export default EditDrawerPage
+export default EditDrawerPage;

@@ -1,11 +1,11 @@
-import EditRoomCell from 'src/components/Room/EditRoomCell'
+import EditRoomCell from 'src/components/Room/EditRoomCell';
 
 type RoomPageProps = {
-  id: number
-}
+  id: number;
+};
 
 const EditRoomPage = ({ id }: RoomPageProps) => {
-  return <EditRoomCell id={id} />
-}
+  return <EditRoomCell id={id} />;
+};
 
-export default EditRoomPage
+export default EditRoomPage;

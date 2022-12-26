@@ -1,10 +1,10 @@
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import StorageUnitForm from 'src/components/StorageUnit/StorageUnitForm'
+import StorageUnitForm from 'src/components/StorageUnit/StorageUnitForm';
 
-import type { CreateStorageUnitInput } from 'types/graphql'
+import type { CreateStorageUnitInput } from 'types/graphql';
 
 const CREATE_STORAGE_UNIT_MUTATION = gql`
   mutation CreateStorageUnitMutation($input: CreateStorageUnitInput!) {
@@ -12,25 +12,22 @@ const CREATE_STORAGE_UNIT_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const NewStorageUnit = () => {
-  const [createStorageUnit, { loading, error }] = useMutation(
-    CREATE_STORAGE_UNIT_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('StorageUnit created')
-        navigate(routes.storageUnits())
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    }
-  )
+  const [createStorageUnit, { loading, error }] = useMutation(CREATE_STORAGE_UNIT_MUTATION, {
+    onCompleted: () => {
+      toast.success('StorageUnit created');
+      navigate(routes.storageUnits());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const onSave = (input: CreateStorageUnitInput) => {
-    createStorageUnit({ variables: { input } })
-  }
+    createStorageUnit({ variables: { input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -41,7 +38,7 @@ const NewStorageUnit = () => {
         <StorageUnitForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewStorageUnit
+export default NewStorageUnit;

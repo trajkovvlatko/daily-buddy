@@ -1,11 +1,11 @@
-import DrawerCell from 'src/components/Drawer/DrawerCell'
+import DrawerCell from 'src/components/Drawer/DrawerCell';
 
 type DrawerPageProps = {
-  id: number
-}
+  id: number;
+};
 
 const DrawerPage = ({ id }: DrawerPageProps) => {
-  return <DrawerCell id={id} />
-}
+  return <DrawerCell id={id} />;
+};
 
-export default DrawerPage
+export default DrawerPage;

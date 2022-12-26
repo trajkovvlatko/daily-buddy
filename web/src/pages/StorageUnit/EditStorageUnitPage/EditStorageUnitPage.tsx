@@ -1,11 +1,11 @@
-import EditStorageUnitCell from 'src/components/StorageUnit/EditStorageUnitCell'
+import EditStorageUnitCell from 'src/components/StorageUnit/EditStorageUnitCell';
 
 type StorageUnitPageProps = {
-  id: number
-}
+  id: number;
+};
 
 const EditStorageUnitPage = ({ id }: StorageUnitPageProps) => {
-  return <EditStorageUnitCell id={id} />
-}
+  return <EditStorageUnitCell id={id} />;
+};
 
-export default EditStorageUnitPage
+export default EditStorageUnitPage;

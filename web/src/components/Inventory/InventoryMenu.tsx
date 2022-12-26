@@ -15,23 +15,24 @@ const InventoryMenu = ({ roomId, storageUnitId, drawerId }: Props) => {
         <h2 className="h2">Rooms</h2>
         <RoomsCell />
       </div>
-      <div className="h-100 col-span-2 border-r">
-        <h2 className="h2">Storage Units</h2>
-        {roomId && (
-          <>
-            roomId: {roomId} - <StorageUnitsCell />
-          </>
-        )}
-      </div>
-      <div className="h-100 col-span-2 border-r">
-        <h2 className="h2">Drawers</h2>
-        {storageUnitId && (
-          <>
-            storageUnitId: {storageUnitId} - <DrawersCell />
-          </>
-        )}
-      </div>
-      {drawerId && <div className="h-100 col-span-2 border-r"> drawerId: {drawerId}</div>}
+      {roomId && (
+        <div className="h-100 col-span-2 border-r">
+          <h2 className="h2">Storage Units</h2>
+          <StorageUnitsCell />
+        </div>
+      )}
+      {storageUnitId && (
+        <div className="h-100 col-span-2 border-r">
+          <h2 className="h2">Drawers</h2>
+          <DrawersCell />
+        </div>
+      )}
+      {drawerId && (
+        <div className="h-100 col-span-2 border-r">
+          <h2 className="h2">Items</h2>
+          drawerId: {drawerId}
+        </div>
+      )}
     </>
   );
 };

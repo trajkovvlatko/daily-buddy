@@ -2,10 +2,6 @@ export const schema = gql`
   type Room {
     id: Int!
     name: String!
-    createdAt: DateTime!
-    User: User!
-    userId: Int!
-    StorageUnit: [StorageUnit]!
   }
 
   type Query {
@@ -15,12 +11,10 @@ export const schema = gql`
 
   input CreateRoomInput {
     name: String!
-    userId: Int!
   }
 
   input UpdateRoomInput {
     name: String
-    userId: Int
   }
 
   type Mutation {

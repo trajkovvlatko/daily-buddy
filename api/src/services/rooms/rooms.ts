@@ -1,41 +1,41 @@
-import type { QueryResolvers, MutationResolvers, RoomRelationResolvers } from 'types/graphql';
+import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 
 import { db } from 'src/lib/db';
 
-export const rooms: QueryResolvers['rooms'] = () => {
-  return db.room.findMany();
-};
+export const rooms: QueryResolvers['rooms'] = (_, { context }) => {
+  const userId = context.currentUser['id'];
 
-export const room: QueryResolvers['room'] = ({ id }) => {
-  return db.room.findUnique({
-    where: { id },
+  return db.room.findMany({
+    where: { userId },
   });
 };
 
-export const createRoom: MutationResolvers['createRoom'] = ({ input }) => {
+export const room: QueryResolvers['room'] = ({ id }, { context }) => {
+  const userId = context.currentUser['id'];
+
+  return db.room.findFirst({
+    where: { id, userId },
+  });
+};
+
+export const createRoom: MutationResolvers['createRoom'] = ({ input }, { context }) => {
+  const userId = context.currentUser['id'];
+
   return db.room.create({
-    data: input,
+    data: { ...input, userId },
   });
 };
 
-export const updateRoom: MutationResolvers['updateRoom'] = ({ id, input }) => {
-  return db.room.update({
-    data: input,
-    where: { id },
-  });
+export const updateRoom: MutationResolvers['updateRoom'] = async ({ id, input }, { context }) => {
+  const userId = context.currentUser['id'];
+  await db.room.findFirstOrThrow({ where: { userId, id } });
+
+  return db.room.update({ data: input, where: { id } });
 };
 
-export const deleteRoom: MutationResolvers['deleteRoom'] = ({ id }) => {
-  return db.room.delete({
-    where: { id },
-  });
-};
+export const deleteRoom: MutationResolvers['deleteRoom'] = async ({ id }, { context }) => {
+  const userId = context.currentUser['id'];
+  await db.room.findFirstOrThrow({ where: { userId, id } });
 
-export const Room: RoomRelationResolvers = {
-  User: (_obj, { root }) => {
-    return db.room.findUnique({ where: { id: root?.id } }).User();
-  },
-  StorageUnit: (_obj, { root }) => {
-    return db.room.findUnique({ where: { id: root?.id } }).StorageUnit();
-  },
+  return db.room.delete({ where: { id } });
 };

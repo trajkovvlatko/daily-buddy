@@ -1,10 +1,10 @@
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import RoomForm from 'src/components/Room/RoomForm'
+import RoomForm from 'src/components/Room/RoomForm';
 
-import type { CreateRoomInput } from 'types/graphql'
+import type { CreateRoomInput } from 'types/graphql';
 
 const CREATE_ROOM_MUTATION = gql`
   mutation CreateRoomMutation($input: CreateRoomInput!) {
@@ -12,25 +12,22 @@ const CREATE_ROOM_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const NewRoom = () => {
-  const [createRoom, { loading, error }] = useMutation(
-    CREATE_ROOM_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('Room created')
-        navigate(routes.rooms())
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    }
-  )
+  const [createRoom, { loading, error }] = useMutation(CREATE_ROOM_MUTATION, {
+    onCompleted: () => {
+      toast.success('Room created');
+      navigate(routes.rooms());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const onSave = (input: CreateRoomInput) => {
-    createRoom({ variables: { input } })
-  }
+    createRoom({ variables: { input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -41,7 +38,7 @@ const NewRoom = () => {
         <RoomForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewRoom
+export default NewRoom;

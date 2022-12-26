@@ -1,7 +1,7 @@
-import DrawersCell from 'src/components/Drawer/DrawersCell'
+import DrawersCell from 'src/components/Drawer/DrawersCell';
 
 const DrawersPage = () => {
-  return <DrawersCell />
-}
+  return <DrawersCell />;
+};
 
-export default DrawersPage
+export default DrawersPage;

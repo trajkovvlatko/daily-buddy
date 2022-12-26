@@ -1,7 +1,7 @@
-import NewRoom from 'src/components/Room/NewRoom'
+import NewRoom from 'src/components/Room/NewRoom';
 
 const NewRoomPage = () => {
-  return <NewRoom />
-}
+  return <NewRoom />;
+};
 
-export default NewRoomPage
+export default NewRoomPage;

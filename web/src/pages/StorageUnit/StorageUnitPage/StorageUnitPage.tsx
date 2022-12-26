@@ -1,11 +1,11 @@
-import StorageUnitCell from 'src/components/StorageUnit/StorageUnitCell'
+import StorageUnitCell from 'src/components/StorageUnit/StorageUnitCell';
 
 type StorageUnitPageProps = {
-  id: number
-}
+  id: number;
+};
 
 const StorageUnitPage = ({ id }: StorageUnitPageProps) => {
-  return <StorageUnitCell id={id} />
-}
+  return <StorageUnitCell id={id} />;
+};
 
-export default StorageUnitPage
+export default StorageUnitPage;
