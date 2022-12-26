@@ -1,4 +1,4 @@
-import { Link, routes } from '@redwoodjs/router';
+import { navigate, Link, routes } from '@redwoodjs/router';
 import { useAuth } from '@redwoodjs/auth';
 
 const MenuList = ({ callback }: { callback: () => void }) => {
@@ -10,21 +10,39 @@ const MenuList = ({ callback }: { callback: () => void }) => {
     window.location.pathname = '/';
   };
 
-  const onCalendarLinkClick = () => {
+  const onLinkClick = () => {
     callback();
   };
 
   return (
     <ul className="">
-      <li className="w-52 cursor-pointer border-b px-3 pt-3 pb-3">
-        <Link to={routes.calendars()} onClick={onCalendarLinkClick}>
-          Calendars
-        </Link>
-      </li>
-      {isAuthenticated && (
-        <li className="w-52 cursor-pointer px-3 pb-3 pt-3">
-          <button type="button" onClick={handleLogOut}>
-            Logout
+      {isAuthenticated ? (
+        <>
+          <li className="menu-link">
+            <Link to={routes.calendars()} onClick={onLinkClick}>
+              Calendars
+            </Link>
+          </li>
+          <li className="menu-link">
+            <Link to={routes.colors()} onClick={onLinkClick}>
+              Colors
+            </Link>
+          </li>
+          <li className="menu-link">
+            <Link to={routes.itemTypes()} onClick={onLinkClick}>
+              Item types
+            </Link>
+          </li>
+          <li className="menu-link">
+            <button type="button" onClick={handleLogOut}>
+              Logout
+            </button>
+          </li>
+        </>
+      ) : (
+        <li className="menu-link">
+          <button type="button" onClick={() => navigate(routes.login())}>
+            Login
           </button>
         </li>
       )}
