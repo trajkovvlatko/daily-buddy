@@ -23,6 +23,12 @@ model User {
   Task                Task[]
   Note                Note[]
   Journal             Journal[]
+  Color               Color[]
+  ItemType            ItemType[]
+  Room                Room[]
+  StorageUnit         StorageUnit[]
+  Drawer              Drawer[]
+  Item                Item[]
 }
 
 model Calendar {
@@ -73,3 +79,86 @@ model Journal {
   @@index([userId], name: "user")
   @@index([forDate], name: "forDate")
 }
+
+model Color {
+  id          Int         @id @default(autoincrement())
+  color       String
+  createdAt   DateTime    @default(now())
+  User        User        @relation(references: [id], fields: [userId])
+  userId      Int
+  Item        Item[]
+
+  @@index([userId], name: "user")
+}
+
+model ItemType {
+  id          Int         @id @default(autoincrement())
+  itemType    String
+  createdAt   DateTime    @default(now())
+  User        User        @relation(references: [id], fields: [userId])
+  userId      Int
+  Item        Item[]
+
+  @@index([userId], name: "user")
+}
+
+model Room {
+  id          Int         @id @default(autoincrement())
+  name        String
+  createdAt   DateTime    @default(now())
+  User        User        @relation(references: [id], fields: [userId])
+  userId      Int
+  StorageUnit StorageUnit[]
+
+  @@index([userId], name: "user")
+}
+
+model StorageUnit {
+  id          Int         @id @default(autoincrement())
+  name        String
+  createdAt   DateTime    @default(now())
+  Room        Room        @relation(references: [id], fields: [roomId])
+  roomId      Int
+  User        User        @relation(references: [id], fields: [userId])
+  userId      Int
+  Drawer      Drawer[]
+
+  @@index([userId], name: "user")
+  @@index([roomId], name: "room")
+}
+
+model Drawer {
+  id                 Int         @id @default(autoincrement())
+  level              Int
+  note               String?
+  createdAt          DateTime    @default(now())
+  StorageUnit        StorageUnit @relation(references: [id], fields: [storageUnitId])
+  storageUnitId      Int
+  User               User        @relation(references: [id], fields: [userId])
+  userId             Int
+  Item               Item[]
+
+  @@index([userId], name: "user")
+  @@index([storageUnitId], name: "storageUnit")
+}
+
+model Item {
+  id                 Int         @id @default(autoincrement())
+  name               String
+  createdAt          DateTime    @default(now())
+  Drawer             Drawer @relation(references: [id], fields: [drawerId])
+  drawerId           Int
+  User               User        @relation(references: [id], fields: [userId])
+  userId             Int
+  Color              Color       @relation(references: [id], fields: [colorId])
+  colorId            Int
+  ItemType           ItemType    @relation(references: [id], fields: [itemTypeId])
+  itemTypeId         Int
+
+  @@index([userId], name: "user")
+  @@index([drawerId], name: "drawer")
+  @@index([colorId], name: "color")
+  @@index([itemTypeId], name: "itemType")
+}
+
+
