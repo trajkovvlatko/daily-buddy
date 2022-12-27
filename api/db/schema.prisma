@@ -55,6 +55,7 @@ model Task {
   userId      Int
 
   @@index([userId], name: "user")
+  @@index([userId, dueDate, completed], name: "user_id_due_date_completed")
 }
 
 model Note {
