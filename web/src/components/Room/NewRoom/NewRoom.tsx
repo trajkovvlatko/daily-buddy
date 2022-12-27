@@ -1,4 +1,3 @@
-import { navigate, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
@@ -14,12 +13,13 @@ const CREATE_ROOM_MUTATION = gql`
   }
 `;
 
-const NewRoom = () => {
+const NewRoom = ({ callback }: { callback: () => void }) => {
   const [createRoom, { loading, error }] = useMutation(CREATE_ROOM_MUTATION, {
     onCompleted: () => {
       toast.success('Room created');
-      navigate(routes.rooms());
+      callback();
     },
+    refetchQueries: ['FindRooms'],
     onError: (error) => {
       toast.error(error.message);
     },
@@ -29,16 +29,7 @@ const NewRoom = () => {
     createRoom({ variables: { input } });
   };
 
-  return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">New Room</h2>
-      </header>
-      <div className="rw-segment-main">
-        <RoomForm onSave={onSave} loading={loading} error={error} />
-      </div>
-    </div>
-  );
+  return <RoomForm onSave={onSave} loading={loading} error={error} />;
 };
 
 export default NewRoom;

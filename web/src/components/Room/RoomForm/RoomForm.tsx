@@ -18,7 +18,7 @@ const RoomForm = (props: RoomFormProps) => {
   };
 
   return (
-    <div className="rw-form-wrapper">
+    <div>
       <Form<FormRoom> onSubmit={onSubmit} error={props.error}>
         <FormError
           error={props.error}
@@ -44,7 +44,7 @@ const RoomForm = (props: RoomFormProps) => {
         <FieldError name="userId" className="rw-field-error" />
 
         <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
+          <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>
         </div>

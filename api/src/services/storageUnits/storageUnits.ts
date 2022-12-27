@@ -2,11 +2,11 @@ import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 
 import { db } from 'src/lib/db';
 
-export const storageUnits: QueryResolvers['storageUnits'] = (_, { context }) => {
+export const storageUnits: QueryResolvers['storageUnits'] = ({ roomId }, { context }) => {
   const userId = context.currentUser['id'];
 
   return db.storageUnit.findMany({
-    where: { userId },
+    where: { userId, roomId },
   });
 };
 

@@ -7,7 +7,7 @@ export const schema = gql`
   }
 
   type Query {
-    drawers: [Drawer!]! @requireAuth
+    drawers(storageUnitId: Int!): [Drawer!]! @requireAuth
     drawer(id: Int!): Drawer @requireAuth
   }
 

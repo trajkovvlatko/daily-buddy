@@ -6,7 +6,7 @@ export const schema = gql`
   }
 
   type Query {
-    storageUnits: [StorageUnit!]! @requireAuth
+    storageUnits(roomId: Int!): [StorageUnit!]! @requireAuth
     storageUnit(id: Int!): StorageUnit @requireAuth
   }
 

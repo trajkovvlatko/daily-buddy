@@ -1,5 +1,4 @@
 import { Form, FormError, FieldError, Label, NumberField, TextField, Submit } from '@redwoodjs/forms';
-
 import type { EditDrawerById, UpdateDrawerInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
 
@@ -10,11 +9,13 @@ interface DrawerFormProps {
   onSave: (data: UpdateDrawerInput, id?: FormDrawer['id']) => void;
   error: RWGqlError;
   loading: boolean;
+  storageUnitId?: number;
 }
 
 const DrawerForm = (props: DrawerFormProps) => {
   const onSubmit = (data: FormDrawer) => {
-    props.onSave(data, props?.drawer?.id);
+    const newRecord = props.storageUnitId ? { ...data, storageUnitId: props.storageUnitId } : data;
+    props.onSave(newRecord, props?.drawer?.id);
   };
 
   return (
@@ -54,22 +55,8 @@ const DrawerForm = (props: DrawerFormProps) => {
 
         <FieldError name="note" className="rw-field-error" />
 
-        <Label name="storageUnitId" className="rw-label" errorClassName="rw-label rw-label-error">
-          Storage unit id
-        </Label>
-
-        <NumberField
-          name="storageUnitId"
-          defaultValue={props.drawer?.storageUnitId}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
-
-        <FieldError name="storageUnitId" className="rw-field-error" />
-
         <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
+          <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>
         </div>

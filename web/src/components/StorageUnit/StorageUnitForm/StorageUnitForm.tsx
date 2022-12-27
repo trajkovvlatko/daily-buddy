@@ -1,5 +1,4 @@
-import { Form, FormError, FieldError, Label, TextField, NumberField, Submit } from '@redwoodjs/forms';
-
+import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
 import type { EditStorageUnitById, UpdateStorageUnitInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
 
@@ -10,11 +9,13 @@ interface StorageUnitFormProps {
   onSave: (data: UpdateStorageUnitInput, id?: FormStorageUnit['id']) => void;
   error: RWGqlError;
   loading: boolean;
+  roomId?: number;
 }
 
 const StorageUnitForm = (props: StorageUnitFormProps) => {
   const onSubmit = (data: FormStorageUnit) => {
-    props.onSave(data, props?.storageUnit?.id);
+    const newRecord = props.roomId ? { ...data, roomId: props.roomId } : data;
+    props.onSave(newRecord, props?.storageUnit?.id);
   };
 
   return (
@@ -41,24 +42,8 @@ const StorageUnitForm = (props: StorageUnitFormProps) => {
 
         <FieldError name="name" className="rw-field-error" />
 
-        <Label name="roomId" className="rw-label" errorClassName="rw-label rw-label-error">
-          Room id
-        </Label>
-
-        <NumberField
-          name="roomId"
-          defaultValue={props.storageUnit?.roomId}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
-
-        <FieldError name="roomId" className="rw-field-error" />
-
-        <FieldError name="userId" className="rw-field-error" />
-
         <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
+          <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>
         </div>
