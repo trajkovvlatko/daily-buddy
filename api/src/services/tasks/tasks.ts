@@ -1,4 +1,4 @@
-import type { QueryResolvers, MutationResolvers, TaskRelationResolvers } from 'types/graphql';
+import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 import { db } from 'src/lib/db';
 
 export const tasks: QueryResolvers['tasks'] = async (_, { context }) => {
@@ -12,11 +12,13 @@ export const tasks: QueryResolvers['tasks'] = async (_, { context }) => {
   const todaysAgendaPromise = db.task.findMany({
     where: { userId, dueDate: { lt: today }, completed: false },
     orderBy: { dueDate: 'asc' },
+    take: 20,
   });
 
   const notScheduledYetPromise = db.task.findMany({
     where: { userId, dueDate: null, completed: false },
     orderBy: { dueDate: 'asc' },
+    take: 20,
   });
 
   const nextPromise = db.task.findMany({

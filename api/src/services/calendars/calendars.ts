@@ -1,4 +1,4 @@
-import type { QueryResolvers, MutationResolvers, CalendarRelationResolvers } from 'types/graphql';
+import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 import { db } from 'src/lib/db';
 
 export const calendars: QueryResolvers['calendars'] = (_, { context }) => {
