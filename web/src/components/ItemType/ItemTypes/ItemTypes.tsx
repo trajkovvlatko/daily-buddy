@@ -1,11 +1,9 @@
-import { Link, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
-
-import { QUERY } from 'src/components/ItemType/ItemTypesCell'
-import { timeTag, truncate } from 'src/lib/formatters'
-
-import type { DeleteItemTypeMutationVariables, FindItemTypes } from 'types/graphql'
+import { Link, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
+import { QUERY } from 'src/components/ItemType/ItemTypesCell';
+import { truncate } from 'src/lib/formatters';
+import type { DeleteItemTypeMutationVariables, FindItemTypes } from 'types/graphql';
 
 const DELETE_ITEM_TYPE_MUTATION = gql`
   mutation DeleteItemTypeMutation($id: Int!) {
@@ -13,28 +11,28 @@ const DELETE_ITEM_TYPE_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const ItemTypesList = ({ itemTypes }: FindItemTypes) => {
   const [deleteItemType] = useMutation(DELETE_ITEM_TYPE_MUTATION, {
     onCompleted: () => {
-      toast.success('ItemType deleted')
+      toast.success('ItemType deleted');
     },
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
     // This refetches the query on the list page. Read more about other ways to
     // update the cache over here:
     // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
-  })
+  });
 
   const onDeleteClick = (id: DeleteItemTypeMutationVariables['id']) => {
     if (confirm('Are you sure you want to delete itemType ' + id + '?')) {
-      deleteItemType({ variables: { id } })
+      deleteItemType({ variables: { id } });
     }
-  }
+  };
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
@@ -43,8 +41,6 @@ const ItemTypesList = ({ itemTypes }: FindItemTypes) => {
           <tr>
             <th>Id</th>
             <th>Item type</th>
-            <th>Created at</th>
-            <th>User id</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -53,8 +49,6 @@ const ItemTypesList = ({ itemTypes }: FindItemTypes) => {
             <tr key={itemType.id}>
               <td>{truncate(itemType.id)}</td>
               <td>{truncate(itemType.itemType)}</td>
-              <td>{timeTag(itemType.createdAt)}</td>
-              <td>{truncate(itemType.userId)}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link
@@ -86,7 +80,7 @@ const ItemTypesList = ({ itemTypes }: FindItemTypes) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default ItemTypesList
+export default ItemTypesList;

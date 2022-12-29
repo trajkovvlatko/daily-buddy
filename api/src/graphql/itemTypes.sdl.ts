@@ -2,10 +2,6 @@ export const schema = gql`
   type ItemType {
     id: Int!
     itemType: String!
-    createdAt: DateTime!
-    User: User!
-    userId: Int!
-    Item: [Item]!
   }
 
   type Query {
@@ -15,12 +11,10 @@ export const schema = gql`
 
   input CreateItemTypeInput {
     itemType: String!
-    userId: Int!
   }
 
   input UpdateItemTypeInput {
     itemType: String
-    userId: Int
   }
 
   type Mutation {

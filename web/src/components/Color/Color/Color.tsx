@@ -1,11 +1,10 @@
+import { Link, routes, navigate } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import { Link, routes, navigate } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { timeTag } from 'src/lib/formatters';
 
-import { timeTag,  } from 'src/lib/formatters'
-
-import type { DeleteColorMutationVariables, FindColorById } from 'types/graphql'
+import type { DeleteColorMutationVariables, FindColorById } from 'types/graphql';
 
 const DELETE_COLOR_MUTATION = gql`
   mutation DeleteColorMutation($id: Int!) {
@@ -13,72 +12,58 @@ const DELETE_COLOR_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 interface Props {
-  color: NonNullable<FindColorById['color']>
+  color: NonNullable<FindColorById['color']>;
 }
 
 const Color = ({ color }: Props) => {
   const [deleteColor] = useMutation(DELETE_COLOR_MUTATION, {
     onCompleted: () => {
-      toast.success('Color deleted')
-      navigate(routes.colors())
+      toast.success('Color deleted');
+      navigate(routes.colors());
     },
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
-  })
+  });
 
   const onDeleteClick = (id: DeleteColorMutationVariables['id']) => {
     if (confirm('Are you sure you want to delete color ' + id + '?')) {
-      deleteColor({ variables: { id } })
+      deleteColor({ variables: { id } });
     }
-  }
+  };
 
   return (
     <>
       <div className="rw-segment">
         <header className="rw-segment-header">
-          <h2 className="rw-heading rw-heading-secondary">
-            Color {color.id} Detail
-          </h2>
+          <h2 className="rw-heading rw-heading-secondary">Color {color.id} Detail</h2>
         </header>
         <table className="rw-table">
           <tbody>
             <tr>
               <th>Id</th>
               <td>{color.id}</td>
-            </tr><tr>
+            </tr>
+            <tr>
               <th>Color</th>
               <td>{color.color}</td>
-            </tr><tr>
-              <th>Created at</th>
-              <td>{timeTag(color.createdAt)}</td>
-            </tr><tr>
-              <th>User id</th>
-              <td>{color.userId}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <nav className="rw-button-group">
-        <Link
-          to={routes.editColor({ id: color.id })}
-          className="rw-button rw-button-blue"
-        >
+        <Link to={routes.editColor({ id: color.id })} className="rw-button rw-button-blue">
           Edit
         </Link>
-        <button
-          type="button"
-          className="rw-button rw-button-red"
-          onClick={() => onDeleteClick(color.id)}
-        >
+        <button type="button" className="rw-button rw-button-red" onClick={() => onDeleteClick(color.id)}>
           Delete
         </button>
       </nav>
     </>
-  )
-}
+  );
+};
 
-export default Color
+export default Color;

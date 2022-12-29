@@ -1,6 +1,5 @@
 import { Link, routes, useParams } from '@redwoodjs/router';
 import { truncate } from 'src/lib/formatters';
-
 import type { FindItems } from 'types/graphql';
 
 const ItemsList = ({ items }: FindItems) => {

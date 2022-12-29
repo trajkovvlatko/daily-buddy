@@ -1,4 +1,4 @@
-import { Link, routes, navigate } from '@redwoodjs/router';
+import { routes, navigate, back } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 import type { DeleteItemMutationVariables, FindItemById } from 'types/graphql';
@@ -19,8 +19,9 @@ const Item = ({ item }: Props) => {
   const [deleteItem] = useMutation(DELETE_ITEM_MUTATION, {
     onCompleted: () => {
       toast.success('Item deleted');
-      navigate(routes.items());
+      back();
     },
+    refetchQueries: ['FindItems'],
     onError: (error) => {
       toast.error(error.message);
     },

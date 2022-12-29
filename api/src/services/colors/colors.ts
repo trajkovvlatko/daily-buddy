@@ -1,41 +1,40 @@
-import type { QueryResolvers, MutationResolvers, ColorRelationResolvers } from 'types/graphql';
-
+import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 import { db } from 'src/lib/db';
 
-export const colors: QueryResolvers['colors'] = () => {
-  return db.color.findMany();
-};
+export const colors: QueryResolvers['colors'] = (_, { context }) => {
+  const userId = context.currentUser['id'];
 
-export const color: QueryResolvers['color'] = ({ id }) => {
-  return db.color.findUnique({
-    where: { id },
+  return db.color.findMany({
+    where: { userId },
   });
 };
 
-export const createColor: MutationResolvers['createColor'] = ({ input }) => {
+export const color: QueryResolvers['color'] = ({ id }, { context }) => {
+  const userId = context.currentUser['id'];
+
+  return db.color.findFirst({
+    where: { id, userId },
+  });
+};
+
+export const createColor: MutationResolvers['createColor'] = ({ input }, { context }) => {
+  const userId = context.currentUser['id'];
+
   return db.color.create({
-    data: input,
+    data: { ...input, userId },
   });
 };
 
-export const updateColor: MutationResolvers['updateColor'] = ({ id, input }) => {
-  return db.color.update({
-    data: input,
-    where: { id },
-  });
+export const updateColor: MutationResolvers['updateColor'] = async ({ id, input }, { context }) => {
+  const userId = context.currentUser['id'];
+  await db.color.findFirstOrThrow({ where: { userId, id } });
+
+  return db.color.update({ data: input, where: { id } });
 };
 
-export const deleteColor: MutationResolvers['deleteColor'] = ({ id }) => {
-  return db.color.delete({
-    where: { id },
-  });
-};
+export const deleteColor: MutationResolvers['deleteColor'] = async ({ id }) => {
+  const userId = context.currentUser['id'];
+  await db.color.findFirstOrThrow({ where: { userId, id } });
 
-export const Color: ColorRelationResolvers = {
-  User: (_obj, { root }) => {
-    return db.color.findUnique({ where: { id: root?.id } }).User();
-  },
-  Item: (_obj, { root }) => {
-    return db.color.findUnique({ where: { id: root?.id } }).Item();
-  },
+  return db.color.delete({ where: { id } });
 };

@@ -2,10 +2,6 @@ export const schema = gql`
   type Color {
     id: Int!
     color: String!
-    createdAt: DateTime!
-    User: User!
-    userId: Int!
-    Item: [Item]!
   }
 
   type Query {
@@ -15,12 +11,10 @@ export const schema = gql`
 
   input CreateColorInput {
     color: String!
-    userId: Int!
   }
 
   input UpdateColorInput {
     color: String
-    userId: Int
   }
 
   type Mutation {

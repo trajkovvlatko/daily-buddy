@@ -1,11 +1,9 @@
-import { Link, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
-
-import { QUERY } from 'src/components/Color/ColorsCell'
-import { timeTag, truncate } from 'src/lib/formatters'
-
-import type { DeleteColorMutationVariables, FindColors } from 'types/graphql'
+import { Link, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
+import { QUERY } from 'src/components/Color/ColorsCell';
+import { truncate } from 'src/lib/formatters';
+import type { DeleteColorMutationVariables, FindColors } from 'types/graphql';
 
 const DELETE_COLOR_MUTATION = gql`
   mutation DeleteColorMutation($id: Int!) {
@@ -13,28 +11,28 @@ const DELETE_COLOR_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const ColorsList = ({ colors }: FindColors) => {
   const [deleteColor] = useMutation(DELETE_COLOR_MUTATION, {
     onCompleted: () => {
-      toast.success('Color deleted')
+      toast.success('Color deleted');
     },
     onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.message);
     },
     // This refetches the query on the list page. Read more about other ways to
     // update the cache over here:
     // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
-  })
+  });
 
   const onDeleteClick = (id: DeleteColorMutationVariables['id']) => {
     if (confirm('Are you sure you want to delete color ' + id + '?')) {
-      deleteColor({ variables: { id } })
+      deleteColor({ variables: { id } });
     }
-  }
+  };
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
@@ -43,8 +41,6 @@ const ColorsList = ({ colors }: FindColors) => {
           <tr>
             <th>Id</th>
             <th>Color</th>
-            <th>Created at</th>
-            <th>User id</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -53,8 +49,6 @@ const ColorsList = ({ colors }: FindColors) => {
             <tr key={color.id}>
               <td>{truncate(color.id)}</td>
               <td>{truncate(color.color)}</td>
-              <td>{timeTag(color.createdAt)}</td>
-              <td>{truncate(color.userId)}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link
@@ -86,7 +80,7 @@ const ColorsList = ({ colors }: FindColors) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default ColorsList
+export default ColorsList;
