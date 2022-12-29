@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { navigate, routes, useParams } from '@redwoodjs/router';
 import ItemsCell from '../Item/ItemsCell';
-import NewItem from '../Item/NewItem';
 
 const ItemsMenu = ({ drawerId }: { drawerId: number }) => {
-  const [open, setOpen] = useState(false);
-  const toggle = () => setOpen(!open);
+  const params = useParams();
+  const roomId = parseInt(params.roomId);
+  const storageUnitId = parseInt(params.storageUnitId);
+  const newItemPath = routes.inventoryNewItem({ roomId, storageUnitId, drawerId });
 
   return (
     <>
@@ -13,13 +14,8 @@ const ItemsMenu = ({ drawerId }: { drawerId: number }) => {
         <ItemsCell drawerId={drawerId} />
       </div>
       <div className="mb-6">
-        <button onClick={toggle}>{open ? 'Close' : 'Add new item'}</button>
+        <button onClick={() => navigate(newItemPath)}>Add new item</button>
       </div>
-      {open && (
-        <div className="mb-6 px-3">
-          <NewItem drawerId={drawerId} callback={toggle} />
-        </div>
-      )}
     </>
   );
 };

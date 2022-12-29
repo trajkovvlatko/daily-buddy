@@ -26,8 +26,8 @@ const Routes = () => {
         <Route path="/drawers/{id:Int}" page={DrawerDrawerPage} name="drawer" />
         <Route path="/drawers" page={DrawerDrawersPage} name="drawers" />
 
-        <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}/drawers/{drawerId:Int}/items/new" page={InventoryPage} name="inventoryNewItem" />
         <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}/drawers/{drawerId:Int}/items/{itemId:Int}" page={InventoryPage} name="inventoryItem" />
+        <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}/drawers/{drawerId:Int}/items/new" page={InventoryPage} name="inventoryNewItem" />
         <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}/drawers/{drawerId:Int}" page={InventoryPage} name="inventoryDrawer" />
         <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}" page={InventoryPage} name="inventoryStorageUnit" />
         <Route path="/inventory/rooms/{roomId:Int}" page={InventoryPage} name="inventoryRoom" />

@@ -1,7 +1,8 @@
-import { Form, FormError, FieldError, Label, TextField, NumberField, Submit } from '@redwoodjs/forms';
-
+import { Form, FormError, FieldError, Label, TextField, Submit, SelectField } from '@redwoodjs/forms';
 import type { EditItemById, UpdateItemInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
+import { useQuery } from '@redwoodjs/web';
+import type { FindIdAndColor, FindIdAndItemType } from 'types/graphql';
 
 type FormItem = NonNullable<EditItemById['item']>;
 
@@ -13,9 +14,47 @@ interface ItemFormProps {
   drawerId?: number;
 }
 
+const FindIdAndColorQuery = gql`
+  query FindIdAndColor {
+    colors {
+      id
+      color
+    }
+  }
+`;
+
+const FindIdAndItemTypeQuery = gql`
+  query FindIdAndItemType {
+    itemTypes {
+      id
+      itemType
+    }
+  }
+`;
+
 const ItemForm = (props: ItemFormProps) => {
+  const {
+    data: colorsData,
+    loading: colorsLoading,
+    error: colorsError,
+  } = useQuery<FindIdAndColor>(FindIdAndColorQuery);
+
+  const {
+    data: itemTypesData,
+    loading: itemTypesLoading,
+    error: itemTypesError,
+  } = useQuery<FindIdAndItemType>(FindIdAndItemTypeQuery);
+
+  if (colorsError || colorsLoading) return null;
+  if (itemTypesError || itemTypesLoading) return null;
+
   const onSubmit = (data: FormItem) => {
-    const newRecord = props.drawerId ? { ...data, drawerId: props.drawerId } : data;
+    const newRecord = {
+      ...data,
+      drawerId: props.drawerId,
+      colorId: parseInt(data.colorId.toString()),
+      itemTypeId: parseInt(data.itemTypeId.toString()),
+    };
     props.onSave(newRecord, props?.item?.id);
   };
 
@@ -44,35 +83,37 @@ const ItemForm = (props: ItemFormProps) => {
         <FieldError name="name" className="rw-field-error" />
 
         <Label name="colorId" className="rw-label" errorClassName="rw-label rw-label-error">
-          Color id
+          Color
         </Label>
 
-        <NumberField
-          name="colorId"
-          defaultValue={props.item?.colorId}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
-
-        <FieldError name="colorId" className="rw-field-error" />
+        <SelectField name="colorId">
+          {colorsData.colors.map((color) => {
+            return (
+              <option key={color.id} value={color.id}>
+                {color.color}
+              </option>
+            );
+          })}
+        </SelectField>
 
         <Label name="itemTypeId" className="rw-label" errorClassName="rw-label rw-label-error">
-          Item type id
+          Item type
         </Label>
 
-        <NumberField
-          name="itemTypeId"
-          defaultValue={props.item?.itemTypeId}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
+        <SelectField name="itemTypeId">
+          {itemTypesData.itemTypes.map((itemType) => {
+            return (
+              <option key={itemType.id} value={itemType.id}>
+                {itemType.itemType}
+              </option>
+            );
+          })}
+        </SelectField>
 
         <FieldError name="itemTypeId" className="rw-field-error" />
 
         <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
+          <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>
         </div>
