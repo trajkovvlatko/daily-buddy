@@ -2,11 +2,7 @@ export const schema = gql`
   type Item {
     id: Int!
     name: String!
-    createdAt: DateTime!
-    Drawer: Drawer!
     drawerId: Int!
-    User: User!
-    userId: Int!
     Color: Color!
     colorId: Int!
     ItemType: ItemType!
@@ -14,14 +10,13 @@ export const schema = gql`
   }
 
   type Query {
-    items: [Item!]! @requireAuth
+    items(drawerId: Int!): [Item!]! @requireAuth
     item(id: Int!): Item @requireAuth
   }
 
   input CreateItemInput {
     name: String!
     drawerId: Int!
-    userId: Int!
     colorId: Int!
     itemTypeId: Int!
   }
@@ -29,7 +24,6 @@ export const schema = gql`
   input UpdateItemInput {
     name: String
     drawerId: Int
-    userId: Int
     colorId: Int
     itemTypeId: Int
   }

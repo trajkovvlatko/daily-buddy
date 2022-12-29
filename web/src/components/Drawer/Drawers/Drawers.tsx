@@ -1,4 +1,4 @@
-import { Link, routes } from '@redwoodjs/router';
+import { Link, routes, useParams } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 import { QUERY } from 'src/components/Drawer/DrawersCell';
@@ -34,11 +34,14 @@ const DrawersList = ({ drawers }: FindDrawers) => {
     }
   };
 
+  const params = useParams();
+  const roomId = parseInt(params.roomId);
+
   return (
     <ul>
       {drawers.map((drawer) => (
         <li key={drawer.id}>
-          <Link to={routes.inventoryDrawer({ roomId: 1, storageUnitId: drawer.storageUnitId, drawerId: drawer.id })}>
+          <Link to={routes.inventoryDrawer({ roomId, storageUnitId: drawer.storageUnitId, drawerId: drawer.id })}>
             {truncate(drawer.level)} -{truncate(drawer.note)}
           </Link>
         </li>

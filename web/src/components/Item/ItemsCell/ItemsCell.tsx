@@ -1,44 +1,26 @@
-import type { FindItems } from 'types/graphql'
+import type { FindItems } from 'types/graphql';
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 
-import { Link, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
-
-import Items from 'src/components/Item/Items'
+import Items from 'src/components/Item/Items';
 
 export const QUERY = gql`
-  query FindItems {
-    items {
+  query FindItems($drawerId: Int!) {
+    items(drawerId: $drawerId) {
       id
       name
-      createdAt
       drawerId
-      userId
       colorId
       itemTypeId
     }
   }
-`
+`;
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div>Loading...</div>;
 
-export const Empty = () => {
-  return (
-    <div className="rw-text-center">
-      {'No items yet. '}
-      <Link
-        to={routes.newItem()}
-        className="rw-link"
-      >
-        {'Create one?'}
-      </Link>
-    </div>
-  )
-}
+export const Empty = () => null;
 
-export const Failure = ({ error }: CellFailureProps) => (
-  <div className="rw-cell-error">{error?.message}</div>
-)
+export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 export const Success = ({ items }: CellSuccessProps<FindItems>) => {
-  return <Items items={items} />
-}
+  return <Items items={items} />;
+};
