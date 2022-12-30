@@ -2,10 +2,11 @@ import { navigate, routes, useParams } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 import ItemForm from 'src/components/Item/ItemForm';
-import { useCallback, useContext, useRef, useState } from 'react';
-import Webcam from 'react-webcam';
+import { useContext, useState } from 'react';
 import { FileStackContext } from 'src/contexts/FileStackContext';
 import type { CreateItemInput } from 'types/graphql';
+import { UPDATE_ITEM_MUTATION } from '../EditItemCell';
+import WebCamForm from '../WebCamForm/WebCamForm';
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CreateItemMutation($input: CreateItemInput!) {
@@ -15,29 +16,10 @@ const CREATE_ITEM_MUTATION = gql`
   }
 `;
 
-const UPDATE_ITEM_MUTATION = gql`
-  mutation UpdateItemMutation($id: Int!, $input: UpdateItemInput!) {
-    updateItem(id: $id, input: $input) {
-      id
-      name
-      colorId
-      itemTypeId
-    }
-  }
-`;
-
 const NewItem = ({ drawerId }: { drawerId: number; callback: () => void }) => {
   const params = useParams();
-  const fileStackContext = useContext(FileStackContext);
-  const { fileStackClient } = fileStackContext;
+  const { fileStackClient } = useContext(FileStackContext);
   const [imageData, setImageData] = useState(null);
-  const webcamRef = useRef(null);
-
-  const capture = useCallback(async () => {
-    setImageData(webcamRef.current.getScreenshot());
-  }, [webcamRef]);
-
-  const retake = () => setImageData(null);
 
   const [createItem, { loading, error }] = useMutation(CREATE_ITEM_MUTATION, {
     refetchQueries: ['FindItems'],
@@ -79,25 +61,7 @@ const NewItem = ({ drawerId }: { drawerId: number; callback: () => void }) => {
 
   return (
     <>
-      <>
-        <Webcam
-          width={720}
-          height={480}
-          ref={webcamRef}
-          videoConstraints={{
-            width: { min: 720 },
-            height: { min: 480 },
-            facingMode: 'user',
-          }}
-          screenshotFormat="image/png"
-        />
-        <button onClick={capture}>Capture photo</button>
-      </>
-
-      <>
-        <img src={imageData} />
-        <button onClick={retake}>Retake</button>
-      </>
+      <WebCamForm imageData={imageData} setImageData={setImageData} />
       <ItemForm onSave={onSave} loading={loading} error={error} drawerId={drawerId} />
     </>
   );

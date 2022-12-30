@@ -41,9 +41,11 @@ const Item = ({ item }: Props) => {
         <h2 className="h2">{item.name}</h2>
         <div>{item.ItemType.itemType}</div>
         <div>{item.Color.color}</div>
-        <div>
-          <img src={imageUrl} />
-        </div>
+        {!!item.imageHandle && (
+          <div>
+            <img src={imageUrl} />
+          </div>
+        )}
       </div>
       <nav>
         <button onClick={() => navigate(routes.editItem({ id: item.id }))} className="blue-button">

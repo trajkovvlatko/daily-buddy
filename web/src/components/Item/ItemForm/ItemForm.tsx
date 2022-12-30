@@ -85,7 +85,7 @@ const ItemForm = (props: ItemFormProps) => {
           Color
         </Label>
 
-        <SelectField name="colorId">
+        <SelectField name="colorId" defaultValue={props.item?.colorId}>
           {colorsData.colors.map((color) => {
             return (
               <option key={color.id} value={color.id}>
@@ -99,7 +99,7 @@ const ItemForm = (props: ItemFormProps) => {
           Item type
         </Label>
 
-        <SelectField name="itemTypeId">
+        <SelectField name="itemTypeId" defaultValue={props.item?.itemTypeId}>
           {itemTypesData.itemTypes.map((itemType) => {
             return (
               <option key={itemType.id} value={itemType.id}>
