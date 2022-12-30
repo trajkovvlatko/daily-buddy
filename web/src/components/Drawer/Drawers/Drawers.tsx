@@ -39,13 +39,22 @@ const DrawersList = ({ drawers }: FindDrawers) => {
 
   return (
     <ul>
-      {drawers.map((drawer) => (
-        <li key={drawer.id}>
-          <Link to={routes.inventoryDrawer({ roomId, storageUnitId: drawer.storageUnitId, drawerId: drawer.id })}>
-            {truncate(drawer.level)} -{truncate(drawer.note)}
-          </Link>
-        </li>
-      ))}
+      {drawers.map((drawer) => {
+        const active = location.pathname.includes(`/drawers/${drawer.id}`) ? 'bg-gray-100' : '';
+
+        return (
+          <li key={drawer.id}>
+            <div className={`block cursor-pointer border-t-2 border-t-gray-100 ${active}`}>
+              <Link
+                to={routes.inventoryDrawer({ roomId, storageUnitId: drawer.storageUnitId, drawerId: drawer.id })}
+                className="block py-4 pl-5 text-sm"
+              >
+                {truncate(drawer.level)} -{truncate(drawer.note)}
+              </Link>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 };

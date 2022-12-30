@@ -8,18 +8,20 @@ const StorageUnitsMenu = ({ roomId }: { roomId: number }) => {
 
   return (
     <>
-      <h2 className="h2">Storage Units</h2>
-      <div className="mb-6 border-b px-3 pb-6">
-        <StorageUnitsCell roomId={roomId} />
-      </div>
-      <div className="mb-6">
-        <button onClick={toggle}>{open ? 'Close' : 'Add new storage unit'}</button>
-      </div>
+      <h2 className="h2 mb-6">
+        Storage Units
+        <button onClick={toggle} className="green-button mr-3 px-3 py-1">
+          {open ? 'x' : '+'}
+        </button>
+      </h2>
       {open && (
         <div className="mb-6 px-3">
           <NewStorageUnit roomId={roomId} callback={toggle} />
         </div>
       )}
+      <div className="mb-6 border-b pb-6">
+        <StorageUnitsCell roomId={roomId} />
+      </div>
     </>
   );
 };

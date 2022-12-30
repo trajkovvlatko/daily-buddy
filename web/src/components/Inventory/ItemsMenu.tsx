@@ -9,12 +9,14 @@ const ItemsMenu = ({ drawerId }: { drawerId: number }) => {
 
   return (
     <>
-      <h2 className="h2">Items</h2>
-      <div className="mb-6 border-b px-3 pb-6">
+      <h2 className="h2 mb-6">
+        Items
+        <button onClick={() => navigate(newItemPath)} className="green-button mr-3 px-3 py-1">
+          +
+        </button>
+      </h2>
+      <div className="mb-6 border-b pb-6">
         <ItemsCell drawerId={drawerId} />
-      </div>
-      <div className="mb-6">
-        <button onClick={() => navigate(newItemPath)}>Add new item</button>
       </div>
     </>
   );

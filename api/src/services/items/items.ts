@@ -6,6 +6,7 @@ export const items: QueryResolvers['items'] = ({ drawerId }, { context }) => {
 
   return db.item.findMany({
     where: { userId, drawerId },
+    orderBy: { name: 'asc' },
   });
 };
 

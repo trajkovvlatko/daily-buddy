@@ -7,6 +7,7 @@ export const storageUnits: QueryResolvers['storageUnits'] = ({ roomId }, { conte
 
   return db.storageUnit.findMany({
     where: { userId, roomId },
+    orderBy: { name: 'asc' },
   });
 };
 

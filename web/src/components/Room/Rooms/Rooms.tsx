@@ -1,10 +1,8 @@
 import { Link, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-
 import { QUERY } from 'src/components/Room/RoomsCell';
-import { timeTag, truncate } from 'src/lib/formatters';
-
+import { truncate } from 'src/lib/formatters';
 import type { DeleteRoomMutationVariables, FindRooms } from 'types/graphql';
 
 const DELETE_ROOM_MUTATION = gql`
@@ -38,11 +36,19 @@ const RoomsList = ({ rooms }: FindRooms) => {
 
   return (
     <ul>
-      {rooms.map((room) => (
-        <li key={room.id}>
-          <Link to={routes.inventoryRoom({ roomId: room.id })}>{truncate(room.name)}</Link>
-        </li>
-      ))}
+      {rooms.map((room) => {
+        const active = location.pathname.includes(`/rooms/${room.id}`) ? 'bg-gray-100' : '';
+
+        return (
+          <li key={room.id}>
+            <div className={`block cursor-pointer border-t-2 border-t-gray-100 ${active}`}>
+              <Link to={routes.inventoryRoom({ roomId: room.id })} className="block py-4 pl-5 text-sm">
+                {truncate(room.name)}
+              </Link>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 };

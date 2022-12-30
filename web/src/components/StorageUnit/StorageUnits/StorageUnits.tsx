@@ -36,13 +36,22 @@ const StorageUnitsList = ({ storageUnits }: FindStorageUnits) => {
 
   return (
     <ul>
-      {storageUnits.map((storageUnit) => (
-        <li key={storageUnit.id}>
-          <Link to={routes.inventoryStorageUnit({ roomId: storageUnit.roomId, storageUnitId: storageUnit.id })}>
-            {truncate(storageUnit.name)}
-          </Link>
-        </li>
-      ))}
+      {storageUnits.map((storageUnit) => {
+        const active = location.pathname.includes(`/storage_units/${storageUnit.id}`) ? 'bg-gray-100' : '';
+
+        return (
+          <li key={storageUnit.id}>
+            <div className={`block cursor-pointer border-t-2 border-t-gray-100 ${active}`}>
+              <Link
+                to={routes.inventoryStorageUnit({ roomId: storageUnit.roomId, storageUnitId: storageUnit.id })}
+                className="block py-4 pl-5 text-sm"
+              >
+                {truncate(storageUnit.name)}
+              </Link>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 };

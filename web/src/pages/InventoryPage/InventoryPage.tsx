@@ -1,4 +1,3 @@
-import { useParams } from '@redwoodjs/router';
 import DrawersMenu from 'src/components/Inventory/DrawersMenu';
 import ItemsMenu from 'src/components/Inventory/ItemsMenu';
 import RoomsMenu from 'src/components/Inventory/RoomsMenu';
@@ -15,8 +14,6 @@ interface Props {
 }
 
 const InventoryPage = ({ roomId, storageUnitId, drawerId, itemId }: Props) => {
-  const params = useParams();
-
   return (
     <PageWrapper>
       <div className="h-100 col-span-2 border-r">

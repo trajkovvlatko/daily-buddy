@@ -7,6 +7,7 @@ export const rooms: QueryResolvers['rooms'] = (_, { context }) => {
 
   return db.room.findMany({
     where: { userId },
+    orderBy: { name: 'asc' },
   });
 };
 

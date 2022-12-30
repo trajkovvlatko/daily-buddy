@@ -7,6 +7,7 @@ export const drawers: QueryResolvers['drawers'] = ({ storageUnitId }, { context 
 
   return db.drawer.findMany({
     where: { userId, storageUnitId },
+    orderBy: { level: 'asc' },
   });
 };
 

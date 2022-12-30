@@ -8,18 +8,20 @@ const RoomsMenu = () => {
 
   return (
     <>
-      <h2 className="h2">Rooms</h2>
-      <div className="mb-6 border-b px-3 pb-6">
-        <RoomsCell />
-      </div>
-      <div className="mb-6">
-        <button onClick={toggle}>{open ? 'Close' : 'Add new room'}</button>
-      </div>
+      <h2 className="h2 mb-6">
+        Rooms
+        <button onClick={toggle} className="green-button mr-3 px-3 py-1">
+          {open ? `x` : '+'}
+        </button>
+      </h2>
       {open && (
         <div className="mb-6 px-3">
           <NewRoom callback={toggle} />
         </div>
       )}
+      <div className="mb-6 border-b pb-6">
+        <RoomsCell />
+      </div>
     </>
   );
 };
