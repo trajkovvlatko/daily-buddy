@@ -146,6 +146,9 @@ model Drawer {
 model Item {
   id                 Int         @id @default(autoincrement())
   name               String
+  imageFilename      String?
+  imageUrl           String?
+  imageHandle        String?
   createdAt          DateTime    @default(now())
   Drawer             Drawer @relation(references: [id], fields: [drawerId])
   drawerId           Int

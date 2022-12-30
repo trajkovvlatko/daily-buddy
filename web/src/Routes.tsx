@@ -8,9 +8,7 @@
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
 import { Set, Router, Route } from '@redwoodjs/router';
-
 import ScaffoldLayout from 'src/layouts/ScaffoldLayout';
-// import InventoryPage from './pages/Inventory/InventoryPage';
 
 const Routes = () => {
   return (

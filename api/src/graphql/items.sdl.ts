@@ -7,6 +7,9 @@ export const schema = gql`
     colorId: Int!
     ItemType: ItemType!
     itemTypeId: Int!
+    imageFilename: String
+    imageUrl: String
+    imageHandle: String
   }
 
   type Query {
@@ -26,6 +29,9 @@ export const schema = gql`
     drawerId: Int
     colorId: Int
     itemTypeId: Int
+    imageFilename: String
+    imageUrl: String
+    imageHandle: String
   }
 
   type Mutation {

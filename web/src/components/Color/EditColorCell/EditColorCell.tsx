@@ -1,59 +1,45 @@
-import type { EditColorById, UpdateColorInput } from 'types/graphql'
-
-import { navigate, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
-
-import ColorForm from 'src/components/Color/ColorForm'
+import type { EditColorById, UpdateColorInput } from 'types/graphql';
+import { navigate, routes } from '@redwoodjs/router';
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
+import ColorForm from 'src/components/Color/ColorForm';
 
 export const QUERY = gql`
   query EditColorById($id: Int!) {
     color: color(id: $id) {
       id
       color
-      createdAt
-      userId
     }
   }
-`
+`;
 const UPDATE_COLOR_MUTATION = gql`
   mutation UpdateColorMutation($id: Int!, $input: UpdateColorInput!) {
     updateColor(id: $id, input: $input) {
       id
       color
-      createdAt
-      userId
     }
   }
-`
+`;
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div>Loading...</div>;
 
-export const Failure = ({ error }: CellFailureProps) => (
-  <div className="rw-cell-error">{error?.message}</div>
-)
+export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 export const Success = ({ color }: CellSuccessProps<EditColorById>) => {
-  const [updateColor, { loading, error }] = useMutation(
-    UPDATE_COLOR_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('Color updated')
-        navigate(routes.colors())
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    }
-  )
+  const [updateColor, { loading, error }] = useMutation(UPDATE_COLOR_MUTATION, {
+    onCompleted: () => {
+      toast.success('Color updated');
+      navigate(routes.colors());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
-  const onSave = (
-    input: UpdateColorInput,
-    id: EditColorById['color']['id']
-  ) => {
-    updateColor({ variables: { id, input } })
-  }
+  const onSave = (input: UpdateColorInput, id: EditColorById['color']['id']) => {
+    updateColor({ variables: { id, input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -64,5 +50,5 @@ export const Success = ({ color }: CellSuccessProps<EditColorById>) => {
         <ColorForm color={color} onSave={onSave} error={error} loading={loading} />
       </div>
     </div>
-  )
-}
+  );
+};

@@ -33,12 +33,17 @@ const Item = ({ item }: Props) => {
     }
   };
 
+  const imageUrl = `${process.env.FILESTACK_HOST}/${item.imageHandle}`;
+
   return (
     <>
       <div>
         <h2 className="h2">{item.name}</h2>
         <div>{item.ItemType.itemType}</div>
         <div>{item.Color.color}</div>
+        <div>
+          <img src={imageUrl} />
+        </div>
       </div>
       <nav>
         <button onClick={() => navigate(routes.editItem({ id: item.id }))} className="blue-button">

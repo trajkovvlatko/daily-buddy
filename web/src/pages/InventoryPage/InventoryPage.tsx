@@ -16,7 +16,6 @@ interface Props {
 
 const InventoryPage = ({ roomId, storageUnitId, drawerId, itemId }: Props) => {
   const params = useParams();
-  console.log(params);
 
   return (
     <PageWrapper>

@@ -7,6 +7,7 @@ export const QUERY = gql`
     item: item(id: $id) {
       id
       name
+      imageHandle
       drawerId
       colorId
       Color {

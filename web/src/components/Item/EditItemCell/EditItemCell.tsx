@@ -3,7 +3,6 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 import ItemForm from 'src/components/Item/ItemForm';
-import { back } from '@redwoodjs/router';
 
 export const QUERY = gql`
   query EditItemById($id: Int!) {
@@ -34,7 +33,6 @@ export const Success = ({ item }: CellSuccessProps<EditItemById>) => {
   const [updateItem, { loading, error }] = useMutation(UPDATE_ITEM_MUTATION, {
     onCompleted: () => {
       toast.success('Item updated');
-      back();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -45,5 +43,9 @@ export const Success = ({ item }: CellSuccessProps<EditItemById>) => {
     updateItem({ variables: { id, input } });
   };
 
-  return <ItemForm item={item} onSave={onSave} error={error} loading={loading} />;
+  return (
+    <>
+      <ItemForm item={item} onSave={onSave} error={error} loading={loading} />
+    </>
+  );
 };

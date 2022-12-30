@@ -48,14 +48,13 @@ const ItemForm = (props: ItemFormProps) => {
   if (colorsError || colorsLoading) return null;
   if (itemTypesError || itemTypesLoading) return null;
 
-  const onSubmit = (data: FormItem) => {
-    const newRecord = {
-      ...data,
-      drawerId: props.drawerId,
-      colorId: parseInt(data.colorId.toString()),
-      itemTypeId: parseInt(data.itemTypeId.toString()),
-    };
-    props.onSave(newRecord, props?.item?.id);
+  const onSubmit = (formData: FormItem) => {
+    const colorId = parseInt(formData.colorId.toString());
+    const itemTypeId = parseInt(formData.itemTypeId.toString());
+    const drawerId = props.drawerId;
+    const newData = { ...formData, drawerId, colorId, itemTypeId };
+
+    props.onSave(newData, props?.item?.id);
   };
 
   return (
