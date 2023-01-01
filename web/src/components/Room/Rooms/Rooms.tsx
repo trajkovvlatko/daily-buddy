@@ -11,7 +11,7 @@ const RoomsList = ({ rooms }: FindRooms) => {
         return (
           <li key={room.id} className="inventory-menu">
             <div className={`block cursor-pointer border-t-2 border-t-gray-100 ${active} flex justify-between`}>
-              <Link to={routes.inventoryRoom({ roomId: room.id })} className="block py-4 pl-5 text-sm">
+              <Link to={routes.inventoryRoom({ roomId: room.id })} className="block w-full py-4 pl-5 text-sm">
                 {truncate(room.name)}
               </Link>
               <Link to={routes.editRoom({ id: room.id })} className="edit-link block py-4 pr-5 text-sm md:hidden">

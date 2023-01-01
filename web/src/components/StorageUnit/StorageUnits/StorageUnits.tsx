@@ -13,7 +13,7 @@ const StorageUnitsList = ({ storageUnits }: FindStorageUnits) => {
             <div className={`block cursor-pointer border-t-2 border-t-gray-100 ${active} flex justify-between`}>
               <Link
                 to={routes.inventoryStorageUnit({ roomId: storageUnit.roomId, storageUnitId: storageUnit.id })}
-                className="block py-4 pl-5 text-sm"
+                className="block w-full py-4 pl-5 text-sm"
               >
                 {truncate(storageUnit.name)}
               </Link>

@@ -27,7 +27,14 @@ const WebCamForm = ({
     </>
   ) : (
     <>
-      <Webcam width={720} height={480} ref={webcamRef} screenshotFormat="image/png" />
+      <Webcam
+        width={720}
+        height={480}
+        ref={webcamRef}
+        screenshotFormat="image/png"
+        minScreenshotHeight={720}
+        minScreenshotWidth={1080}
+      />
       <div className="mt-3 flex justify-center">
         <button onClick={capture} className="green-button">
           Capture photo

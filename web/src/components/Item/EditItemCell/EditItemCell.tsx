@@ -15,6 +15,7 @@ export const QUERY = gql`
       name
       colorId
       itemTypeId
+      imageHandle
     }
   }
 `;
@@ -36,7 +37,9 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 
 export const Success = ({ item }: CellSuccessProps<EditItemById>) => {
   const { fileStackClient } = useContext(FileStackContext);
-  const [imageData, setImageData] = useState(null);
+  const [imageData, setImageData] = useState(
+    item.imageHandle ? `${process.env.FILESTACK_HOST}/${item.imageHandle}` : null
+  );
 
   const [updateItem, { loading, error }] = useMutation(UPDATE_ITEM_MUTATION, {
     onCompleted: () => {

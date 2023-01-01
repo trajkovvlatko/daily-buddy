@@ -16,7 +16,7 @@ const DrawersList = ({ drawers }: FindDrawers) => {
             <div className={`block cursor-pointer border-t-2 border-t-gray-100 ${active} flex justify-between`}>
               <Link
                 to={routes.inventoryDrawer({ roomId, storageUnitId: drawer.storageUnitId, drawerId: drawer.id })}
-                className="block py-4 pl-5 text-sm"
+                className="block w-full py-4 pl-5 text-sm"
               >
                 {truncate(drawer.level)} -{truncate(drawer.note)}
               </Link>

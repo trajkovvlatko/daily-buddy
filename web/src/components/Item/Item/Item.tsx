@@ -38,18 +38,18 @@ const Item = ({ item }: Props) => {
   return (
     <div className="px-5">
       <div>
-        <h2 className="h2 mb-6">{item.name}</h2>
+        <h2 className="h2 mb-6 pl-0">{item.name}</h2>
+        {!!item.imageHandle && (
+          <div className="mb-6">
+            <img src={imageUrl} />
+          </div>
+        )}
         <div className="mb-3">
           Type: <b>{item.ItemType.itemType}</b>
         </div>
         <div className="mb-3">
           Color: <b>{item.Color.color}</b>
         </div>
-        {!!item.imageHandle && (
-          <div>
-            <img src={imageUrl} />
-          </div>
-        )}
       </div>
       <nav className="mt-3 flex justify-end gap-3">
         <button type="button" className="red-button" onClick={() => onDeleteClick(item.id)}>
