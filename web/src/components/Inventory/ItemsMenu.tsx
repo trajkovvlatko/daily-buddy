@@ -15,7 +15,7 @@ const ItemsMenu = ({ drawerId }: { drawerId: number }) => {
           +
         </button>
       </h2>
-      <div className="mb-6 border-b pb-6">
+      <div className="mb-6 max-h-[80vh] overflow-y-auto border-b pb-6">
         <ItemsCell drawerId={drawerId} />
       </div>
     </>

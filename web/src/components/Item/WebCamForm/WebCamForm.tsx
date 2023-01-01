@@ -19,12 +19,20 @@ const WebCamForm = ({
   return !!imageData ? (
     <>
       <img src={imageData} />
-      <button onClick={retake}>Retake</button>
+      <div className="mt-3 flex justify-center">
+        <button onClick={retake} className="green-button">
+          Retake
+        </button>
+      </div>
     </>
   ) : (
     <>
       <Webcam width={720} height={480} ref={webcamRef} screenshotFormat="image/png" />
-      <button onClick={capture}>Capture photo</button>
+      <div className="mt-3 flex justify-center">
+        <button onClick={capture} className="green-button">
+          Capture photo
+        </button>
+      </div>
     </>
   );
 };

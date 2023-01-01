@@ -55,7 +55,7 @@ const DrawerForm = (props: DrawerFormProps) => {
 
         <FieldError name="note" className="rw-field-error" />
 
-        <div className="rw-button-group">
+        <div className="mt-3 flex justify-end">
           <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>

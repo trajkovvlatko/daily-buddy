@@ -36,26 +36,30 @@ const Item = ({ item }: Props) => {
   const imageUrl = `${process.env.FILESTACK_HOST}/${item.imageHandle}`;
 
   return (
-    <>
+    <div className="px-5">
       <div>
-        <h2 className="h2">{item.name}</h2>
-        <div>{item.ItemType.itemType}</div>
-        <div>{item.Color.color}</div>
+        <h2 className="h2 mb-6">{item.name}</h2>
+        <div className="mb-3">
+          Type: <b>{item.ItemType.itemType}</b>
+        </div>
+        <div className="mb-3">
+          Color: <b>{item.Color.color}</b>
+        </div>
         {!!item.imageHandle && (
           <div>
             <img src={imageUrl} />
           </div>
         )}
       </div>
-      <nav>
-        <button onClick={() => navigate(routes.editItem({ id: item.id }))} className="blue-button">
-          Edit
-        </button>
+      <nav className="mt-3 flex justify-end gap-3">
         <button type="button" className="red-button" onClick={() => onDeleteClick(item.id)}>
           Delete
         </button>
+        <button onClick={() => navigate(routes.editItem({ id: item.id }))} className="blue-button">
+          Edit
+        </button>
       </nav>
-    </>
+    </div>
   );
 };
 

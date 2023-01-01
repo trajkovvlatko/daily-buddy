@@ -60,10 +60,10 @@ const NewItem = ({ drawerId }: { drawerId: number; callback: () => void }) => {
   };
 
   return (
-    <>
+    <div className="px-5">
       <WebCamForm imageData={imageData} setImageData={setImageData} />
       <ItemForm onSave={onSave} loading={loading} error={error} drawerId={drawerId} />
-    </>
+    </div>
   );
 };
 

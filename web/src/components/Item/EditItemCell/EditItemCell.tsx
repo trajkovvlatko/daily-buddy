@@ -6,6 +6,7 @@ import ItemForm from 'src/components/Item/ItemForm';
 import { useContext, useState } from 'react';
 import WebCamForm from '../WebCamForm/WebCamForm';
 import { FileStackContext } from 'src/contexts/FileStackContext';
+import { back } from '@redwoodjs/router';
 
 export const QUERY = gql`
   query EditItemById($id: Int!) {
@@ -56,7 +57,8 @@ export const Success = ({ item }: CellSuccessProps<EditItemById>) => {
       input.imageHandle = imageHandle;
       input.imageFilename = imageFilename;
     }
-    updateItem({ variables: { id, input } });
+    await updateItem({ variables: { id, input } });
+    back();
   };
 
   return (

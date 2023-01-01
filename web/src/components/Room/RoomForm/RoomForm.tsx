@@ -43,7 +43,7 @@ const RoomForm = (props: RoomFormProps) => {
 
         <FieldError name="userId" className="rw-field-error" />
 
-        <div className="rw-button-group">
+        <div className="mt-3 flex justify-end">
           <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>

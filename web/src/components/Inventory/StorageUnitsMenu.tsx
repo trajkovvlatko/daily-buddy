@@ -19,7 +19,7 @@ const StorageUnitsMenu = ({ roomId }: { roomId: number }) => {
           <NewStorageUnit roomId={roomId} callback={toggle} />
         </div>
       )}
-      <div className="mb-6 border-b pb-6">
+      <div className="mb-6 max-h-[80vh] overflow-y-auto border-b pb-6">
         <StorageUnitsCell roomId={roomId} />
       </div>
     </>
