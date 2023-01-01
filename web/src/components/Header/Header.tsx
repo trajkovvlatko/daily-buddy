@@ -21,6 +21,11 @@ const Header = () => {
               Journal
             </Link>
           </li>
+          <li className="mr-6">
+            <Link to={routes.inventory()} className="text-blue-500 hover:text-blue-800">
+              Inventory
+            </Link>
+          </li>
           <ProfileMenu />
         </ul>
       </div>

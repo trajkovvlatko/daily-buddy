@@ -31,8 +31,8 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 export const Success = ({ journals }: CellSuccessProps<FindJournals>) => {
   return (
     <>
-      <h2 className="font-col flex flex-row justify-between pl-5 text-lg">
-        <span className="text-lg font-semibold">Journal</span>
+      <h2 className="h2">
+        <span>Journal</span>
         <button
           onClick={() => navigate(routes.newJournal())}
           title={'New journal'}

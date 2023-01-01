@@ -8,13 +8,34 @@
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
 import { Set, Router, Route } from '@redwoodjs/router';
-
 import ScaffoldLayout from 'src/layouts/ScaffoldLayout';
 
 const Routes = () => {
   return (
     <Router>
       <Set wrap={ScaffoldLayout}>
+        <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}/drawers/{drawerId:Int}/items/{itemId:Int}" page={InventoryPage} name="inventoryItem" />
+        <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}/drawers/{drawerId:Int}/items/new" page={InventoryPage} name="inventoryNewItem" />
+        <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}/drawers/{drawerId:Int}" page={InventoryPage} name="inventoryDrawer" />
+        <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}" page={InventoryPage} name="inventoryStorageUnit" />
+        <Route path="/inventory/rooms/{roomId:Int}" page={InventoryPage} name="inventoryRoom" />
+        <Route path="/inventory" page={InventoryPage} name="inventory" />
+
+        <Route path="/storage-units/{id:Int}/edit" page={StorageUnitEditStorageUnitPage} name="editStorageUnit" />
+        <Route path="/rooms/{id:Int}/edit" page={RoomEditRoomPage} name="editRoom" />
+        <Route path="/drawers/{id:Int}/edit" page={DrawerEditDrawerPage} name="editDrawer" />
+        <Route path="/items/{id:Int}/edit" page={ItemEditItemPage} name="editItem" />
+
+        <Route path="/item-types/new" page={ItemTypeNewItemTypePage} name="newItemType" />
+        <Route path="/item-types/{id:Int}/edit" page={ItemTypeEditItemTypePage} name="editItemType" />
+        <Route path="/item-types/{id:Int}" page={ItemTypeItemTypePage} name="itemType" />
+        <Route path="/item-types" page={ItemTypeItemTypesPage} name="itemTypes" />
+
+        <Route path="/colors/new" page={ColorNewColorPage} name="newColor" />
+        <Route path="/colors/{id:Int}/edit" page={ColorEditColorPage} name="editColor" />
+        <Route path="/colors/{id:Int}" page={ColorColorPage} name="color" />
+        <Route path="/colors" page={ColorColorsPage} name="colors" />
+
         <Route path="/dashboard" page={DashboardPage} name="dashboard" />
 
         <Route path="/calendars/new" page={CalendarNewCalendarPage} name="newCalendar" />

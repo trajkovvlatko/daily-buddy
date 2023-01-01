@@ -39,8 +39,16 @@ ul {
     @apply mb-6 h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0 md:h-auto md:max-h-[80vh];
   }
 
+  .h2 {
+    @apply flex flex-row justify-between pl-5 text-lg text-lg font-semibold;
+  }
+
   .main-content {
-    @apply pb-3 pl-2 pr-6 md:col-span-9;
+    @apply pb-3 pl-2 pr-6 ml-3 md:col-span-9;
+  }
+
+  .menu-link {
+    @apply w-52 cursor-pointer border-b px-3 pt-3 pb-3;
   }
 
   .blue-button {
@@ -118,5 +126,9 @@ ul {
 }
 
 .note-menu:hover button {
+  display: block;
+}
+
+.inventory-menu:hover .edit-link {
   display: block;
 }
