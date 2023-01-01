@@ -3,7 +3,6 @@ import type { EditDrawerById, UpdateDrawerInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-import { QUERY } from 'src/components/Drawer/DrawersCell';
 import { navigate, routes } from '@redwoodjs/router';
 
 const DELETE_DRAWER_MUTATION = gql`
