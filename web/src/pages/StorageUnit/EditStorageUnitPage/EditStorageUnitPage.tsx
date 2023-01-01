@@ -1,3 +1,4 @@
+import PageWrapper from 'src/components/PageWrapper/PageWrapper';
 import EditStorageUnitCell from 'src/components/StorageUnit/EditStorageUnitCell';
 
 type StorageUnitPageProps = {
@@ -5,7 +6,13 @@ type StorageUnitPageProps = {
 };
 
 const EditStorageUnitPage = ({ id }: StorageUnitPageProps) => {
-  return <EditStorageUnitCell id={id} />;
+  return (
+    <PageWrapper>
+      <div className="col-span-12">
+        <EditStorageUnitCell id={id} />;
+      </div>
+    </PageWrapper>
+  );
 };
 
 export default EditStorageUnitPage;

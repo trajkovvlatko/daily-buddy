@@ -1,6 +1,18 @@
 import { Form, FormError, FieldError, Label, NumberField, TextField, Submit } from '@redwoodjs/forms';
 import type { EditDrawerById, UpdateDrawerInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
+import { QUERY } from 'src/components/Drawer/DrawersCell';
+import { navigate, routes } from '@redwoodjs/router';
+
+const DELETE_DRAWER_MUTATION = gql`
+  mutation DeleteDrawerMutation($id: Int!) {
+    deleteDrawer(id: $id) {
+      id
+    }
+  }
+`;
 
 type FormDrawer = NonNullable<EditDrawerById['drawer']>;
 
@@ -16,6 +28,23 @@ const DrawerForm = (props: DrawerFormProps) => {
   const onSubmit = (data: FormDrawer) => {
     const newRecord = props.storageUnitId ? { ...data, storageUnitId: props.storageUnitId } : data;
     props.onSave(newRecord, props?.drawer?.id);
+  };
+
+  const [deleteDrawer] = useMutation(DELETE_DRAWER_MUTATION, {
+    onCompleted: () => {
+      toast.success('Drawer deleted');
+      navigate(routes.inventory());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    awaitRefetchQueries: true,
+  });
+
+  const onDeleteClick = () => {
+    if (props.drawer && confirm('Are you sure you want to delete drawer ' + props.drawer.note + '?')) {
+      deleteDrawer({ variables: { id: props.drawer.id } });
+    }
   };
 
   return (
@@ -56,6 +85,11 @@ const DrawerForm = (props: DrawerFormProps) => {
         <FieldError name="note" className="rw-field-error" />
 
         <div className="mt-3 flex justify-end">
+          {props.drawer && (
+            <div onClick={onDeleteClick} className="red-button mr-3">
+              Delete
+            </div>
+          )}
           <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>

@@ -128,3 +128,7 @@ ul {
 .note-menu:hover button {
   display: block;
 }
+
+.inventory-menu:hover .edit-link {
+  display: block;
+}

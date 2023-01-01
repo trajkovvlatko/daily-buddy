@@ -1,10 +1,8 @@
 import type { EditRoomById, UpdateRoomInput } from 'types/graphql';
-
-import { navigate, routes } from '@redwoodjs/router';
+import { back } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-
 import RoomForm from 'src/components/Room/RoomForm';
 
 export const QUERY = gql`
@@ -32,7 +30,7 @@ export const Success = ({ room }: CellSuccessProps<EditRoomById>) => {
   const [updateRoom, { loading, error }] = useMutation(UPDATE_ROOM_MUTATION, {
     onCompleted: () => {
       toast.success('Room updated');
-      navigate(routes.rooms());
+      back();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -44,11 +42,9 @@ export const Success = ({ room }: CellSuccessProps<EditRoomById>) => {
   };
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">Edit Room {room?.id}</h2>
-      </header>
-      <div className="rw-segment-main">
+    <div>
+      <h2 className="h2">Edit Room {room?.name}</h2>
+      <div className="px-6">
         <RoomForm room={room} onSave={onSave} error={error} loading={loading} />
       </div>
     </div>

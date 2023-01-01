@@ -48,11 +48,9 @@ export const Success = ({ drawer }: CellSuccessProps<EditDrawerById>) => {
   };
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">Edit Drawer {drawer?.id}</h2>
-      </header>
-      <div className="rw-segment-main">
+    <div>
+      <h2 className="h2">Edit Drawer {drawer?.note}</h2>
+      <div className="px-6">
         <DrawerForm drawer={drawer} onSave={onSave} error={error} loading={loading} />
       </div>
     </div>

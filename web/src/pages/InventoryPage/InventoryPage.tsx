@@ -15,38 +15,36 @@ interface Props {
 
 const InventoryPage = ({ roomId, storageUnitId, drawerId, itemId }: Props) => {
   return (
-    <div className="h-[60vh]">
-      <PageWrapper>
+    <PageWrapper>
+      <div className="h-100 col-span-2 border-r">
+        <RoomsMenu />
+      </div>
+      {roomId && (
         <div className="h-100 col-span-2 border-r">
-          <RoomsMenu />
+          <StorageUnitsMenu roomId={roomId} />
         </div>
-        {roomId && (
-          <div className="h-100 col-span-2 border-r">
-            <StorageUnitsMenu roomId={roomId} />
-          </div>
-        )}
-        {roomId && storageUnitId && (
-          <div className="h-100 col-span-2 border-r">
-            <DrawersMenu storageUnitId={storageUnitId} />
-          </div>
-        )}
-        {roomId && storageUnitId && drawerId && (
-          <div className="h-100 col-span-2 border-r">
-            <ItemsMenu drawerId={drawerId} />
-          </div>
-        )}
-        {roomId && storageUnitId && drawerId && itemId && (
-          <div className="h-100 col-span-4 border-r">
-            <ItemCell id={itemId} />
-          </div>
-        )}
-        {roomId && storageUnitId && drawerId && !itemId && (
-          <div className="h-100 col-span-4 border-r">
-            <NewItem drawerId={drawerId} callback={() => {}} />
-          </div>
-        )}
-      </PageWrapper>
-    </div>
+      )}
+      {roomId && storageUnitId && (
+        <div className="h-100 col-span-2 border-r">
+          <DrawersMenu storageUnitId={storageUnitId} />
+        </div>
+      )}
+      {roomId && storageUnitId && drawerId && (
+        <div className="h-100 col-span-2 border-r">
+          <ItemsMenu drawerId={drawerId} />
+        </div>
+      )}
+      {roomId && storageUnitId && drawerId && itemId && (
+        <div className="h-100 col-span-4 border-r">
+          <ItemCell id={itemId} />
+        </div>
+      )}
+      {roomId && storageUnitId && drawerId && !itemId && (
+        <div className="h-100 col-span-4 border-r">
+          <NewItem drawerId={drawerId} callback={() => {}} />
+        </div>
+      )}
+    </PageWrapper>
   );
 };
 

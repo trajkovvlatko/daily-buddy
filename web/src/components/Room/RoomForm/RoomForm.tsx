@@ -1,7 +1,9 @@
 import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
-
+import { useMutation } from '@redwoodjs/web';
 import type { EditRoomById, UpdateRoomInput } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
+import { back } from '@redwoodjs/router';
+import { toast } from '@redwoodjs/web/toast';
 
 type FormRoom = NonNullable<EditRoomById['room']>;
 
@@ -12,9 +14,34 @@ interface RoomFormProps {
   loading: boolean;
 }
 
+const DELETE_ROOM_MUTATION = gql`
+  mutation DeleteRoomMutation($id: Int!) {
+    deleteRoom(id: $id) {
+      id
+    }
+  }
+`;
+
 const RoomForm = (props: RoomFormProps) => {
   const onSubmit = (data: FormRoom) => {
     props.onSave(data, props?.room?.id);
+  };
+
+  const [deleteRoom] = useMutation(DELETE_ROOM_MUTATION, {
+    onCompleted: () => {
+      toast.success('Room deleted');
+      back();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    awaitRefetchQueries: true,
+  });
+
+  const onDeleteClick = () => {
+    if (props.room && confirm('Are you sure you want to delete room ' + props.room.name + '?')) {
+      deleteRoom({ variables: { id: props.room.id } });
+    }
   };
 
   return (
@@ -44,6 +71,11 @@ const RoomForm = (props: RoomFormProps) => {
         <FieldError name="userId" className="rw-field-error" />
 
         <div className="mt-3 flex justify-end">
+          {props.room && (
+            <div onClick={onDeleteClick} className="red-button mr-3">
+              Delete
+            </div>
+          )}
           <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>

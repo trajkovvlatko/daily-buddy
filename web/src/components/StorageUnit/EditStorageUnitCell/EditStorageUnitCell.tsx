@@ -1,6 +1,5 @@
 import type { EditStorageUnitById, UpdateStorageUnitInput } from 'types/graphql';
-
-import { navigate, routes } from '@redwoodjs/router';
+import { back } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
@@ -34,7 +33,7 @@ export const Success = ({ storageUnit }: CellSuccessProps<EditStorageUnitById>) 
   const [updateStorageUnit, { loading, error }] = useMutation(UPDATE_STORAGE_UNIT_MUTATION, {
     onCompleted: () => {
       toast.success('StorageUnit updated');
-      navigate(routes.storageUnits());
+      back();
     },
     onError: (error) => {
       toast.error(error.message);
@@ -46,11 +45,9 @@ export const Success = ({ storageUnit }: CellSuccessProps<EditStorageUnitById>) 
   };
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">Edit StorageUnit {storageUnit?.id}</h2>
-      </header>
-      <div className="rw-segment-main">
+    <div>
+      <h2 className="h2">Edit StorageUnit {storageUnit?.name}</h2>
+      <div className="px-6">
         <StorageUnitForm storageUnit={storageUnit} onSave={onSave} error={error} loading={loading} />
       </div>
     </div>
