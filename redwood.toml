@@ -10,7 +10,9 @@
   port = 8910
   # apiUrl = "/.netlify/functions"
   apiUrl = "/api"
-  includeEnvironmentVariables = [] # any ENV vars that should be available to the web side, see https://redwoodjs.com/docs/environment-variables#web
+  # any ENV vars that should be available to the web side,
+  # see https://redwoodjs.com/docs/environment-variables#web
+  includeEnvironmentVariables = ['FILESTACK_KEY', 'FILESTACK_HOST', 'IMAGE_FORMAT']
 [api]
   port = 8911
 [browser]
