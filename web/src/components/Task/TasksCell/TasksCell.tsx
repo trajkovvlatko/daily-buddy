@@ -1,6 +1,6 @@
 import type { FindTasks } from 'types/graphql';
 import { Link, routes } from '@redwoodjs/router';
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+import { CellSuccessProps, CellFailureProps, useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 import Tasks from 'src/components/Task/Tasks';
 import NewTask from '../NewTask';
@@ -35,6 +35,12 @@ export const QUERY = gql`
   }
 `;
 
+const DELETE_ALL_DONE = gql`
+  mutation DeleteAllDoneTasks {
+    deleteAllDone
+  }
+`;
+
 export const Loading = () => <div className="loading pb-6">Loading...</div>;
 
 export const Empty = () => {
@@ -52,6 +58,15 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 
 export const Success = ({ tasks, refetch }: CellSuccessProps<FindTasks>) => {
   const [showNewTask, setShowNewTask] = useState(false);
+  const [deleteAllDone] = useMutation(DELETE_ALL_DONE, {
+    onCompleted: () => {
+      toast.success('Deleted all done tasks.');
+    },
+    refetchQueries: [{ query: QUERY }],
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const toggleNewTask = () => {
     setShowNewTask((oldValue) => !oldValue);
@@ -63,6 +78,12 @@ export const Success = ({ tasks, refetch }: CellSuccessProps<FindTasks>) => {
       toast.success('Tasks ready');
     } catch (e) {
       toast.error('Cannot refresh tasks');
+    }
+  };
+
+  const onDeleteAllDone = async () => {
+    if (confirm('Are you sure you want to delete all done tasks?')) {
+      deleteAllDone();
     }
   };
 
@@ -113,7 +134,12 @@ export const Success = ({ tasks, refetch }: CellSuccessProps<FindTasks>) => {
       {tasks.doneRecently.length > 0 && (
         <div className="mb-12">
           <h1 className="pb-6">Done recently</h1>
-          <Tasks tasks={tasks.doneRecently} />
+          <div className="mb-6">
+            <Tasks tasks={tasks.doneRecently} />
+          </div>
+          <button onClick={onDeleteAllDone} className="red-button float-right mb-6">
+            Delete all done
+          </button>
         </div>
       )}
     </div>

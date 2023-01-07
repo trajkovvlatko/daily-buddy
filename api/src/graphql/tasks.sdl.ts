@@ -43,5 +43,6 @@ export const schema = gql`
     createTask(input: CreateTaskInput!): Task! @requireAuth
     updateTask(id: Int!, input: UpdateTaskInput!): Task! @requireAuth
     deleteTask(id: Int!): Task! @requireAuth
+    deleteAllDone: Int! @requireAuth
   }
 `;

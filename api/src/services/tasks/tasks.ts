@@ -72,3 +72,11 @@ export const deleteTask: MutationResolvers['deleteTask'] = async ({ id }, { cont
 
   return db.task.delete({ where: { id } });
 };
+
+export const deleteAllDone: MutationResolvers['deleteAllDone'] = async (_, { context }) => {
+  const userId = context.currentUser['id'];
+
+  const deleted = await db.task.deleteMany({ where: { userId, completed: true } });
+
+  return deleted.count;
+};
