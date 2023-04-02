@@ -122,7 +122,7 @@ export const Success = ({ tasks, refetch }: CellSuccessProps<FindTasks>) => {
         </div>
       )}
 
-      {(hasTodaysAgenda || hasNotScheduled) && <div className="h-36"></div>}
+      {(hasTodaysAgenda || hasNotScheduled) && <div className="h-16"></div>}
 
       {tasks.next.length > 0 && (
         <div className="mb-12">

@@ -41,3 +41,11 @@ export const deleteJournal: MutationResolvers['deleteJournal'] = async ({ id }, 
 
   return db.journal.delete({ where: { id } });
 };
+
+export const journalByDate: QueryResolvers['journalByDate'] = ({ date }, { context }) => {
+  const userId = context.currentUser['id'];
+
+  return db.journal.findFirst({
+    where: { forDate: date, userId },
+  });
+};

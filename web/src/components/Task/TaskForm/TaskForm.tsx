@@ -21,7 +21,6 @@ const TaskForm = (props: TaskFormProps) => {
   const onSubmit = (data: FormTask) => {
     props.onSave(data, props?.task?.id);
     refTitle.current.value = '';
-    refDueDate.current.value = '';
     refPriority.current.value = '3';
   };
 

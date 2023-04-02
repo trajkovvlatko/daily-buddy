@@ -12,7 +12,7 @@ export const EventsByDateRow = ({ row }: Props) => {
   const day = weekday[d.getDay()];
 
   return (
-    <li className="list-none pb-6">
+    <li className="list-none pb-3">
       <div className="bg-gray-100 py-3 pl-6 text-sm text-base font-bold">
         {row.startDate} - {day}
       </div>

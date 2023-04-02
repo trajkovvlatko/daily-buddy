@@ -8,6 +8,7 @@ export const schema = gql`
   type Query {
     journals: [Journal!]! @requireAuth
     journal(id: Int!): Journal @requireAuth
+    journalByDate(date: Date): Journal @requireAuth
   }
 
   input CreateJournalInput {

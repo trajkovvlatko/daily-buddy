@@ -17,9 +17,7 @@ const Journal = ({ journal }: Props) => {
         </button>
       </nav>
       <div>
-        <div className="mb-10 mt-1">
-          Journal for: <span className="font-semibold">{journal.forDate.slice(0, 10)}</span>
-        </div>
+        <h1 className="mb-10 mt-1 text-lg font-semibold">Journal {journal.forDate.slice(0, 10)}</h1>
         <div className="note-markdown">
           <div dangerouslySetInnerHTML={{ __html: html }}></div>
         </div>

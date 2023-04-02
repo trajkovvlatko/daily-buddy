@@ -70,7 +70,7 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
 
   return (
     <div className="flex content-center items-center justify-between gap-5 p-3 text-sm">
-      <div>
+      <div className="flex-1">
         <input type="text" defaultValue={truncate(task.title)} onKeyUp={onKeyUp} ref={refTitle} className="w-full" />
       </div>
       <div>

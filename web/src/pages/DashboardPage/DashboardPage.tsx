@@ -1,3 +1,4 @@
+import JournalByDateCell from 'src/components/Journal/JournalByDateCell';
 import TasksCell from 'src/components/Task/TasksCell';
 import EventsCell from '../../components/EventsCell';
 
@@ -9,18 +10,27 @@ const DashboardPage = () => {
   const today = new Date();
   const endAt = new Date(today);
 
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
   const from = toDateString(today);
+  const yesterdayAsString = toDateString(yesterday);
   const to = toDateString(new Date(endAt.setDate(today.getDate() + 20)));
 
   return (
-    <div className="grid-cols-12 bg-gray-100 md:grid md:pt-6">
-      <div className="md:col-span-2"></div>
-      <div className="mb-6 grid-cols-12 bg-white pt-6 shadow-lg md:col-span-8 md:grid md:gap-8">
-        <div className="max-h-[40vh] overflow-y-auto px-2 md:order-first md:col-span-5 md:max-h-[100vh] md:px-0 md:pl-6 ">
-          <EventsCell from={from} to={to} />
+    <div className="grid-cols-12 bg-gray-100 md:grid md:gap-5 md:pt-5">
+      <div className="max-h-[40vh] overflow-y-auto bg-white p-3 shadow-lg md:col-span-3 md:ml-7 md:max-h-[90vh]">
+        <EventsCell from={from} to={to} />
+      </div>
+      <div className="mt-3 max-h-[40vh] overflow-y-auto bg-white p-3 shadow-lg md:col-span-5 md:mt-0 md:max-h-[90vh]">
+        <TasksCell />
+      </div>
+      <div className="mt-3 md:col-span-4 md:mt-0 md:mr-7">
+        <div className="max-h-[40vh] overflow-y-auto bg-white p-3 shadow-lg">
+          <JournalByDateCell date={from} />
         </div>
-        <div className="mt-12 px-2 md:col-span-7 md:mt-0 md:px-0 md:pr-6 ">
-          <TasksCell />
+        <div className="mt-3 max-h-[40vh] overflow-y-auto bg-white p-3 shadow-lg">
+          <JournalByDateCell date={yesterdayAsString} />
         </div>
       </div>
     </div>
