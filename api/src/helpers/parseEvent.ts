@@ -10,8 +10,8 @@ export const parseEvent = ({ e, calendar }: ParseEventProps): ParsedEvent => {
   const jsDate = e.startDate.toJSDate();
   const isoString = jsDate.toISOString();
   const local = new Date(isoString);
-  // TODO: Fix this ` + 1`
-  local.setHours(local.getHours() + 1);
+  // TODO: Fix this, convert to real local timezone
+  local.setHours(local.getHours() + 2);
   const startAt = local.toISOString();
 
   return {
