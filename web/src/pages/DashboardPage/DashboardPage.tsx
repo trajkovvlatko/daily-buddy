@@ -1,6 +1,7 @@
 import JournalByDateCell from 'src/components/Journal/JournalByDateCell';
 import TasksCell from 'src/components/Task/TasksCell';
 import EventsCell from '../../components/EventsCell';
+import LatestJournalsCell from '../../components/Journal/LatestJournalsCell';
 
 const toDateString = (date: Date) => {
   return date.toISOString().slice(0, 10);
@@ -27,10 +28,7 @@ const DashboardPage = () => {
       </div>
       <div className="mt-3 md:col-span-4 md:mt-0 md:mr-7">
         <div className="max-h-[40vh] overflow-y-auto bg-white p-3 shadow-lg">
-          <JournalByDateCell date={from} />
-        </div>
-        <div className="mt-3 max-h-[40vh] overflow-y-auto bg-white p-3 shadow-lg">
-          <JournalByDateCell date={yesterdayAsString} />
+          <LatestJournalsCell limit={2} order="DESC" />
         </div>
       </div>
     </div>

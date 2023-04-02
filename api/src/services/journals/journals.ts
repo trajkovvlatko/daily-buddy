@@ -2,13 +2,15 @@ import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 
 import { db } from 'src/lib/db';
 
-export const journals: QueryResolvers['journals'] = (_, { context }) => {
+export const journals: QueryResolvers['journals'] = ({ limit = 30, order = 'DESC' }, { context }) => {
   const userId = context.currentUser['id'];
 
   return db.journal.findMany({
     where: { userId },
-    orderBy: { forDate: 'desc' },
-    take: 30,
+    orderBy: {
+      forDate: order === 'ASC' ? 'asc' : 'desc',
+    },
+    take: limit,
   });
 };
 

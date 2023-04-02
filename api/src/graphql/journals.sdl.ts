@@ -5,8 +5,13 @@ export const schema = gql`
     content: String!
   }
 
+  enum Order {
+    ASC
+    DESC
+  }
+
   type Query {
-    journals: [Journal!]! @requireAuth
+    journals(limit: Int, order: Order): [Journal!]! @requireAuth
     journal(id: Int!): Journal @requireAuth
     journalByDate(date: Date): Journal @requireAuth
   }
