@@ -26,10 +26,10 @@ const DashboardPage = () => {
         <TasksCell />
       </div>
       <div className="mt-3 md:col-span-4 md:mt-0 md:mr-7">
-        <div className="max-h-[40vh] overflow-y-auto bg-white p-3 shadow-lg">
+        <div className="bg-white p-3 shadow-lg">
           <JournalByDateCell date={from} />
         </div>
-        <div className="mt-3 max-h-[40vh] overflow-y-auto bg-white p-3 shadow-lg">
+        <div className="mt-3 bg-white p-3 shadow-lg">
           <JournalByDateCell date={yesterdayAsString} />
         </div>
       </div>

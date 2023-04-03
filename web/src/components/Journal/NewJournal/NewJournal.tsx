@@ -14,14 +14,20 @@ const CREATE_JOURNAL_MUTATION = gql`
   }
 `;
 
-const NewJournal = () => {
+const NewJournal = ({ callback }: { callback?: () => void }) => {
   const [createJournal, { loading, error }] = useMutation(CREATE_JOURNAL_MUTATION, {
     onCompleted: (newJournal) => {
-      if (newJournal?.createJournal?.id) {
-        navigate(routes.journal({ id: newJournal.createJournal.id }));
+      if (callback) {
+        callback();
+      } else {
+        if (newJournal?.createJournal?.id) {
+          navigate(routes.journal({ id: newJournal.createJournal.id }));
+        }
       }
+
       toast.success('Journal created');
     },
+    refetchQueries: ['FindJournalByDate'],
     onError: (error) => {
       toast.error(error.message);
     },

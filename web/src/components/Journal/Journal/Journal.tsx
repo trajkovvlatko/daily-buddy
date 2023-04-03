@@ -4,15 +4,25 @@ import type { FindJournalById } from 'types/graphql';
 
 interface Props {
   journal: NonNullable<FindJournalById['journal']>;
+  onEditCallback?: () => void;
 }
 
-const Journal = ({ journal }: Props) => {
+const Journal = ({ journal, onEditCallback }: Props) => {
   const html = marked.parse(journal.content);
+
+  const onEdit = () => {
+    if (onEditCallback) {
+      onEditCallback();
+      return;
+    }
+
+    navigate(routes.editJournal({ id: journal.id }));
+  };
 
   return (
     <div className="mb-6">
       <nav className="float-right">
-        <button onClick={() => navigate(routes.editJournal({ id: journal.id }))} className="blue-button">
+        <button onClick={onEdit} className="blue-button">
           Edit
         </button>
       </nav>

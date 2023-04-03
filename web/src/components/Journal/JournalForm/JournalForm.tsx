@@ -92,6 +92,7 @@ const JournalForm = (props: JournalFormProps) => {
           </button>
         </div>
       )}
+      <div className="clear-both"></div>
     </div>
   );
 };

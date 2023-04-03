@@ -42,12 +42,20 @@ export const Loading = () => <div>Loading...</div>;
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
-export const Success = ({ journal }: CellSuccessProps<EditJournalById>) => {
+type Props = CellSuccessProps<EditJournalById> & { callback?: () => void };
+
+export const Success = ({ journal, callback }: Props) => {
   const [updateJournal, { loading, error }] = useMutation(UPDATE_JOURNAL_MUTATION, {
     onCompleted: () => {
+      if (callback) {
+        callback();
+      } else {
+        navigate(routes.journal({ id: journal.id }));
+      }
+
       toast.success('Journal updated');
-      navigate(routes.journal({ id: journal.id }));
     },
+    refetchQueries: ['FindJournalByDate'],
     onError: (error) => {
       toast.error(error.message);
     },
@@ -59,7 +67,11 @@ export const Success = ({ journal }: CellSuccessProps<EditJournalById>) => {
 
   const onPreview = () => {
     if (confirm('Are you sure you want to cancel?')) {
-      navigate(routes.journal({ id: journal.id }));
+      if (callback) {
+        callback();
+      } else {
+        navigate(routes.journal({ id: journal.id }));
+      }
     }
   };
 
