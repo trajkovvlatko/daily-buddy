@@ -57,13 +57,17 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
 
   const onKeyUp = (event: { key: string }) => {
     if (event.key === 'Enter') {
-      const newTitle = refTitle.current.value.trim();
-      const newDueDate = new Date(refDueDate.current.value.trim());
-      const newPriority = parseInt(refPriority.current.value.trim());
-      updateTask({
-        variables: { id: task.id, input: { title: newTitle, dueDate: newDueDate, priority: newPriority } },
-      });
+      update();
     }
+  };
+
+  const update = () => {
+    const newTitle = refTitle.current.value.trim();
+    const newDueDate = new Date(refDueDate.current.value.trim());
+    const newPriority = parseInt(refPriority.current.value.trim());
+    updateTask({
+      variables: { id: task.id, input: { title: newTitle, dueDate: newDueDate, priority: newPriority } },
+    });
   };
 
   const dueDate = task.dueDate?.split('T')[0] ?? null;
@@ -71,13 +75,21 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
   return (
     <div className="flex content-center items-center justify-between gap-5 p-3 text-sm">
       <div className="flex-1">
-        <input type="text" defaultValue={truncate(task.title)} onKeyUp={onKeyUp} ref={refTitle} className="w-full" />
+        <input
+          type="text"
+          defaultValue={truncate(task.title)}
+          onKeyUp={onKeyUp}
+          onBlur={update}
+          ref={refTitle}
+          className="w-full"
+        />
       </div>
       <div>
         <input
           type="date"
           defaultValue={dueDate}
           onKeyUp={onKeyUp}
+          onBlur={update}
           ref={refDueDate}
           className="w-full"
           placeholder="No due date"
@@ -89,6 +101,7 @@ const TaskRow = ({ task }: { task: TaskFields }) => {
           defaultValue={truncate(task.priority)}
           ref={refPriority}
           onKeyUp={onKeyUp}
+          onBlur={update}
           className={`w-12 text-center ${getPrioColor(task.priority)}`}
         />
       </div>
