@@ -24,6 +24,11 @@ const MenuList = ({ callback }: { callback: () => void }) => {
             </Link>
           </li>
           <li className="menu-link">
+            <Link to={routes.streaks()} onClick={onLinkClick}>
+              Streaks
+            </Link>
+          </li>
+          <li className="menu-link">
             <Link to={routes.colors()} onClick={onLinkClick}>
               Colors
             </Link>
