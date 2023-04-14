@@ -49,7 +49,9 @@ const StreakRow = ({ streak }: { streak: Streak }) => {
     <div className="flex content-center items-center justify-between gap-5 p-3">
       <div className="flex-1">{streak.name}</div>
       <div className="flex-1">
-        <b>{diff}</b>
+        <b>
+          {diff} {diff === 1 ? 'day' : 'days'}
+        </b>
       </div>
       <div>
         <button className={`red-button rounded border border-red-700 py-1 font-bold`} onClick={reset}>
