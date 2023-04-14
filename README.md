@@ -44,7 +44,7 @@ Get local address from `pscale`'s output and use as `DATABASE_URL` in `.env`. Fo
 DATABASE_URL="mysql://root@127.0.0.1:32893/daily_production"
 ```
 
-Create a new deploy request in Planetscale https://app.planetscale.com/trajkovvlatko/daily_production/deploy-requests
+Pick branch and create a new deploy request in Planetscale https://app.planetscale.com/trajkovvlatko/daily_production/branches
 
 
 Open a new terminal tab and push db changes:
