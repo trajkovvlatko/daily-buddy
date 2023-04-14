@@ -49,6 +49,11 @@ const Routes = () => {
         <Route path="/journals/new" page={JournalNewJournalPage} name="newJournal" />
         <Route path="/journals/{id:Int}/edit" page={JournalEditJournalPage} name="editJournal" />
         <Route path="/journals" page={JournalJournalsPage} name="journals" />
+
+        <Route path="/streaks/new" page={StreakNewStreakPage} name="newStreak" />
+        <Route path="/streaks/{id:Int}/edit" page={StreakEditStreakPage} name="editStreak" />
+        <Route path="/streaks/{id:Int}" page={StreakStreakPage} name="streak" />
+        <Route path="/streaks" page={StreakStreaksPage} name="streaks" />
       </Set>
       <Route path="/login" page={LoginPage} name="login" />
       <Route path="/signup" page={SignupPage} name="signup" />
