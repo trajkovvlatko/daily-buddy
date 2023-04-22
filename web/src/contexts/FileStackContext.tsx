@@ -4,7 +4,7 @@ import * as filestack from 'filestack-js';
 export const FileStackContext = createContext(null);
 
 const FileStackContextProvider = ({ children }) => {
-  const [fileStackClient, setFileStackClient] = useState(null);
+  const [fileStackClient, setFileStackClient] = useState<filestack.Client | null>(null);
 
   useEffect(() => {
     const client = filestack.init(process.env.FILESTACK_KEY);
