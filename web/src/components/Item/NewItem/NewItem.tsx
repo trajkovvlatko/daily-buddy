@@ -45,15 +45,9 @@ const NewItem = ({ drawerId }: { drawerId: number; callback: () => void }) => {
     const imageFilename = `${newRecord.id}.${process.env.IMAGE_FORMAT}`;
 
     const uploadImageData = async () => {
-      const upload = await fileStackClient.upload(imageData, {}, { filename: imageFilename }, {});
-
-      return upload.handle;
+      return (await fileStackClient.upload(imageData, {}, { filename: imageFilename }, {})).handle;
     };
-
-    console.log('imageRecord', imageRecord);
-    const getImageDetailsFromUpload = async () => {
-      return imageRecord.handle;
-    };
+    const getImageDetailsFromUpload = async () => imageRecord.handle;
 
     const imageHandle = await (uploader === 'camera' ? uploadImageData() : getImageDetailsFromUpload());
     const imageUrl = `${process.env.FILESTACK_HOST}/${imageHandle}`;
@@ -72,9 +66,7 @@ const NewItem = ({ drawerId }: { drawerId: number; callback: () => void }) => {
     );
   };
 
-  const toggleUploader = () => {
-    setUploader(uploader === 'camera' ? 'file' : 'camera');
-  };
+  const toggleUploader = () => setUploader(uploader === 'camera' ? 'file' : 'camera');
 
   return (
     <div className="px-5">
