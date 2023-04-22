@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import WebCamForm from '../WebCamForm/WebCamForm';
 import { FileStackContext } from 'src/contexts/FileStackContext';
 import { back } from '@redwoodjs/router';
+import FileUploadForm from '../FileUploadForm/FileUploadForm';
 
 export const QUERY = gql`
   query EditItemById($id: Int!) {
@@ -36,10 +37,11 @@ export const Loading = () => <div>Loading...</div>;
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 export const Success = ({ item }: CellSuccessProps<EditItemById>) => {
+  const [uploader, setUploader] = useState<'camera' | 'file'>('camera');
   const { fileStackClient } = useContext(FileStackContext);
-  const [imageData, setImageData] = useState(
-    item.imageHandle ? `${process.env.FILESTACK_HOST}/${item.imageHandle}` : null
-  );
+  const url = item.imageHandle ? `${process.env.FILESTACK_HOST}/${item.imageHandle}` : null;
+  const [imageRecord, setImageRecord] = useState<any>();
+  const [imageData, setImageData] = useState(url);
 
   const [updateItem, { loading, error }] = useMutation(UPDATE_ITEM_MUTATION, {
     onCompleted: () => {
@@ -51,22 +53,37 @@ export const Success = ({ item }: CellSuccessProps<EditItemById>) => {
   });
 
   const onSave = async (input: UpdateItemInput, id: EditItemById['item']['id']) => {
-    if (imageData) {
-      const imageFilename = `${id}.${process.env.IMAGE_FORMAT}`;
+    const imageFilename = `${id}.${process.env.IMAGE_FORMAT}`;
+    let imageHandle: string;
+
+    if (imageData && uploader === 'camera') {
       const upload = await fileStackClient.upload(imageData, {}, { filename: imageFilename }, {});
-      const imageHandle = upload.handle;
-      const imageUrl = `${process.env.FILESTACK_HOST}/${imageHandle}`;
-      input.imageUrl = imageUrl;
-      input.imageHandle = imageHandle;
-      input.imageFilename = imageFilename;
+      imageHandle = upload.handle;
+    } else if (imageRecord && uploader === 'file') {
+      imageHandle = imageRecord.handle;
     }
+
+    const imageUrl = `${process.env.FILESTACK_HOST}/${imageHandle}`;
+    input.imageUrl = imageUrl;
+    input.imageHandle = imageHandle;
+    input.imageFilename = imageFilename;
+
     await updateItem({ variables: { id, input } });
     back();
   };
 
+  const toggleUploader = () => setUploader(uploader === 'camera' ? 'file' : 'camera');
+
   return (
     <>
-      <WebCamForm imageData={imageData} setImageData={setImageData} />
+      <button className="orange-button" onClick={toggleUploader}>
+        Toggle uploader
+      </button>
+      {uploader === 'camera' ? (
+        <WebCamForm imageData={imageData} setImageData={setImageData} />
+      ) : (
+        <FileUploadForm imageRecord={imageRecord} setImageRecord={setImageRecord} />
+      )}
       <ItemForm item={item} onSave={onSave} error={error} loading={loading} />
     </>
   );
