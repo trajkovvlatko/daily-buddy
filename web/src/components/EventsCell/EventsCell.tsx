@@ -37,8 +37,8 @@ export const QUERY = gql`
     }
   }
 
-  query EventsQuery($from: String!, $to: String!) {
-    getEvents(from: $from, to: $to) {
+  query EventsQuery($from: String!, $to: String!, $clearCache: Boolean) {
+    getEvents(from: $from, to: $to, clearCache: $clearCache) {
       ...EventFields
     }
   }
@@ -50,10 +50,11 @@ export const Empty = () => <div>Empty</div>;
 
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>;
 
-export const Success = ({ getEvents: events, refetch }: CellSuccessProps<EventsQuery>) => {
+export const Success = (props: CellSuccessProps<EventsQuery>) => {
+  const { getEvents: events, refetch, variables } = props;
   const onRefresh = async () => {
     try {
-      await refetch();
+      await refetch({ ...variables, clearCache: true });
       toast.success('Agenda ready');
     } catch (e) {
       toast.error('Cannot refresh agenda');

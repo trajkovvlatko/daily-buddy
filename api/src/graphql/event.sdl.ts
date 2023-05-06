@@ -28,6 +28,6 @@ export const schema = gql`
   }
 
   type Query {
-    getEvents(from: String!, to: String!): [EventsByDate!]! @requireAuth
+    getEvents(from: String!, to: String!, clearCache: Boolean): [EventsByDate!]! @requireAuth
   }
 `;

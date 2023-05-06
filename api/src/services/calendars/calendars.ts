@@ -1,5 +1,5 @@
-import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 import { db } from 'src/lib/db';
+import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 
 export const calendars: QueryResolvers['calendars'] = (_, { context }) => {
   const userId = context.currentUser['id'];
