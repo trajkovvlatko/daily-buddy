@@ -6,7 +6,7 @@ export const schema = gql`
   }
 
   type Query {
-    journals: [Journal!]! @requireAuth
+    journals(skip: Int, take: Int): [Journal!]! @requireAuth
     journal(id: Int!): Journal @requireAuth
     journalByDate(date: Date): Journal @requireAuth
   }

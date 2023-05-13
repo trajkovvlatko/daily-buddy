@@ -75,7 +75,7 @@ const JournalForm = (props: JournalFormProps) => {
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
-          rows={20}
+          rows={10}
         />
 
         <div className="float-right mt-6">

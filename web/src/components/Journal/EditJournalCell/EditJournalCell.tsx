@@ -79,7 +79,7 @@ export const Success = ({ journal, callback }: Props) => {
     <div>
       <div>
         <button onClick={onPreview} className="blue-button md:float-right">
-          Preview
+          Close
         </button>
       </div>
       <div className="clear-both mb-4">

@@ -1,4 +1,4 @@
-import JournalByDateCell from 'src/components/Journal/JournalByDateCell';
+import JournalsCell from 'src/components/Journal/JournalsCell';
 import TasksCell from 'src/components/Task/TasksCell';
 import EventsCell from '../../components/EventsCell';
 import ListStreaksCell from '../../components/Streak/ListStreaksCell';
@@ -15,7 +15,6 @@ const DashboardPage = () => {
   yesterday.setDate(yesterday.getDate() - 1);
 
   const from = toDateString(today);
-  const yesterdayAsString = toDateString(yesterday);
   const to = toDateString(new Date(endAt.setDate(today.getDate() + 20)));
 
   return (
@@ -30,11 +29,8 @@ const DashboardPage = () => {
         <div className="bg-white p-3 shadow-lg">
           <ListStreaksCell />
         </div>
-        <div className="mt-3 bg-white p-3 shadow-lg">
-          <JournalByDateCell date={from} />
-        </div>
-        <div className="mt-3 bg-white p-3 shadow-lg">
-          <JournalByDateCell date={yesterdayAsString} />
+        <div>
+          <JournalsCell take={2} skip={0} />
         </div>
       </div>
     </div>

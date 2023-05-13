@@ -69,7 +69,7 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
         {selectedNoteId && (
           <>
             <button onClick={toggleEditMode} className="blue-button md:float-right">
-              {editMode ? 'Preview' : 'Edit'}
+              {editMode ? 'Close' : 'Edit'}
             </button>
             {editMode ? (
               <EditNoteCell id={selectedNoteId} onUpdate={onUpdate} onDelete={onDelete} />

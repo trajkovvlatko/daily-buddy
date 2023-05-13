@@ -27,7 +27,7 @@ const NewJournal = ({ callback }: { callback?: () => void }) => {
 
       toast.success('Journal created');
     },
-    refetchQueries: ['FindJournalByDate'],
+    refetchQueries: ['FindLatestJournals'],
     onError: (error) => {
       toast.error(error.message);
     },
