@@ -54,6 +54,8 @@ const Routes = () => {
         <Route path="/streaks/{id:Int}/edit" page={StreakEditStreakPage} name="editStreak" />
         <Route path="/streaks/{id:Int}" page={StreakStreakPage} name="streak" />
         <Route path="/streaks" page={StreakStreaksPage} name="streaks" />
+
+        <Route path="/scratch-pad" page={ScratchPadPage} name="scratchPad" />
       </Set>
       <Route path="/login" page={LoginPage} name="login" />
       <Route path="/signup" page={SignupPage} name="signup" />

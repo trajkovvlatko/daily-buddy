@@ -1,6 +1,12 @@
 import { Link, routes } from '@redwoodjs/router';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
-import { BookOpenIcon, CalendarDaysIcon, HomeIcon, PencilSquareIcon } from '@heroicons/react/24/solid';
+import {
+  BookOpenIcon,
+  CalendarDaysIcon,
+  ChatBubbleOvalLeftIcon,
+  HomeIcon,
+  PencilSquareIcon,
+} from '@heroicons/react/24/outline';
 
 const Header = () => {
   return (
@@ -23,6 +29,11 @@ const Header = () => {
       <li className="md:mb-8">
         <Link to={routes.inventory()} className="text-blue-500 hover:text-blue-800">
           <HomeIcon className="h-6 w-6 text-blue-500" />
+        </Link>
+      </li>
+      <li className="md:mb-8">
+        <Link to={routes.scratchPad()} className="text-blue-500 hover:text-blue-800">
+          <ChatBubbleOvalLeftIcon className="h-6 w-6 text-blue-500" />
         </Link>
       </li>
       <li className="md:mt-auto md:mb-3">

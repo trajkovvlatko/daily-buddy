@@ -1,4 +1,4 @@
-import { ArrowPathIcon, BookOpenIcon, CalendarIcon, RectangleStackIcon } from '@heroicons/react/24/solid';
+import { ArrowPathIcon, BookOpenIcon, CalendarIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import JournalsCell from 'src/components/Journal/JournalsCell';
 import TasksCell from 'src/components/Task/TasksCell';
