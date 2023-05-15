@@ -38,7 +38,7 @@ export const Success = ({ streaks, refetch }: CellSuccessProps<FindStreaks>) => 
         </span>
       </h1>
       {streaks.map((streak) => {
-        return <StreakRow streak={streak} />;
+        return <StreakRow streak={streak} key={streak.id} />;
       })}
     </>
   );

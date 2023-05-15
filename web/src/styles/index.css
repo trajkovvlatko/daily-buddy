@@ -28,7 +28,6 @@ ul {
 
 .refresh {
   display: inline-block;
-  transform: rotate(90deg);
   cursor: pointer;
   color: #aaa;
   margin-left: 10px;

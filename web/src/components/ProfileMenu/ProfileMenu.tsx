@@ -5,14 +5,20 @@ import Icon from './Icon';
 const ProfileMenu = () => {
   const [open, setOpen] = useState(false);
 
-  const className = [
+  const menuClassName = [
     'absolute',
-    'right-0',
-    'top-16',
-    'mt-1',
-    'mr-2',
+    'md:left-20',
+    'left-auto',
+    'top-20',
+    'right-3',
+    'md:right-auto',
+    'md:top-auto',
+    'md:bottom-3',
+    'md:mb-1',
+    'md:mr-2',
     'bg-white',
-    'shadow-lg',
+    'shadow-xl',
+    'z-10',
     open ? 'block' : 'hidden',
   ].join(' ');
 
@@ -22,10 +28,10 @@ const ProfileMenu = () => {
 
   return (
     <>
-      <div onClick={toggleOpen} className="ml-auto mr-7 ">
+      <div onClick={toggleOpen} className="mt-3 mb-3 flex justify-center">
         <Icon />
       </div>
-      <div className={className}>
+      <div className={menuClassName}>
         <MenuList callback={toggleOpen} />
       </div>
     </>
