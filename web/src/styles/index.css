@@ -35,7 +35,7 @@ ul {
 
 @layer components {
   .sidebar {
-    @apply mb-6 h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0 md:h-auto md:max-h-[80vh];
+    @apply mb-6 h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0 md:h-auto md:max-h-[90vh];
   }
 
   .h2 {

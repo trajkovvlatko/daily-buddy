@@ -41,14 +41,14 @@ const DashboardPage = () => {
           </div>
         )}
         <div className="mt-3 md:col-span-4 md:mt-0 md:mr-7">
-          {shouldShowPanel('journals') && (
-            <div>
-              <JournalsCell take={2} skip={0} />
-            </div>
-          )}
           {shouldShowPanel('streaks') && (
             <div className="bg-white p-3 shadow-lg">
               <ListStreaksCell />
+            </div>
+          )}
+          {shouldShowPanel('journals') && (
+            <div>
+              <JournalsCell take={2} skip={0} />
             </div>
           )}
         </div>
