@@ -69,7 +69,7 @@ const NewItem = ({ drawerId }: { drawerId: number; callback: () => void }) => {
   const toggleUploader = () => setUploader(uploader === 'camera' ? 'file' : 'camera');
 
   return (
-    <div className="px-5">
+    <div className="px-6 pb-6">
       <button className="orange-button" onClick={toggleUploader}>
         Toggle uploader
       </button>

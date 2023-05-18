@@ -1,7 +1,7 @@
-import NewStreak from 'src/components/Streak/NewStreak'
+import NewStreak from 'src/components/Streak/NewStreak';
 
 const NewStreakPage = () => {
-  return <NewStreak />
-}
+  return <NewStreak />;
+};
 
-export default NewStreakPage
+export default NewStreakPage;

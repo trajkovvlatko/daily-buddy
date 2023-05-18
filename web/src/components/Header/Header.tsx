@@ -1,5 +1,3 @@
-import { Link, routes } from '@redwoodjs/router';
-import ProfileMenu from '../ProfileMenu/ProfileMenu';
 import {
   BookOpenIcon,
   CalendarDaysIcon,
@@ -7,6 +5,10 @@ import {
   HomeIcon,
   PencilSquareIcon,
 } from '@heroicons/react/24/outline';
+
+import { Link, routes } from '@redwoodjs/router';
+
+import ProfileMenu from '../ProfileMenu/ProfileMenu';
 
 const Header = () => {
   return (

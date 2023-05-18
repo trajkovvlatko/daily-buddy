@@ -76,7 +76,7 @@ const New = () => {
   };
 
   return newForm ? (
-    <div className="mt-3 bg-white p-3 shadow-lg">
+    <div className="bg-white p-3 shadow-lg md:mt-3">
       <div className="flex justify-end">
         <button onClick={toggle} title={'Close'} className="green-button">
           Close
@@ -85,7 +85,7 @@ const New = () => {
       <NewJournal callback={toggle} />
     </div>
   ) : (
-    <div className="mt-3 flex justify-end bg-white p-3 shadow-lg">
+    <div className="flex justify-end bg-white p-3 shadow-lg md:mt-3">
       <button onClick={toggle} title={'New journal'} className="green-button">
         New journal
       </button>

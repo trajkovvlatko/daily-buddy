@@ -1,7 +1,7 @@
-import NewColor from 'src/components/Color/NewColor'
+import NewColor from 'src/components/Color/NewColor';
 
 const NewColorPage = () => {
-  return <NewColor />
-}
+  return <NewColor />;
+};
 
-export default NewColorPage
+export default NewColorPage;

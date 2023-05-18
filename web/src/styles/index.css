@@ -35,7 +35,7 @@ ul {
 
 @layer components {
   .sidebar {
-    @apply mb-6 h-[50vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0 md:h-auto md:max-h-[90vh];
+    @apply mb-6 h-[30vh] overflow-y-auto border-r pb-6 md:col-span-3 md:mb-0 md:h-auto md:max-h-[90vh] border-b-2 md:border-b-0;
   }
 
   .h2 {
@@ -64,6 +64,24 @@ ul {
 
   .orange-button {
     @apply rounded bg-orange-500 py-2 px-4 font-semibold text-white text-sm hover:bg-orange-700;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .main-content {
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+}
+
+.dashboard {
+  height: calc(100vh - 132px);
+  overflow-y: auto;
+}
+
+@media screen and (min-width: 720px) {
+  .dashboard {
+    height: 100vh;
   }
 }
 
@@ -138,4 +156,18 @@ ul {
   outline: none;
   box-shadow: none;
   resize: none;
+}
+
+input:focus {
+  outline: none !important;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 3px #ccc;
+}
+
+.menu-link button,
+.menu-link a {
+  text-align: left;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
 }

@@ -1,11 +1,11 @@
+import type { DeleteStreakMutationVariables, FindStreaks } from 'types/graphql';
+
 import { Link, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import { QUERY } from 'src/components/Streak/StreaksCell';
-import { timeTag, truncate } from 'src/lib/formatters';
-
-import type { DeleteStreakMutationVariables, FindStreaks } from 'types/graphql';
+import { truncate } from 'src/lib/formatters';
 
 const DELETE_STREAK_MUTATION = gql`
   mutation DeleteStreakMutation($id: Int!) {
@@ -38,9 +38,6 @@ const StreaksList = ({ streaks }: FindStreaks) => {
 
   return (
     <div className="rw-segment rw-table-wrapper-responsive">
-      <Link to={routes.newStreak()} className="rw-link">
-        {'Create'}
-      </Link>
       <table className="rw-table">
         <thead>
           <tr>

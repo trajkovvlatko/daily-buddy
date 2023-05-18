@@ -41,14 +41,14 @@ export const AddNewNote = ({ note }: { note: NoteTree }) => {
 
   return (
     <>
-      <button onClick={onAdd} className="w-2 flex-auto md:hidden md:w-1">
+      <button onClick={onAdd} className="w-1/6 md:hidden">
         +
       </button>
       {showNewForm && (
         <div className="ml-3 mr-3 w-full">
           <input
             type="text"
-            className="w-full border-2"
+            className="border-1 mt-3 mb-3 h-12 w-full pl-2"
             onKeyUp={onSave}
             defaultValue={`${note.path}/`}
             ref={inputRef}

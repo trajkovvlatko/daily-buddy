@@ -1,7 +1,7 @@
-import NewCalendar from 'src/components/Calendar/NewCalendar'
+import NewCalendar from 'src/components/Calendar/NewCalendar';
 
 const NewCalendarPage = () => {
-  return <NewCalendar />
-}
+  return <NewCalendar />;
+};
 
-export default NewCalendarPage
+export default NewCalendarPage;

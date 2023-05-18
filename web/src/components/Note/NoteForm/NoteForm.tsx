@@ -44,7 +44,7 @@ const NoteForm = (props: NoteFormProps) => {
         className="rw-input"
         errorClassName="rw-input rw-input-error"
         validation={{ required: true }}
-        rows={20}
+        rows={27}
       />
 
       <FieldError name="content" className="rw-field-error" />

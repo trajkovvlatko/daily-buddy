@@ -36,7 +36,7 @@ const Item = ({ item }: Props) => {
   const imageUrl = `${process.env.FILESTACK_HOST}/${item.imageHandle}`;
 
   return (
-    <div className="px-5">
+    <div className="px-6 pb-6">
       <div>
         <h2 className="h2 mb-6 pl-0">{item.name}</h2>
         {!!item.imageHandle && (

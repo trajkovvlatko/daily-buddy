@@ -1,11 +1,11 @@
-import EditItemTypeCell from 'src/components/ItemType/EditItemTypeCell'
+import EditItemTypeCell from 'src/components/ItemType/EditItemTypeCell';
 
 type ItemTypePageProps = {
-  id: number
-}
+  id: number;
+};
 
 const EditItemTypePage = ({ id }: ItemTypePageProps) => {
-  return <EditItemTypeCell id={id} />
-}
+  return <EditItemTypeCell id={id} />;
+};
 
-export default EditItemTypePage
+export default EditItemTypePage;

@@ -1,11 +1,11 @@
-import EditStreakCell from 'src/components/Streak/EditStreakCell'
+import EditStreakCell from 'src/components/Streak/EditStreakCell';
 
 type StreakPageProps = {
-  id: number
-}
+  id: number;
+};
 
 const EditStreakPage = ({ id }: StreakPageProps) => {
-  return <EditStreakCell id={id} />
-}
+  return <EditStreakCell id={id} />;
+};
 
-export default EditStreakPage
+export default EditStreakPage;

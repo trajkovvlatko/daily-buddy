@@ -1,11 +1,11 @@
-import EditColorCell from 'src/components/Color/EditColorCell'
+import EditColorCell from 'src/components/Color/EditColorCell';
 
 type ColorPageProps = {
-  id: number
-}
+  id: number;
+};
 
 const EditColorPage = ({ id }: ColorPageProps) => {
-  return <EditColorCell id={id} />
-}
+  return <EditColorCell id={id} />;
+};
 
-export default EditColorPage
+export default EditColorPage;

@@ -28,19 +28,19 @@ const DashboardPage = () => {
   };
 
   return (
-    <>
+    <div className="dashboard">
       <div className="h-100vh grid-cols-12 bg-gray-100 md:grid md:gap-5 md:pt-5">
         {shouldShowPanel('events') && (
-          <div className="overflow-y-auto bg-white p-3 shadow-lg md:col-span-3 md:ml-7 md:max-h-[95vh]">
+          <div className="overflow-y-auto bg-white p-3 pb-1 shadow-lg md:col-span-3 md:ml-6 md:max-h-[95vh]">
             <EventsCell from={from} to={to} />
           </div>
         )}
         {shouldShowPanel('tasks') && (
-          <div className="mt-3 overflow-y-auto bg-white p-3 shadow-lg md:col-span-5 md:mt-0 md:max-h-[95vh]">
+          <div className="overflow-y-auto bg-white p-3 shadow-lg md:col-span-5 md:mt-0 md:max-h-[95vh] md:pb-6">
             <TasksCell />
           </div>
         )}
-        <div className="mt-3 md:col-span-4 md:mt-0 md:mr-7">
+        <div className="mt-0 md:col-span-4 md:mr-6 md:max-h-[95vh] md:overflow-y-auto">
           {shouldShowPanel('streaks') && (
             <div className="bg-white p-3 shadow-lg">
               <ListStreaksCell />
@@ -69,7 +69,7 @@ const DashboardPage = () => {
           </li>
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 

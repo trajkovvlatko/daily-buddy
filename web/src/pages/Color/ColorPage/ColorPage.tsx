@@ -1,11 +1,11 @@
-import ColorCell from 'src/components/Color/ColorCell'
+import ColorCell from 'src/components/Color/ColorCell';
 
 type ColorPageProps = {
-  id: number
-}
+  id: number;
+};
 
 const ColorPage = ({ id }: ColorPageProps) => {
-  return <ColorCell id={id} />
-}
+  return <ColorCell id={id} />;
+};
 
-export default ColorPage
+export default ColorPage;

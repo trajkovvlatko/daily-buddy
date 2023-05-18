@@ -1,7 +1,7 @@
-import NewItemType from 'src/components/ItemType/NewItemType'
+import NewItemType from 'src/components/ItemType/NewItemType';
 
 const NewItemTypePage = () => {
-  return <NewItemType />
-}
+  return <NewItemType />;
+};
 
-export default NewItemTypePage
+export default NewItemTypePage;
