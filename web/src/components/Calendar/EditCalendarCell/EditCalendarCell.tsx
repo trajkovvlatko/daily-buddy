@@ -1,11 +1,11 @@
-import type { EditCalendarById, UpdateCalendarInput } from 'types/graphql'
+import type { EditCalendarById, UpdateCalendarInput } from 'types/graphql';
 
-import { navigate, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import { navigate, routes } from '@redwoodjs/router';
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import CalendarForm from 'src/components/Calendar/CalendarForm'
+import CalendarForm from 'src/components/Calendar/CalendarForm';
 
 export const QUERY = gql`
   query EditCalendarById($id: Int!) {
@@ -18,7 +18,7 @@ export const QUERY = gql`
       userId
     }
   }
-`
+`;
 const UPDATE_CALENDAR_MUTATION = gql`
   mutation UpdateCalendarMutation($id: Int!, $input: UpdateCalendarInput!) {
     updateCalendar(id: $id, input: $input) {
@@ -30,34 +30,26 @@ const UPDATE_CALENDAR_MUTATION = gql`
       userId
     }
   }
-`
+`;
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div>Loading...</div>;
 
-export const Failure = ({ error }: CellFailureProps) => (
-  <div className="rw-cell-error">{error?.message}</div>
-)
+export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 export const Success = ({ calendar }: CellSuccessProps<EditCalendarById>) => {
-  const [updateCalendar, { loading, error }] = useMutation(
-    UPDATE_CALENDAR_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('Calendar updated')
-        navigate(routes.calendars())
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    }
-  )
+  const [updateCalendar, { loading, error }] = useMutation(UPDATE_CALENDAR_MUTATION, {
+    onCompleted: () => {
+      toast.success('Calendar updated');
+      navigate(routes.calendars());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
-  const onSave = (
-    input: UpdateCalendarInput,
-    id: EditCalendarById['calendar']['id']
-  ) => {
-    updateCalendar({ variables: { id, input } })
-  }
+  const onSave = (input: UpdateCalendarInput, id: EditCalendarById['calendar']['id']) => {
+    updateCalendar({ variables: { id, input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -68,5 +60,5 @@ export const Success = ({ calendar }: CellSuccessProps<EditCalendarById>) => {
         <CalendarForm calendar={calendar} onSave={onSave} error={error} loading={loading} />
       </div>
     </div>
-  )
-}
+  );
+};

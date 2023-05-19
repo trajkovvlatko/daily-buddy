@@ -1,9 +1,9 @@
+import type { CreateRoomInput } from 'types/graphql';
+
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import RoomForm from 'src/components/Room/RoomForm';
-
-import type { CreateRoomInput } from 'types/graphql';
 
 const CREATE_ROOM_MUTATION = gql`
   mutation CreateRoomMutation($input: CreateRoomInput!) {

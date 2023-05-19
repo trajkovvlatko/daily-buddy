@@ -1,6 +1,8 @@
 import type { FindItemTypes } from 'types/graphql';
+
 import { Link, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+
 import ItemTypes from 'src/components/ItemType/ItemTypes';
 
 export const QUERY = gql`

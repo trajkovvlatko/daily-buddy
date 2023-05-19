@@ -1,7 +1,8 @@
+import type { DeleteItemMutationVariables, FindItemById } from 'types/graphql';
+
 import { routes, navigate, back } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-import type { DeleteItemMutationVariables, FindItemById } from 'types/graphql';
 
 const DELETE_ITEM_MUTATION = gql`
   mutation DeleteItemMutation($id: Int!) {
@@ -41,7 +42,7 @@ const Item = ({ item }: Props) => {
         <h2 className="h2 mb-6 pl-0">{item.name}</h2>
         {!!item.imageHandle && (
           <div className="mb-6">
-            <img src={imageUrl} />
+            <img src={imageUrl} alt="" />
           </div>
         )}
         <div className="mb-3">

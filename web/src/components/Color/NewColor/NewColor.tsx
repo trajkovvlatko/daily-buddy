@@ -1,10 +1,10 @@
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import type { CreateColorInput } from 'types/graphql';
 
-import ColorForm from 'src/components/Color/ColorForm'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import type { CreateColorInput } from 'types/graphql'
+import ColorForm from 'src/components/Color/ColorForm';
 
 const CREATE_COLOR_MUTATION = gql`
   mutation CreateColorMutation($input: CreateColorInput!) {
@@ -12,25 +12,22 @@ const CREATE_COLOR_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const NewColor = () => {
-  const [createColor, { loading, error }] = useMutation(
-    CREATE_COLOR_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('Color created')
-        navigate(routes.colors())
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    }
-  )
+  const [createColor, { loading, error }] = useMutation(CREATE_COLOR_MUTATION, {
+    onCompleted: () => {
+      toast.success('Color created');
+      navigate(routes.colors());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const onSave = (input: CreateColorInput) => {
-    createColor({ variables: { input } })
-  }
+    createColor({ variables: { input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -41,7 +38,7 @@ const NewColor = () => {
         <ColorForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewColor
+export default NewColor;

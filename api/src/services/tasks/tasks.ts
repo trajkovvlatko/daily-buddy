@@ -1,4 +1,5 @@
 import type { QueryResolvers, MutationResolvers } from 'types/graphql';
+
 import { db } from 'src/lib/db';
 
 export const tasks: QueryResolvers['tasks'] = async (_, { context }) => {

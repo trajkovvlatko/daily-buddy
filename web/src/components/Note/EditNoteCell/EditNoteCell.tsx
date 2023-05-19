@@ -1,9 +1,11 @@
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
+import type { DeleteNoteMutationVariables } from 'types/graphql';
+
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
+
 import NoteForm from 'src/components/Note/NoteForm';
-import type { DeleteNoteMutationVariables } from 'types/graphql';
 
 const DELETE_NOTE_MUTATION = gql`
   mutation DeleteNoteMutation($id: Int!) {

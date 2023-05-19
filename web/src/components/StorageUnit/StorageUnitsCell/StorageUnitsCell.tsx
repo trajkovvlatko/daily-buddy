@@ -1,5 +1,7 @@
 import type { FindStorageUnits } from 'types/graphql';
+
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+
 import StorageUnits from 'src/components/StorageUnit/StorageUnits';
 
 export const QUERY = gql`

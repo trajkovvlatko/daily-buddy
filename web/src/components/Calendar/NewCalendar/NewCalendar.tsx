@@ -1,10 +1,10 @@
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import type { CreateCalendarInput } from 'types/graphql';
 
-import CalendarForm from 'src/components/Calendar/CalendarForm'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import type { CreateCalendarInput } from 'types/graphql'
+import CalendarForm from 'src/components/Calendar/CalendarForm';
 
 const CREATE_CALENDAR_MUTATION = gql`
   mutation CreateCalendarMutation($input: CreateCalendarInput!) {
@@ -12,25 +12,22 @@ const CREATE_CALENDAR_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const NewCalendar = () => {
-  const [createCalendar, { loading, error }] = useMutation(
-    CREATE_CALENDAR_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('Calendar created')
-        navigate(routes.calendars())
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    }
-  )
+  const [createCalendar, { loading, error }] = useMutation(CREATE_CALENDAR_MUTATION, {
+    onCompleted: () => {
+      toast.success('Calendar created');
+      navigate(routes.calendars());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const onSave = (input: CreateCalendarInput) => {
-    createCalendar({ variables: { input } })
-  }
+    createCalendar({ variables: { input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -41,7 +38,7 @@ const NewCalendar = () => {
         <CalendarForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewCalendar
+export default NewCalendar;

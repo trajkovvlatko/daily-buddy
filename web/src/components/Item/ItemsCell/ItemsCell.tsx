@@ -1,4 +1,5 @@
 import type { FindItems } from 'types/graphql';
+
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 
 import Items from 'src/components/Item/Items';

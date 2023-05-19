@@ -1,5 +1,6 @@
-import { Form, FormError, FieldError, Label, TextField, Submit, TextAreaField } from '@redwoodjs/forms';
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
+
+import { Form, FormError, FieldError, Label, TextField, Submit, TextAreaField } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
 
 type FormNote = NonNullable<EditNoteById['note']>;

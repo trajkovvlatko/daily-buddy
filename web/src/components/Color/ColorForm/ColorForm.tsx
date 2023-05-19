@@ -1,6 +1,6 @@
-import { Form, FormError, FieldError, Label, TextField, NumberField, Submit } from '@redwoodjs/forms';
-
 import type { EditColorById, UpdateColorInput } from 'types/graphql';
+
+import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
 
 type FormColor = NonNullable<EditColorById['color']>;

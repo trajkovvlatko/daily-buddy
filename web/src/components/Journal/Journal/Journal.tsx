@@ -1,6 +1,7 @@
 import { marked } from 'marked';
-import { navigate, routes } from '@redwoodjs/router';
 import type { FindJournalById } from 'types/graphql';
+
+import { navigate, routes } from '@redwoodjs/router';
 
 interface Props {
   journal: NonNullable<FindJournalById['journal']>;

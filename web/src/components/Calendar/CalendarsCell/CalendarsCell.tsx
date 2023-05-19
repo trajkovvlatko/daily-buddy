@@ -1,9 +1,9 @@
-import type { FindCalendars } from 'types/graphql'
+import type { FindCalendars } from 'types/graphql';
 
-import { Link, routes } from '@redwoodjs/router'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+import { Link, routes } from '@redwoodjs/router';
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 
-import Calendars from 'src/components/Calendar/Calendars'
+import Calendars from 'src/components/Calendar/Calendars';
 
 export const QUERY = gql`
   query FindCalendars {
@@ -16,28 +16,23 @@ export const QUERY = gql`
       userId
     }
   }
-`
+`;
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => <div>Loading...</div>;
 
 export const Empty = () => {
   return (
     <div className="rw-text-center">
       {'No calendars yet. '}
-      <Link
-        to={routes.newCalendar()}
-        className="rw-link"
-      >
+      <Link to={routes.newCalendar()} className="rw-link">
         {'Create one?'}
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export const Failure = ({ error }: CellFailureProps) => (
-  <div className="rw-cell-error">{error?.message}</div>
-)
+export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 export const Success = ({ calendars }: CellSuccessProps<FindCalendars>) => {
-  return <Calendars calendars={calendars} />
-}
+  return <Calendars calendars={calendars} />;
+};

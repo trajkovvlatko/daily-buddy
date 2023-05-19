@@ -1,6 +1,8 @@
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { EventFields, EventsQuery } from 'types/graphql';
+
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
+
 import { EventsByDateRow } from './EventsByDateRow';
 
 interface Props {

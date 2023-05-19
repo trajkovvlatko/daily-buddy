@@ -1,9 +1,9 @@
+import type { CreateStorageUnitInput } from 'types/graphql';
+
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import StorageUnitForm from 'src/components/StorageUnit/StorageUnitForm';
-
-import type { CreateStorageUnitInput } from 'types/graphql';
 
 const CREATE_STORAGE_UNIT_MUTATION = gql`
   mutation CreateStorageUnitMutation($input: CreateStorageUnitInput!) {

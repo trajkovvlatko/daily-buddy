@@ -1,11 +1,16 @@
-import type { FindNotes } from 'types/graphql';
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useState } from 'react';
-import NoteCell from '../NoteCell';
-import EditNoteCell from '../EditNoteCell';
-import { NoteLink } from './NoteLink';
-import { AddNewNote } from './AddNewNote';
+
+import type { FindNotes } from 'types/graphql';
+
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+
 import PageWrapper from 'src/components/PageWrapper/PageWrapper';
+
+import EditNoteCell from '../EditNoteCell';
+import NoteCell from '../NoteCell';
+
+import { AddNewNote } from './AddNewNote';
+import { NoteLink } from './NoteLink';
 
 export const QUERY = gql`
   query FindNotes {

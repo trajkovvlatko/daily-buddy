@@ -1,6 +1,5 @@
 import type { FindRooms } from 'types/graphql';
 
-import { Link, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 
 import Rooms from 'src/components/Room/Rooms';

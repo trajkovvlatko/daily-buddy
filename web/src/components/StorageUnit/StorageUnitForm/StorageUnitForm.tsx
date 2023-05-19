@@ -1,9 +1,10 @@
-import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
 import type { EditStorageUnitById, UpdateStorageUnitInput } from 'types/graphql';
+
+import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
+import { navigate, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-import { navigate, routes } from '@redwoodjs/router';
 
 const DELETE_STORAGE_UNIT_MUTATION = gql`
   mutation DeleteStorageUnitMutation($id: Int!) {

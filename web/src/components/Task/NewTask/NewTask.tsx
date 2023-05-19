@@ -1,7 +1,9 @@
+import type { CreateTaskInput } from 'types/graphql';
+
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
+
 import TaskForm from 'src/components/Task/TaskForm';
-import type { CreateTaskInput } from 'types/graphql';
 
 const CREATE_TASK_MUTATION = gql`
   mutation CreateTaskMutation($input: CreateTaskInput!) {

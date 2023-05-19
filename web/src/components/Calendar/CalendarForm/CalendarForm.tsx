@@ -1,6 +1,6 @@
-import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
-
 import type { EditCalendarById, UpdateCalendarInput } from 'types/graphql';
+
+import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
 
 type FormCalendar = NonNullable<EditCalendarById['calendar']>;

@@ -1,7 +1,8 @@
+import type { DeleteItemTypeMutationVariables, FindItemTypeById } from 'types/graphql';
+
 import { Link, routes, navigate } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-import type { DeleteItemTypeMutationVariables, FindItemTypeById } from 'types/graphql';
 
 const DELETE_ITEM_TYPE_MUTATION = gql`
   mutation DeleteItemTypeMutation($id: Int!) {

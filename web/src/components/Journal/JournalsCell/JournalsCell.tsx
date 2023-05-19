@@ -1,10 +1,13 @@
-import type { FindLatestJournals, FindLatestJournalsVariables, Journal as JournalType } from 'types/graphql';
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
-import Journal from 'src/components/Journal/Journal';
 import { useState } from 'react';
-import NewJournal from '../NewJournal/NewJournal';
+
+import type { FindLatestJournals, FindLatestJournalsVariables, Journal as JournalType } from 'types/graphql';
+
+import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+
+import Journal from 'src/components/Journal/Journal';
+
 import EditJournalCell from '../EditJournalCell';
-import { navigate, routes } from '@redwoodjs/router';
+import NewJournal from '../NewJournal/NewJournal';
 
 export const QUERY = gql`
   query FindLatestJournals($skip: Int!, $take: Int!) {

@@ -1,8 +1,9 @@
-import { Form, FormError, FieldError, Label, TextField, Submit, SelectField } from '@redwoodjs/forms';
 import type { EditItemById, UpdateItemInput } from 'types/graphql';
+import type { FindIdAndColor, FindIdAndItemType } from 'types/graphql';
+
+import { Form, FormError, FieldError, Label, TextField, Submit, SelectField } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
 import { useQuery } from '@redwoodjs/web';
-import type { FindIdAndColor, FindIdAndItemType } from 'types/graphql';
 
 type FormItem = NonNullable<EditItemById['item']>;
 

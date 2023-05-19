@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+
 import { FileStackContext } from 'src/contexts/FileStackContext';
 
 const FileUploadForm = ({
@@ -27,7 +28,7 @@ const FileUploadForm = ({
   return (
     <>
       <input type="file" onChange={handleFileChange} />
-      {imageRecord && <img src={imageRecord.url} />}
+      {imageRecord && <img src={imageRecord.url} alt="" />}
       <button onClick={handleUpload}>Upload</button>
     </>
   );

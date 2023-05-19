@@ -1,5 +1,5 @@
-import { navigate, Link, routes } from '@redwoodjs/router';
 import { useAuth } from '@redwoodjs/auth';
+import { navigate, Link, routes } from '@redwoodjs/router';
 
 const MenuList = ({ callback }: { callback: () => void }) => {
   const { isAuthenticated, logOut } = useAuth();

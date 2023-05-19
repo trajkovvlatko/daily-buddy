@@ -1,6 +1,6 @@
-import { Form, FormError, FieldError, Label, TextField, Submit, DateField } from '@redwoodjs/forms';
-
 import type { EditStreakById, UpdateStreakInput } from 'types/graphql';
+
+import { Form, FormError, FieldError, Label, TextField, Submit, DateField } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
 
 const formatDatetime = (value) => {

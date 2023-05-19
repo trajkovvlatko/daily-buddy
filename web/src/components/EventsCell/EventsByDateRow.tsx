@@ -1,4 +1,5 @@
 import type { EventsByDate } from 'types/graphql';
+
 import EventRow from './EventRow';
 
 interface Props {

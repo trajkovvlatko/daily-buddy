@@ -1,10 +1,10 @@
+import type { CreateStreakInput } from 'types/graphql';
+
 import { navigate, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import StreakForm from 'src/components/Streak/StreakForm';
-
-import type { CreateStreakInput } from 'types/graphql';
 
 const CREATE_STREAK_MUTATION = gql`
   mutation CreateStreakMutation($input: CreateStreakInput!) {

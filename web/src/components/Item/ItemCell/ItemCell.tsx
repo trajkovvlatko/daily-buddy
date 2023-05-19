@@ -1,5 +1,7 @@
 import type { FindItemById } from 'types/graphql';
+
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
+
 import Item from 'src/components/Item/Item';
 
 export const QUERY = gql`

@@ -1,4 +1,5 @@
 import { CalendarData, Event, Occurance, ParsedEvent } from 'types/shared';
+
 import { isOccurance } from './isOccurance';
 
 interface ParseEventProps {

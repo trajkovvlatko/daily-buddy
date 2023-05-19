@@ -1,8 +1,10 @@
 import type { EditColorById, UpdateColorInput } from 'types/graphql';
+
 import { navigate, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
+
 import ColorForm from 'src/components/Color/ColorForm';
 
 export const QUERY = gql`

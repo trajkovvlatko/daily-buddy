@@ -1,6 +1,8 @@
-import { Link, routes } from '@redwoodjs/router';
-import { truncate } from 'src/lib/formatters';
 import type { FindRooms } from 'types/graphql';
+
+import { Link, routes } from '@redwoodjs/router';
+
+import { truncate } from 'src/lib/formatters';
 
 const RoomsList = ({ rooms }: FindRooms) => {
   return (

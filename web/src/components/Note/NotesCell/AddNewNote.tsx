@@ -1,6 +1,8 @@
-import { useMutation } from '@redwoodjs/web';
 import { useRef, useState } from 'react';
+
 import { NoteTree } from 'types/graphql';
+
+import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 const CREATE_NOTE_MUTATION = gql`

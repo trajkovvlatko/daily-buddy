@@ -1,10 +1,14 @@
+import { useState } from 'react';
+
 import type { FindTasks } from 'types/graphql';
+
 import { Link, routes } from '@redwoodjs/router';
 import { CellSuccessProps, CellFailureProps, useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
+
 import Tasks from 'src/components/Task/Tasks';
+
 import NewTask from '../NewTask';
-import { useState } from 'react';
 
 export const QUERY = gql`
   fragment TaskFields on Task {
@@ -106,7 +110,7 @@ export const Success = ({ tasks, refetch }: CellSuccessProps<FindTasks>) => {
       {hasTodaysAgenda && (
         <div className="mb-12">
           <h1 className="pb-4 pt-1 text-lg font-semibold">
-            Today's tasks
+            Today&apos;s tasks
             <span onClick={onRefresh} className="refresh">
               ↻
             </span>

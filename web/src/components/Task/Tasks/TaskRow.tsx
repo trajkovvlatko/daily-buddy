@@ -1,8 +1,11 @@
+import { useRef } from 'react';
+
 import { TaskFields } from 'types/graphql';
-import { truncate } from 'src/lib/formatters';
+
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
-import { useRef } from 'react';
+
+import { truncate } from 'src/lib/formatters';
 
 const UPDATE_TASK_MUTATION = gql`
   mutation UpdateTaskMutation($id: Int!, $input: UpdateTaskInput!) {

@@ -1,8 +1,11 @@
-import { ArrowPathIcon, BookOpenIcon, CalendarIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
+
+import { ArrowPathIcon, BookOpenIcon, CalendarIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
+
 import JournalsCell from 'src/components/Journal/JournalsCell';
 import TasksCell from 'src/components/Task/TasksCell';
 import { isMobile } from 'src/lib/isMobile';
+
 import EventsCell from '../../components/EventsCell';
 import ListStreaksCell from '../../components/Streak/ListStreaksCell';
 

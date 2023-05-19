@@ -1,9 +1,9 @@
+import type { CreateDrawerInput } from 'types/graphql';
+
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import DrawerForm from 'src/components/Drawer/DrawerForm';
-
-import type { CreateDrawerInput } from 'types/graphql';
 
 const CREATE_DRAWER_MUTATION = gql`
   mutation CreateDrawerMutation($input: CreateDrawerInput!) {

@@ -1,10 +1,10 @@
+import type { CreateJournalInput } from 'types/graphql';
+
 import { navigate, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import JournalForm from 'src/components/Journal/JournalForm';
-
-import type { CreateJournalInput } from 'types/graphql';
 
 const CREATE_JOURNAL_MUTATION = gql`
   mutation CreateJournalMutation($input: CreateJournalInput!) {

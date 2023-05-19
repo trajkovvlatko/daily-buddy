@@ -1,6 +1,7 @@
 import IcalExpander from 'ical-expander';
-import { parseEvent } from './parseEvent';
 import { CalendarData, Event, Occurance } from 'types/shared';
+
+import { parseEvent } from './parseEvent';
 
 interface ParseCalendarProps {
   data: string;

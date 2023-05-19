@@ -1,11 +1,11 @@
+import type { DeleteCalendarMutationVariables, FindCalendars } from 'types/graphql';
+
 import { Link, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import { QUERY } from 'src/components/Calendar/CalendarsCell';
-import { timeTag, truncate } from 'src/lib/formatters';
-
-import type { DeleteCalendarMutationVariables, FindCalendars } from 'types/graphql';
+import { truncate } from 'src/lib/formatters';
 
 const DELETE_CALENDAR_MUTATION = gql`
   mutation DeleteCalendarMutation($id: Int!) {

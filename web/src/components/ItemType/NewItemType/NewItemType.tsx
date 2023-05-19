@@ -1,10 +1,10 @@
-import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/toast'
+import type { CreateItemTypeInput } from 'types/graphql';
 
-import ItemTypeForm from 'src/components/ItemType/ItemTypeForm'
+import { navigate, routes } from '@redwoodjs/router';
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
-import type { CreateItemTypeInput } from 'types/graphql'
+import ItemTypeForm from 'src/components/ItemType/ItemTypeForm';
 
 const CREATE_ITEM_TYPE_MUTATION = gql`
   mutation CreateItemTypeMutation($input: CreateItemTypeInput!) {
@@ -12,25 +12,22 @@ const CREATE_ITEM_TYPE_MUTATION = gql`
       id
     }
   }
-`
+`;
 
 const NewItemType = () => {
-  const [createItemType, { loading, error }] = useMutation(
-    CREATE_ITEM_TYPE_MUTATION,
-    {
-      onCompleted: () => {
-        toast.success('ItemType created')
-        navigate(routes.itemTypes())
-      },
-      onError: (error) => {
-        toast.error(error.message)
-      },
-    }
-  )
+  const [createItemType, { loading, error }] = useMutation(CREATE_ITEM_TYPE_MUTATION, {
+    onCompleted: () => {
+      toast.success('ItemType created');
+      navigate(routes.itemTypes());
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const onSave = (input: CreateItemTypeInput) => {
-    createItemType({ variables: { input } })
-  }
+    createItemType({ variables: { input } });
+  };
 
   return (
     <div className="rw-segment">
@@ -41,7 +38,7 @@ const NewItemType = () => {
         <ItemTypeForm onSave={onSave} loading={loading} error={error} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NewItemType
+export default NewItemType;

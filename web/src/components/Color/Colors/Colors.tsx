@@ -1,9 +1,11 @@
+import type { DeleteColorMutationVariables, FindColors } from 'types/graphql';
+
 import { Link, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
+
 import { QUERY } from 'src/components/Color/ColorsCell';
 import { truncate } from 'src/lib/formatters';
-import type { DeleteColorMutationVariables, FindColors } from 'types/graphql';
 
 const DELETE_COLOR_MUTATION = gql`
   mutation DeleteColorMutation($id: Int!) {

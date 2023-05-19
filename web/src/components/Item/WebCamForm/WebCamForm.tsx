@@ -1,5 +1,6 @@
-import Webcam from 'react-webcam';
 import { useCallback, useRef } from 'react';
+
+import Webcam from 'react-webcam';
 
 const WebCamForm = ({
   imageData,
@@ -12,13 +13,14 @@ const WebCamForm = ({
 
   const capture = useCallback(async () => {
     setImageData(webcamRef.current.getScreenshot());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [webcamRef]);
 
   const retake = () => setImageData(null);
 
-  return !!imageData ? (
+  return imageData ? (
     <>
-      <img src={imageData} />
+      <img src={imageData} alt="" />
       <div className="mt-3 flex justify-center">
         <button onClick={retake} className="green-button">
           Retake

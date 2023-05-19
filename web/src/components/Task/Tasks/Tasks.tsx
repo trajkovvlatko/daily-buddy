@@ -1,4 +1,5 @@
 import type { TaskFields } from 'types/graphql';
+
 import TaskRow from './TaskRow';
 
 const TasksList = ({ tasks }: { tasks: TaskFields[] }) => {

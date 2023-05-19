@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import MenuList from './MenuList';
+
 import Icon from './Icon';
+import MenuList from './MenuList';
 
 const ProfileMenu = () => {
   const [open, setOpen] = useState(false);
