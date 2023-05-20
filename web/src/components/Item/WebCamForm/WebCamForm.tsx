@@ -2,6 +2,8 @@ import { useCallback, useRef } from 'react';
 
 import Webcam from 'react-webcam';
 
+import { isMobile } from 'src/lib/isMobile';
+
 const WebCamForm = ({
   imageData,
   setImageData,
@@ -36,6 +38,9 @@ const WebCamForm = ({
         screenshotFormat="image/png"
         minScreenshotHeight={720}
         minScreenshotWidth={1080}
+        videoConstraints={{
+          facingMode: isMobile() ? 'environment' : 'user',
+        }}
       />
       <div className="mt-3 flex justify-center">
         <button onClick={capture} className="green-button">
