@@ -38,7 +38,7 @@ export const Success = ({ journals }: CellSuccessProps<FindJournals>) => {
         <button
           onClick={() => navigate(routes.newJournal())}
           title={'New journal'}
-          className="green-button float-right mr-3 mb-6"
+          className="green-button float-right mb-6 mr-3"
         >
           New
         </button>

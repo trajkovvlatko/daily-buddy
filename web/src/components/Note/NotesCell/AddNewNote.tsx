@@ -50,7 +50,7 @@ export const AddNewNote = ({ note }: { note: NoteTree }) => {
         <div className="ml-3 mr-3 w-full">
           <input
             type="text"
-            className="border-1 mt-3 mb-3 h-12 w-full pl-2"
+            className="border-1 mb-3 mt-3 h-12 w-full pl-2"
             onKeyUp={onSave}
             defaultValue={`${note.path}/`}
             ref={inputRef}

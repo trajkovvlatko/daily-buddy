@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useAuth } from '@redwoodjs/auth';
 import { Form, Label, PasswordField, Submit, FieldError } from '@redwoodjs/forms';
 import { navigate, routes } from '@redwoodjs/router';
 import { MetaTags } from '@redwoodjs/web';
 import { toast, Toaster } from '@redwoodjs/web/toast';
+
+import { useAuth } from 'src/auth';
 
 const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
   const { isAuthenticated, reauthenticate, validateResetToken, resetPassword } = useAuth();
@@ -27,8 +28,7 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
       }
     };
     validateToken();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [resetToken, validateResetToken]);
 
   const passwordRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -79,7 +79,7 @@ const ResetPasswordPage = ({ resetToken }: { resetToken: string }) => {
                       validation={{
                         required: {
                           value: true,
-                          message: 'Password is required',
+                          message: 'New Password is required',
                         },
                       }}
                     />

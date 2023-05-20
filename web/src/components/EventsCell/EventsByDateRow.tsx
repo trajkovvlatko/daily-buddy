@@ -14,7 +14,7 @@ export const EventsByDateRow = ({ row }: Props) => {
 
   return (
     <li className="list-none pb-3">
-      <div className="bg-gray-100 py-3 pl-6 text-sm text-base font-bold">
+      <div className="bg-gray-100 py-3 pl-6 text-base text-sm font-bold">
         {row.startDate} - {day}
       </div>
       {row.events.map((event) => {

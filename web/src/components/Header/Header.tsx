@@ -38,7 +38,7 @@ const Header = () => {
           <ChatBubbleOvalLeftIcon className="h-6 w-6 text-blue-500" />
         </Link>
       </li>
-      <li className="md:mt-auto md:mb-3">
+      <li className="md:mb-3 md:mt-auto">
         <ProfileMenu />
       </li>
     </ul>

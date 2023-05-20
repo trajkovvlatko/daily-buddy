@@ -9,7 +9,7 @@ export const Row = ({ journal }: { journal: { id: number; forDate: string } }) =
       <Link
         to={routes.journal({ id: journal.id })}
         title={'Show journal ' + journal.id + ' detail'}
-        className="block py-4 px-3 text-sm"
+        className="block px-3 py-4 text-sm"
       >
         {journal.forDate.slice(0, 10)}
       </Link>
