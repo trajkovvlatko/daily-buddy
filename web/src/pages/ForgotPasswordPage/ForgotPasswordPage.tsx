@@ -5,7 +5,7 @@ import { navigate, routes } from '@redwoodjs/router';
 import { MetaTags } from '@redwoodjs/web';
 import { toast, Toaster } from '@redwoodjs/web/toast';
 
-import { useAuth } from '../../auth';
+import { useAuth } from 'src/auth';
 
 const ForgotPasswordPage = () => {
   const { isAuthenticated, forgotPassword } = useAuth();
@@ -60,7 +60,10 @@ const ForgotPasswordPage = () => {
                       errorClassName="rw-input rw-input-error"
                       ref={usernameRef}
                       validation={{
-                        required: true,
+                        required: {
+                          value: true,
+                          message: 'Username is required',
+                        },
                       }}
                     />
 

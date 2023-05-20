@@ -6,7 +6,7 @@ import { Link, navigate, routes } from '@redwoodjs/router';
 import { MetaTags } from '@redwoodjs/web';
 import { toast, Toaster } from '@redwoodjs/web/toast';
 
-import { useAuth } from '../../auth';
+import { useAuth } from 'src/auth';
 
 const LoginPage = () => {
   const { isAuthenticated, logIn } = useAuth();
@@ -23,7 +23,10 @@ const LoginPage = () => {
   }, []);
 
   const onSubmit = async (data: Record<string, string>) => {
-    const response = await logIn({ ...(data as any) });
+    const response = await logIn({
+      username: data.username,
+      password: data.password,
+    });
 
     if (response.message) {
       toast(response.message);

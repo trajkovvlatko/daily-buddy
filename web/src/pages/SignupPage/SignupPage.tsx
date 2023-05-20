@@ -6,25 +6,28 @@ import { Link, navigate, routes } from '@redwoodjs/router';
 import { MetaTags } from '@redwoodjs/web';
 import { toast, Toaster } from '@redwoodjs/web/toast';
 
-import { useAuth } from '../../auth';
+import { useAuth } from 'src/auth';
 
 const SignupPage = () => {
   const { isAuthenticated, signUp } = useAuth();
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(routes.dashboard());
+      navigate(routes.home());
     }
   }, [isAuthenticated]);
 
-  // focus on email box on page load
+  // focus on username box on page load
   const usernameRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     usernameRef.current?.focus();
   }, []);
 
   const onSubmit = async (data: Record<string, string>) => {
-    const response = await signUp({ ...(data as any) });
+    const response = await signUp({
+      username: data.username,
+      password: data.password,
+    });
 
     if (response.message) {
       toast(response.message);

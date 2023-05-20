@@ -11,11 +11,12 @@ import { Set, Router, Route } from '@redwoodjs/router';
 
 import ScaffoldLayout from 'src/layouts/ScaffoldLayout';
 
+import { useAuth } from './auth';
 import AdminPageWrapper from './components/AdminPageWrapper/AdminPageWrapper';
 
 const Routes = () => {
   return (
-    <Router>
+    <Router useAuth={useAuth}>
       <Set wrap={ScaffoldLayout}>
         <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}/drawers/{drawerId:Int}/items/{itemId:Int}" page={InventoryPage} name="inventoryItem" />
         <Route path="/inventory/rooms/{roomId:Int}/storage_units/{storageUnitId:Int}/drawers/{drawerId:Int}/items/new" page={InventoryPage} name="inventoryNewItem" />
