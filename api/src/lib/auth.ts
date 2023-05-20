@@ -21,7 +21,6 @@ import { db } from './db';
  * seen if someone were to open the Web Inspector in their browser.
  */
 export const getCurrentUser = async (session: Decoded) => {
-  console.log('>>>>>>>>>>>>>>>>>. getCurrentUser', session);
   if (!session || typeof session.id !== 'number') {
     throw new Error('Invalid session');
   }

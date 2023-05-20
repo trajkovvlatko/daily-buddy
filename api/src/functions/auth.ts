@@ -115,8 +115,6 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
       });
     },
 
-    enabled: true,
-
     // Include any format checks for password here. Return `true` if the
     // password is valid, otherwise throw a `PasswordValidationError`.
     // Import the error along with `DbAuthHandler` from `@redwoodjs/api` above.
