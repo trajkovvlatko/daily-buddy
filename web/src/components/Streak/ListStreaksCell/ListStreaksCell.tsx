@@ -21,7 +21,13 @@ export const Empty = () => null;
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
-export const Success = ({ streaks, refetch }: CellSuccessProps<FindStreaks>) => {
+export const Success = ({
+  streaks,
+
+  queryResult: {
+    refetch,
+  },
+}: CellSuccessProps<FindStreaks>) => {
   const onRefresh = async () => {
     try {
       await refetch();

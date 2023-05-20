@@ -60,7 +60,13 @@ export const Empty = () => {
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
-export const Success = ({ tasks, refetch }: CellSuccessProps<FindTasks>) => {
+export const Success = ({
+  tasks,
+
+  queryResult: {
+    refetch,
+  },
+}: CellSuccessProps<FindTasks>) => {
   const [showNewTask, setShowNewTask] = useState(false);
   const [deleteAllDone] = useMutation(DELETE_ALL_DONE, {
     onCompleted: () => {

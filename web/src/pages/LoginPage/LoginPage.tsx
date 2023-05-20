@@ -1,11 +1,12 @@
 import { useRef } from 'react';
 import { useEffect } from 'react';
 
-import { useAuth } from '@redwoodjs/auth';
 import { Form, Label, TextField, PasswordField, Submit, FieldError } from '@redwoodjs/forms';
 import { Link, navigate, routes } from '@redwoodjs/router';
 import { MetaTags } from '@redwoodjs/web';
 import { toast, Toaster } from '@redwoodjs/web/toast';
+
+import { useAuth } from '../../auth';
 
 const LoginPage = () => {
   const { isAuthenticated, logIn } = useAuth();
@@ -22,7 +23,7 @@ const LoginPage = () => {
   }, []);
 
   const onSubmit = async (data: Record<string, string>) => {
-    const response = await logIn({ ...data });
+    const response = await logIn({ ...(data as any) });
 
     if (response.message) {
       toast(response.message);

@@ -53,7 +53,10 @@ export const Empty = () => <div>Empty</div>;
 export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 'red' }}>Error: {error?.message}</div>;
 
 export const Success = (props: CellSuccessProps<EventsQuery>) => {
-  const { getEvents: events, refetch, variables } = props;
+  const {
+    getEvents: events,
+    queryResult: { refetch, variables },
+  } = props;
   const onRefresh = async () => {
     try {
       await refetch({ ...variables, clearCache: true });
