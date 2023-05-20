@@ -18,7 +18,7 @@ const EventRow = ({ event }: Props) => {
   const border = { borderLeft: `4px solid ${event.calendar.color}` };
 
   return (
-    <div className="mt-2 pt-3 pl-6" style={border}>
+    <div className="mt-2 pl-6 pt-3" style={border}>
       <div>
         <b>{event.startTime}</b> - {event.summary}
       </div>

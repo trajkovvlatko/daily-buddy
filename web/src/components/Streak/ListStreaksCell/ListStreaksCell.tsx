@@ -24,9 +24,7 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 export const Success = ({
   streaks,
 
-  queryResult: {
-    refetch,
-  },
+  queryResult: { refetch },
 }: CellSuccessProps<FindStreaks>) => {
   const onRefresh = async () => {
     try {

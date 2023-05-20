@@ -20,7 +20,7 @@ export const NoteLink = ({ note, onClick, isSelected }: Props) => {
   return (
     <div
       onClick={onClick}
-      className={`w-5/6 cursor-pointer truncate pt-3 pb-3 hover:text-gray-500`}
+      className={`w-5/6 cursor-pointer truncate pb-3 pt-3 hover:text-gray-500`}
       style={{
         paddingLeft: res.count,
         fontWeight: isSelected ? 'bold' : 'normal',

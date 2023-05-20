@@ -29,7 +29,7 @@ const ProfileMenu = () => {
 
   return (
     <>
-      <div onClick={toggleOpen} className="mt-3 mb-3 flex justify-center">
+      <div onClick={toggleOpen} className="mb-3 mt-3 flex justify-center">
         <Icon />
       </div>
       <div className={menuClassName}>

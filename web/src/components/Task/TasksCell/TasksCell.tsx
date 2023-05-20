@@ -63,9 +63,7 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 export const Success = ({
   tasks,
 
-  queryResult: {
-    refetch,
-  },
+  queryResult: { refetch },
 }: CellSuccessProps<FindTasks>) => {
   const [showNewTask, setShowNewTask] = useState(false);
   const [deleteAllDone] = useMutation(DELETE_ALL_DONE, {
