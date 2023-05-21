@@ -65,6 +65,10 @@ ul {
   .orange-button {
     @apply rounded bg-orange-500 py-2 px-4 font-semibold text-white text-sm hover:bg-orange-700;
   }
+
+  .header-icon {
+    @apply h-6 w-6 text-blue-500;
+  }
 }
 
 @media screen and (min-width: 720px) {

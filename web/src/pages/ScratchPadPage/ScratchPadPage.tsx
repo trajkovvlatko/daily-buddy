@@ -33,7 +33,7 @@ const ScratchPadPage = () => {
   }, []);
 
   return (
-    <div className="scratch-pad ml-3 mr-3 bg-gray-100 pt-0 md:ml-6 md:mr-6 md:min-h-screen md:pt-6">
+    <div className="scratch-pad ml-3 mr-3 bg-gray-100 pt-0 md:ml-6 md:mr-6 md:min-h-screen">
       <div className="mb-6 h-[90vh] bg-white p-6 shadow-lg md:grid md:h-[95vh]">
         <textarea className="h-full w-full" ref={textAreaRef}></textarea>
       </div>
