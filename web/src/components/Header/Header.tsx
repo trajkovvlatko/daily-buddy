@@ -46,7 +46,7 @@ const Header = () => {
         <div
           className={
             showScratchPad
-              ? 'fixed left-1 right-1 top-20 overflow-hidden md:bottom-5 md:left-16 md:right-0 md:top-5'
+              ? 'fixed left-0 right-0 top-20 overflow-hidden md:bottom-5 md:left-16 md:right-0 md:top-5'
               : 'hidden'
           }
         >

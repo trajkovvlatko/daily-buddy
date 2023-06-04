@@ -1,7 +1,12 @@
+import { useState } from 'react';
+
+import MarkdownEditor from '@uiw/react-markdown-editor';
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
 
-import { Form, FormError, FieldError, Label, TextField, Submit, TextAreaField } from '@redwoodjs/forms';
+import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
+
+import { toolbars } from 'src/shared';
 
 type FormNote = NonNullable<EditNoteById['note']>;
 
@@ -13,8 +18,10 @@ interface NoteFormProps {
 }
 
 const NoteForm = (props: NoteFormProps) => {
+  const [value, setMarkdown] = useState(props.note?.content ?? '');
+
   const onSubmit = (data: FormNote) => {
-    props.onSave(data, props?.note?.id);
+    props.onSave({ ...data, content: value }, props?.note?.id);
   };
 
   return (
@@ -39,14 +46,7 @@ const NoteForm = (props: NoteFormProps) => {
         Content
       </Label>
 
-      <TextAreaField
-        name="content"
-        defaultValue={props.note?.content}
-        className="rw-input"
-        errorClassName="rw-input rw-input-error"
-        validation={{ required: true }}
-        rows={27}
-      />
+      <MarkdownEditor value={value} onChange={(value) => setMarkdown(value)} enableScroll={true} toolbars={toolbars} />
 
       <FieldError name="content" className="rw-field-error" />
 
