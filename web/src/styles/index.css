@@ -175,3 +175,36 @@ input:focus {
   height: 100%;
   width: 100%;
 }
+
+.md-editor, .cm-editor, .md-editor-toolbar-warp {
+  background-color: #fff;
+}
+
+.cm-gutters {
+  display: none !important;
+}
+
+.md-editor-toolbar button {
+  height: 30px !important;
+  width: 30px !important;
+}
+
+.cm-scroller {
+  min-height: 80vh;
+  height: 100% !important;
+}
+
+@media screen and (min-width: 720px) {
+  .cm-scroller {
+    min-height: 300px;
+  }
+}
+
+.cm-focused {
+  outline: 0 none !important;
+}
+
+.md-editor {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem !important;
+}

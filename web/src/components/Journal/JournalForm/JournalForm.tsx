@@ -1,12 +1,16 @@
+import { useState } from 'react';
+
+import MarkdownEditor from '@uiw/react-markdown-editor';
 import type { DeleteJournalMutationVariables, EditJournalById, UpdateJournalInput } from 'types/graphql';
 
-import { DateField, Form, FormError, Label, Submit, TextAreaField } from '@redwoodjs/forms';
+import { DateField, Form, FormError, Label, Submit } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
 import { navigate, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import { getDefaultDate } from 'src/lib/getDefaultDate';
+import { toolbars } from 'src/shared';
 
 type FormJournal = NonNullable<EditJournalById['journal']>;
 
@@ -26,6 +30,8 @@ interface JournalFormProps {
 }
 
 const JournalForm = (props: JournalFormProps) => {
+  const [value, setMarkdown] = useState(props.journal?.content ?? '');
+
   const [deleteJournal] = useMutation(DELETE_JOURNAL_MUTATION, {
     onCompleted: () => {
       toast.success('Journal deleted');
@@ -37,7 +43,7 @@ const JournalForm = (props: JournalFormProps) => {
   });
 
   const onSubmit = (data: FormJournal) => {
-    props.onSave(data, props?.journal?.id);
+    props.onSave({ ...data, content: value }, props?.journal?.id);
   };
 
   const onDeleteClick = (id: DeleteJournalMutationVariables['id']) => {
@@ -71,13 +77,11 @@ const JournalForm = (props: JournalFormProps) => {
           Content
         </Label>
 
-        <TextAreaField
-          name="content"
-          defaultValue={props.journal?.content}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-          rows={10}
+        <MarkdownEditor
+          value={value}
+          onChange={(value) => setMarkdown(value)}
+          enableScroll={true}
+          toolbars={toolbars}
         />
 
         <div className="float-right mt-6">
