@@ -5,7 +5,7 @@ import MarkdownEditor from '@uiw/react-markdown-editor';
 import { toolbars } from 'src/shared';
 
 const key = 'scratch-pad';
-const get = () => localStorage.getItem(key);
+const get = () => localStorage.getItem(key) ?? '';
 const set = (value: string) => localStorage.setItem(key, value);
 
 const ScratchPadPage = () => {
