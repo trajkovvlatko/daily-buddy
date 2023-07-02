@@ -43,7 +43,7 @@ export const Success = ({ grocery }: CellSuccessProps<EditGroceryById>) => {
     },
   });
 
-  const onSave = (input: UpdateGroceryInput, id: EditGroceryById['grocery']['id']) => {
+  const onSave = async (input: UpdateGroceryInput, id: EditGroceryById['grocery']['id']) => {
     updateGrocery({ variables: { id, input } });
   };
 

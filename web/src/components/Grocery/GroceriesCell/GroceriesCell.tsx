@@ -4,6 +4,7 @@ import { Link, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 
 import Groceries from 'src/components/Grocery/Groceries';
+
 import NewGrocery from '../NewGrocery/NewGrocery';
 
 export const QUERY = gql`
@@ -34,11 +35,11 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 
 export const Success = ({ groceries }: CellSuccessProps<FindGroceries>) => {
   return (
-    <div className="grid-cols-12 md:grid">
+    <div className="grid-cols-12 md:grid md:p-6">
       <div className="md:col-span-4 md:mr-6">
         <NewGrocery />
       </div>
-      <div className="md:col-span-8">
+      <div className="md:col-span-8 md:max-h-[95vh] md:overflow-y-auto">
         <Groceries groceries={groceries} />
       </div>
     </div>

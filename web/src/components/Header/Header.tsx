@@ -6,10 +6,12 @@ import {
   ChatBubbleOvalLeftIcon,
   HomeIcon,
   PencilSquareIcon,
+  ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
 
 import { Link, routes } from '@redwoodjs/router';
 
+import GroceryExpireCountCell from 'src/components/Grocery/GroceryExpireCountCell';
 import ScratchPadPage from 'src/pages/ScratchPadPage/ScratchPadPage';
 
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
@@ -37,6 +39,11 @@ const Header = () => {
       <li className="md:mb-8">
         <Link to={routes.inventory()} className="text-blue-500 hover:text-blue-800">
           <HomeIcon className="header-icon" />
+        </Link>
+      </li>
+      <li className="md:mb-8">
+        <Link to={routes.groceries()}>
+          <GroceryExpireCountCell />
         </Link>
       </li>
       <li className="flex md:mb-8">

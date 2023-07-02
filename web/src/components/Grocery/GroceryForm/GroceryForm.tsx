@@ -57,7 +57,7 @@ const GroceryForm = (props: GroceryFormProps) => {
 
         <DateField
           name="boughtAt"
-          defaultValue={props.grocery?.boughtAt ?? getDefaultDate()}
+          defaultValue={props.grocery?.boughtAt.slice(0, 10) ?? getDefaultDate()}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
@@ -71,7 +71,7 @@ const GroceryForm = (props: GroceryFormProps) => {
 
         <DateField
           name="expireAt"
-          defaultValue={props.grocery?.expireAt}
+          defaultValue={props.grocery?.expireAt.slice(0, 10)}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}

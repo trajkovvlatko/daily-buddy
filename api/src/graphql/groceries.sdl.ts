@@ -9,6 +9,7 @@ export const schema = gql`
   type Query {
     groceries: [Grocery!]! @requireAuth
     grocery(id: Int!): Grocery @requireAuth
+    groceriesExpireCount: Int! @requireAuth
   }
 
   input CreateGroceryInput {

@@ -40,3 +40,14 @@ export const deleteGrocery: MutationResolvers['deleteGrocery'] = async ({ id }, 
 
   return db.grocery.delete({ where: { id } });
 };
+
+export const groceriesExpireCount: QueryResolvers['groceriesExpireCount'] = (_, { context }) => {
+  const userId = context.currentUser['id'];
+
+  const date = new Date();
+  date.setDate(date.getDate() + 7);
+
+  return db.grocery.count({
+    where: { userId, expireAt: { lte: date } },
+  });
+};

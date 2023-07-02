@@ -1,11 +1,12 @@
+import { PencilIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import type { DeleteGroceryMutationVariables, FindGroceries } from 'types/graphql';
+
 import { Link, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import { QUERY } from 'src/components/Grocery/GroceriesCell';
-import { timeTag, truncate } from 'src/lib/formatters';
-
-import type { DeleteGroceryMutationVariables, FindGroceries } from 'types/graphql';
+import { truncate } from 'src/lib/formatters';
 
 const DELETE_GROCERY_MUTATION = gql`
   mutation DeleteGroceryMutation($id: Int!) {
@@ -36,6 +37,38 @@ const GroceriesList = ({ groceries }: FindGroceries) => {
     }
   };
 
+  const Row = ({ grocery }) => {
+    const isNearExpireDate = new Date(grocery.expireAt) < new Date(new Date().setDate(new Date().getDate() + 7));
+    const color = isNearExpireDate ? 'bg-red-100' : 'white';
+
+    return (
+      <tr key={grocery.id}>
+        <td className={color}>{truncate(grocery.name)}</td>
+        <td className={color}>{grocery.boughtAt.slice(0, 10)}</td>
+        <td className={color}>{grocery.expireAt.slice(0, 10)}</td>
+        <td>
+          <nav className="rw-table-actions">
+            <Link
+              to={routes.editGrocery({ id: grocery.id })}
+              title={'Edit grocery ' + grocery.id}
+              className="blue-button mr-2"
+            >
+              <PencilIcon className="h-3 w-3" />
+            </Link>
+            <button
+              type="button"
+              title={'Delete grocery ' + grocery.id}
+              className="red-button"
+              onClick={() => onDeleteClick(grocery.id)}
+            >
+              <XMarkIcon className="h-3 w-3" />
+            </button>
+          </nav>
+        </td>
+      </tr>
+    );
+  };
+
   return (
     <div className="bg-white p-3">
       <h2 className="h-12 text-lg font-semibold">Groceries</h2>
@@ -50,30 +83,7 @@ const GroceriesList = ({ groceries }: FindGroceries) => {
         </thead>
         <tbody>
           {groceries.map((grocery) => (
-            <tr key={grocery.id}>
-              <td>{truncate(grocery.name)}</td>
-              <td>{grocery.boughtAt.slice(0, 10)}</td>
-              <td>{grocery.expireAt.slice(0, 10)}</td>
-              <td>
-                <nav className="rw-table-actions">
-                  <Link
-                    to={routes.editGrocery({ id: grocery.id })}
-                    title={'Edit grocery ' + grocery.id}
-                    className="blue-button mr-2"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    type="button"
-                    title={'Delete grocery ' + grocery.id}
-                    className="red-button"
-                    onClick={() => onDeleteClick(grocery.id)}
-                  >
-                    Delete
-                  </button>
-                </nav>
-              </td>
-            </tr>
+            <Row grocery={grocery} key={grocery.id} />
           ))}
         </tbody>
       </table>
