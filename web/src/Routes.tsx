@@ -41,6 +41,11 @@ const Routes = () => {
 
         <Route path="/scratch-pad" page={ScratchPadPage} name="scratchPad" />
 
+        <Route path="/groceries/new" page={GroceryNewGroceryPage} name="newGrocery" />
+        <Route path="/groceries/{id:Int}/edit" page={GroceryEditGroceryPage} name="editGrocery" />
+        <Route path="/groceries/{id:Int}" page={GroceryGroceryPage} name="grocery" />
+        <Route path="/groceries" page={GroceryGroceriesPage} name="groceries" />
+
         <AdminPageWrapper>
           <Route path="/item-types/new" page={ItemTypeNewItemTypePage} name="newItemType" />
           <Route path="/item-types/{id:Int}/edit" page={ItemTypeEditItemTypePage} name="editItemType" />

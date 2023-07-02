@@ -30,6 +30,7 @@ model User {
   Drawer              Drawer[]
   Item                Item[]
   Streak              Streak[]
+  Grocery             Grocery[]
 }
 
 model Calendar {
@@ -166,11 +167,22 @@ model Item {
   @@index([itemTypeId], name: "itemType")
 }
 
-
 model Streak {
   id          Int         @id @default(autoincrement())
   name        String
   last_date   DateTime    @db.Date
+  createdAt   DateTime    @default(now())
+  User        User        @relation(references: [id], fields: [userId])
+  userId      Int
+
+  @@index([userId], name: "user")
+}
+
+model Grocery {
+  id          Int         @id @default(autoincrement())
+  name        String
+  boughtAt    DateTime    @default(now())
+  expireAt    DateTime    @db.Date
   createdAt   DateTime    @default(now())
   User        User        @relation(references: [id], fields: [userId])
   userId      Int
