@@ -8,7 +8,7 @@ export const QUERY = gql`
   }
 `;
 
-export const Loading = () => <></>;
+export const Loading = () => <ShoppingCartIcon className={`header-icon text-blue-500 hover:text-blue-800`} />;
 
 export const Empty = () => <></>;
 

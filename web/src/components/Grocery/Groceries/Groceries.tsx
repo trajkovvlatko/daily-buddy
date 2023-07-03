@@ -38,15 +38,14 @@ const GroceriesList = ({ groceries }: FindGroceries) => {
   };
 
   const Row = ({ grocery }) => {
-    const isNearExpireDate = new Date(grocery.expireAt) < new Date(new Date().setDate(new Date().getDate() + 7));
-    const color = isNearExpireDate ? 'bg-red-100' : 'white';
+    const color = grocery.nearExpireDate ? 'bg-red-100' : 'white';
 
     return (
       <tr key={grocery.id}>
         <td className={color}>{truncate(grocery.name)}</td>
         <td className={color}>{grocery.boughtAt.slice(0, 10)}</td>
         <td className={color}>{grocery.expireAt.slice(0, 10)}</td>
-        <td>
+        <td className={color}>
           <nav className="rw-table-actions">
             <Link
               to={routes.editGrocery({ id: grocery.id })}

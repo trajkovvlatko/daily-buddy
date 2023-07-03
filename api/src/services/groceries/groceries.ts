@@ -2,36 +2,64 @@ import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 
 import { db } from 'src/lib/db';
 
-export const groceries: QueryResolvers['groceries'] = (_, { context }) => {
+const getMaxAllowedDate = () => {
+  const date = new Date();
+  date.setDate(date.getDate() + 7);
+
+  return date;
+};
+
+export const groceries: QueryResolvers['groceries'] = async (_, { context }) => {
   const userId = context.currentUser['id'];
 
-  return db.grocery.findMany({
+  const res = await db.grocery.findMany({
     where: { userId },
     orderBy: { expireAt: 'asc' },
   });
+
+  return res.map((grocery) => ({
+    ...grocery,
+    nearExpireDate: grocery.expireAt <= getMaxAllowedDate(),
+  }));
 };
 
-export const grocery: QueryResolvers['grocery'] = ({ id }, { context }) => {
+export const grocery: QueryResolvers['grocery'] = async ({ id }, { context }) => {
   const userId = context.currentUser['id'];
 
-  return db.grocery.findFirst({
+  const res = await db.grocery.findFirst({
     where: { id, userId },
   });
+  if (!res) throw new Error('Not found');
+
+  return {
+    ...res,
+    nearExpireDate: res.expireAt <= getMaxAllowedDate(),
+  };
 };
 
-export const createGrocery: MutationResolvers['createGrocery'] = ({ input }, { context }) => {
+export const createGrocery: MutationResolvers['createGrocery'] = async ({ input }, { context }) => {
   const userId = context.currentUser['id'];
 
-  return db.grocery.create({
+  const res = await db.grocery.create({
     data: { ...input, userId },
   });
+
+  return {
+    ...res,
+    nearExpireDate: res.expireAt <= getMaxAllowedDate(),
+  };
 };
 
 export const updateGrocery: MutationResolvers['updateGrocery'] = async ({ id, input }, { context }) => {
   const userId = context.currentUser['id'];
   await db.grocery.findFirstOrThrow({ where: { userId, id } });
 
-  return db.grocery.update({ data: input, where: { id } });
+  const res = await db.grocery.update({ data: input, where: { id } });
+
+  return {
+    ...res,
+    nearExpireDate: res.expireAt <= getMaxAllowedDate(),
+  };
 };
 
 export const deleteGrocery: MutationResolvers['deleteGrocery'] = async ({ id }, { context }) => {
@@ -44,10 +72,7 @@ export const deleteGrocery: MutationResolvers['deleteGrocery'] = async ({ id }, 
 export const groceriesExpireCount: QueryResolvers['groceriesExpireCount'] = (_, { context }) => {
   const userId = context.currentUser['id'];
 
-  const date = new Date();
-  date.setDate(date.getDate() + 7);
-
   return db.grocery.count({
-    where: { userId, expireAt: { lte: date } },
+    where: { userId, expireAt: { lte: getMaxAllowedDate() } },
   });
 };

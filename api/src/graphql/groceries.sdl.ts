@@ -4,6 +4,7 @@ export const schema = gql`
     name: String!
     boughtAt: DateTime!
     expireAt: DateTime!
+    nearExpireDate: Boolean!
   }
 
   type Query {

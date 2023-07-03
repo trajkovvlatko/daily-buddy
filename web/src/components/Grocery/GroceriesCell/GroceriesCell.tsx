@@ -14,6 +14,7 @@ export const QUERY = gql`
       name
       boughtAt
       expireAt
+      nearExpireDate
     }
   }
 `;
