@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import { NoteTree } from 'types/graphql';
+import { NoteReference } from 'types/graphql';
 
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
@@ -13,7 +13,7 @@ const CREATE_NOTE_MUTATION = gql`
   }
 `;
 
-export const AddNewNote = ({ note }: { note: NoteTree }) => {
+export const AddNewNote = ({ note }: { note: NoteReference }) => {
   const [showNewForm, setShowNewForm] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 

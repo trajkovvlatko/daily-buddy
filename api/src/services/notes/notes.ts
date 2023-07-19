@@ -5,15 +5,19 @@ import { getAccessibleIds, getAccessibleId } from 'src/helpers/getAccessibleIds'
 
 export const notes: QueryResolvers['notes'] = async (_, { context }) => {
   const userId = context.currentUser['id'];
+
+  return db.note.findMany({
+    where: { userId },
+    orderBy: { path: 'asc' },
+  });
+};
+
+export const sharedNotes: QueryResolvers['sharedNotes'] = async (_, { context }) => {
+  const userId = context.currentUser['id'];
   const accessibleIds = await getAccessibleIds({ type: "Note", userId })
 
   return db.note.findMany({
-    where: {
-      OR: [
-        { userId },
-        { id: { in: accessibleIds } }
-      ]
-    },
+    where: { id: { in: accessibleIds } },
     orderBy: { path: 'asc' },
   });
 };

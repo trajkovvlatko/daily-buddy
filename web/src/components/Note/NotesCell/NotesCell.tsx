@@ -18,6 +18,10 @@ export const QUERY = gql`
       id
       path
     }
+    sharedNotes {
+      id
+      path
+    }
   }
 `;
 
@@ -29,7 +33,7 @@ export const Empty = () => {
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
-export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
+export const Success = ({ notes, sharedNotes }: CellSuccessProps<FindNotes>) => {
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -63,11 +67,28 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
                 onClick={() => setSelectedNoteId(note.id)}
                 note={note}
                 isSelected={selectedNoteId === note.id}
+                shouldPad={true}
               />
               <AddNewNote note={note} />
             </div>
           );
         })}
+        {!!sharedNotes.length && <>
+          <h2 className="mt-5 mb-5 pl-5 text-lg font-semibold">Shared notes</h2>
+          {sharedNotes.map((note) => {
+            return (
+              <div className="note-menu flex flex-wrap" key={note.id}>
+                <NoteLink
+                  onClick={() => setSelectedNoteId(note.id)}
+                  note={note}
+                  isSelected={selectedNoteId === note.id}
+                  shouldPad={false}
+                />
+              </div>
+            );
+          })}
+        </>
+        }
       </div>
 
       <div className="main-content">
