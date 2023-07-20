@@ -26,7 +26,7 @@ export const note: QueryResolvers['note'] = async ({ id }, { context }) => {
   const userId = context.currentUser['id'];
   const accessibleId = await getAccessibleId({ id, type: "Note", userId })
 
-  return db.note.findFirst({
+  const note = await db.note.findFirst({
     where: {
       OR: [
         { id, userId },
@@ -34,6 +34,26 @@ export const note: QueryResolvers['note'] = async ({ id }, { context }) => {
       ]
     },
   });
+
+  const access = await db.access.findMany({
+    where: {
+      accessibleId: id,
+      accessibleType: "Note",
+    }
+  })
+  const userIds = access.map((row) => row.userId)
+  const users = await db.user.findMany({
+    select: {
+      email: true
+    },
+    where: {
+      id: {
+        in: userIds
+      }
+    }
+  })
+
+  return { ...note, emails: users.map((row) => row.email) }
 };
 
 export const createNote: MutationResolvers['createNote'] = ({ input }, { context }) => {

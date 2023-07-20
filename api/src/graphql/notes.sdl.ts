@@ -3,6 +3,7 @@ export const schema = gql`
     id: Int!
     path: String!
     content: String!
+    emails: [String!]
   }
 
   type NoteReference {
