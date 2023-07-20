@@ -1,6 +1,8 @@
 import { db } from 'src/lib/db';
 
-export const getAccessibleIds = async ({ type, userId }: { type: "Note", userId: number }): Promise<number[]> => {
+type AccessibleType = "Note" | "ShoppingList"
+
+export const getAccessibleIds = async ({ type, userId }: { type: AccessibleType, userId: number }): Promise<number[]> => {
   const accesses = await db.access.findMany({
     select: {
       accessibleId: true
@@ -14,7 +16,7 @@ export const getAccessibleIds = async ({ type, userId }: { type: "Note", userId:
   return accesses.map((row) => row.accessibleId);
 }
 
-export const getAccessibleId = async ({ id, type, userId }: { id: number, type: "Note", userId: number }): Promise<number | undefined> => {
+export const getAccessibleId = async ({ id, type, userId }: { id: number, type: AccessibleType, userId: number }): Promise<number | undefined> => {
   const accesses = await db.access.findMany({
     select: {
       accessibleId: true

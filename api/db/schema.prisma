@@ -32,6 +32,7 @@ model User {
   Streak              Streak[]
   Grocery             Grocery[]
   Access              Access[]
+  ShoppingList        ShoppingList[]
 }
 
 model Calendar {
@@ -195,6 +196,7 @@ model Grocery {
 
 enum AccessibleType {
   Note
+  ShoppingList
 }
 
 model Access {
@@ -207,4 +209,22 @@ model Access {
 
   accessibleId   Int
   accessibleType AccessibleType
+}
+
+model ShoppingList {
+  id                      Int                 @id @default(autoincrement())
+  name                    String
+
+  ShoppingListItem        ShoppingListItem[]
+
+  User                    User                @relation(references: [id], fields: [userId])
+  userId                  Int
+}
+
+model ShoppingListItem {
+  id                      Int                 @id @default(autoincrement())
+  name                    String
+
+  ShoppingList            ShoppingList        @relation(references: [id], fields: [shoppingListId])
+  shoppingListId          Int
 }
