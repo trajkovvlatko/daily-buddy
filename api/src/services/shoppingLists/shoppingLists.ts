@@ -1,4 +1,4 @@
-import type { QueryResolvers, MutationResolvers } from 'types/graphql';
+import type { QueryResolvers, MutationResolvers, ShoppingListRelationResolvers } from 'types/graphql';
 
 import { db } from 'src/lib/db';
 import { getAccessibleId, getAccessibleIds } from 'src/helpers/getAccessibleIds';
@@ -64,4 +64,14 @@ export const deleteShoppingList: MutationResolvers['deleteShoppingList'] = async
   await db.shoppingList.findFirstOrThrow({ where: { userId, id } });
 
   return db.shoppingList.delete({ where: { id } });
+};
+
+export const ShoppingList: ShoppingListRelationResolvers = {
+  shoppingListItems: (obj, { root }) => {
+    return db.shoppingListItem.findMany({
+      where: {
+        shoppingListId: root.id
+      }
+    });
+  }
 };

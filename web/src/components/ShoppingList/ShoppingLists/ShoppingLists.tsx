@@ -5,7 +5,7 @@ import { toast } from '@redwoodjs/web/toast';
 import { QUERY } from 'src/components/ShoppingList/ShoppingListsCell';
 import { truncate } from 'src/lib/formatters';
 
-import type { DeleteShoppingListMutationVariables, FindShoppingLists } from 'types/graphql';
+import type { DeleteShoppingListMutationVariables, FindShoppingLists, ShoppingListItem } from 'types/graphql';
 
 const DELETE_SHOPPING_LIST_MUTATION = gql`
   mutation DeleteShoppingListMutation($id: Int!) {
@@ -14,6 +14,10 @@ const DELETE_SHOPPING_LIST_MUTATION = gql`
     }
   }
 `;
+
+const ShoppingListItem = ({ shoppingListItem }: { shoppingListItem: ShoppingListItem }) => {
+  return <div>{shoppingListItem.name}</div>
+}
 
 const ShoppingListsList = ({ shoppingLists }: FindShoppingLists) => {
   const [deleteShoppingList] = useMutation(DELETE_SHOPPING_LIST_MUTATION, {
@@ -37,48 +41,41 @@ const ShoppingListsList = ({ shoppingLists }: FindShoppingLists) => {
   };
 
   return (
-    <div className="rw-segment rw-table-wrapper-responsive">
-      <table className="rw-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-        <tbody>
-          {shoppingLists.map((shoppingList) => (
-            <tr key={shoppingList.id}>
-              <td>{truncate(shoppingList.name)}</td>
-              <td>
-                <nav className="rw-table-actions">
-                  <Link
-                    to={routes.shoppingList({ id: shoppingList.id })}
-                    title={'Show shoppingList ' + shoppingList.id + ' detail'}
-                    className="rw-button rw-button-small"
-                  >
-                    Show
-                  </Link>
-                  <Link
-                    to={routes.editShoppingList({ id: shoppingList.id })}
-                    title={'Edit shoppingList ' + shoppingList.id}
-                    className="rw-button rw-button-small rw-button-blue"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    type="button"
-                    title={'Delete shoppingList ' + shoppingList.id}
-                    className="rw-button rw-button-small rw-button-red"
-                    onClick={() => onDeleteClick(shoppingList.id)}
-                  >
-                    Delete
-                  </button>
-                </nav>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className='clear-both flex lg:flex-row flex-col items-center justify-between'>
+      {shoppingLists.map((shoppingList) => (
+        <div key={shoppingList.id} className='flex flex-col mb-6'>
+          <div className='mb-6'><strong>{truncate(shoppingList.name)}</strong></div>
+          <div className='ml-6 mb-6 overflow-y-auto max-h-[60vh]'>
+            {shoppingList.shoppingListItems.map((shoppingListItem) => {
+              return <ShoppingListItem key={shoppingListItem.id} shoppingListItem={shoppingListItem} />
+            })}
+          </div>
+          <div className='flex flex-row'>
+            <Link
+              to={routes.shoppingList({ id: shoppingList.id })}
+              title={'Show shoppingList ' + shoppingList.id + ' detail'}
+              className="blue-button mr-1"
+            >
+              Show
+            </Link>
+            <Link
+              to={routes.editShoppingList({ id: shoppingList.id })}
+              title={'Edit shoppingList ' + shoppingList.id}
+              className="orange-button mr-1"
+            >
+              Edit
+            </Link>
+            <button
+              type="button"
+              title={'Delete shoppingList ' + shoppingList.id}
+              className="red-button mr-1"
+              onClick={() => onDeleteClick(shoppingList.id)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

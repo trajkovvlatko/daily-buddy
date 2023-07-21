@@ -10,6 +10,10 @@ export const QUERY = gql`
     shoppingLists {
       id
       name
+      shoppingListItems {
+        id
+        name
+      }
     }
   }
 `;

@@ -2,6 +2,7 @@ export const schema = gql`
   type ShoppingList {
     id: Int!
     name: String!
+    shoppingListItems: [ShoppingListItem!]!
   }
 
   type Query {
