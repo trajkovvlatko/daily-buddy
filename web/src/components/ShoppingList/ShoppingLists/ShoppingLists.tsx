@@ -3,9 +3,10 @@ import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import { QUERY } from 'src/components/ShoppingList/ShoppingListsCell';
+import ShoppingListItem from 'src/components/ShoppingListItem/ShoppingListItem/ShoppingListItem';
 import { truncate } from 'src/lib/formatters';
 
-import type { DeleteShoppingListMutationVariables, FindShoppingLists, ShoppingListItem } from 'types/graphql';
+import type { DeleteShoppingListMutationVariables, FindShoppingLists } from 'types/graphql';
 
 const DELETE_SHOPPING_LIST_MUTATION = gql`
   mutation DeleteShoppingListMutation($id: Int!) {
@@ -14,10 +15,6 @@ const DELETE_SHOPPING_LIST_MUTATION = gql`
     }
   }
 `;
-
-const ShoppingListItem = ({ shoppingListItem }: { shoppingListItem: ShoppingListItem }) => {
-  return <div>{shoppingListItem.name}</div>
-}
 
 const ShoppingListsList = ({ shoppingLists }: FindShoppingLists) => {
   const [deleteShoppingList] = useMutation(DELETE_SHOPPING_LIST_MUTATION, {
@@ -41,38 +38,21 @@ const ShoppingListsList = ({ shoppingLists }: FindShoppingLists) => {
   };
 
   return (
-    <div className='clear-both flex lg:flex-row flex-col items-center justify-between'>
+    <div className='clear-both flex flex-wrap	lg:flex-row flex-col justify-between'>
       {shoppingLists.map((shoppingList) => (
-        <div key={shoppingList.id} className='flex flex-col mb-6'>
-          <div className='mb-6'><strong>{truncate(shoppingList.name)}</strong></div>
+        <div key={shoppingList.id} className='flex flex-col mb-6 w-1/5'>
+          <Link
+            to={routes.shoppingList({ id: shoppingList.id })}
+            title={'Show shoppingList ' + shoppingList.id + ' detail'}
+            className="mb-6"
+          >
+            <strong>{truncate(shoppingList.name)}</strong>
+          </Link>
+
           <div className='ml-6 mb-6 overflow-y-auto max-h-[60vh]'>
             {shoppingList.shoppingListItems.map((shoppingListItem) => {
               return <ShoppingListItem key={shoppingListItem.id} shoppingListItem={shoppingListItem} />
             })}
-          </div>
-          <div className='flex flex-row'>
-            <Link
-              to={routes.shoppingList({ id: shoppingList.id })}
-              title={'Show shoppingList ' + shoppingList.id + ' detail'}
-              className="blue-button mr-1"
-            >
-              Show
-            </Link>
-            <Link
-              to={routes.editShoppingList({ id: shoppingList.id })}
-              title={'Edit shoppingList ' + shoppingList.id}
-              className="orange-button mr-1"
-            >
-              Edit
-            </Link>
-            <button
-              type="button"
-              title={'Delete shoppingList ' + shoppingList.id}
-              className="red-button mr-1"
-              onClick={() => onDeleteClick(shoppingList.id)}
-            >
-              Delete
-            </button>
           </div>
         </div>
       ))}

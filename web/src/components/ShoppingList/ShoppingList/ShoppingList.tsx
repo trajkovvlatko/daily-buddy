@@ -1,6 +1,7 @@
 import { Link, routes, navigate } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
+import ShoppingListItem from 'src/components/ShoppingListItem/ShoppingListItem/ShoppingListItem';
 
 import { } from 'src/lib/formatters';
 
@@ -37,24 +38,17 @@ const ShoppingList = ({ shoppingList }: Props) => {
 
   return (
     <>
-      <div className="rw-segment">
-        <header className="rw-segment-header">
-          <h2 className="rw-heading rw-heading-secondary">ShoppingList {shoppingList.id} Detail</h2>
-        </header>
-        <table className="rw-table">
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <td>{shoppingList.name}</td>
-            </tr>
-          </tbody>
-        </table>
+      <h1 className="mb-10 text-lg font-semibold">{shoppingList.name}</h1>
+      <div>
+        {shoppingList.shoppingListItems.map((shoppingListItem) => {
+          return <ShoppingListItem shoppingListItem={shoppingListItem} key={shoppingListItem.id} />
+        })}
       </div>
       <nav className="rw-button-group">
-        <Link to={routes.editShoppingList({ id: shoppingList.id })} className="rw-button rw-button-blue">
+        <Link to={routes.editShoppingList({ id: shoppingList.id })} className="blue-button mr-1">
           Edit
         </Link>
-        <button type="button" className="rw-button rw-button-red" onClick={() => onDeleteClick(shoppingList.id)}>
+        <button type="button" className="red-button" onClick={() => onDeleteClick(shoppingList.id)}>
           Delete
         </button>
       </nav>

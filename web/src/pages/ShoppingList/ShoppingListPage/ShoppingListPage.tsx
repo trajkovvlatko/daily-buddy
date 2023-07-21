@@ -1,3 +1,4 @@
+import PageWrapper from 'src/components/PageWrapper/PageWrapper';
 import ShoppingListCell from 'src/components/ShoppingList/ShoppingListCell';
 
 type ShoppingListPageProps = {
@@ -5,7 +6,11 @@ type ShoppingListPageProps = {
 };
 
 const ShoppingListPage = ({ id }: ShoppingListPageProps) => {
-  return <ShoppingListCell id={id} />;
+  return <PageWrapper>
+    <div className='col-span-12 pl-6'>
+      <ShoppingListCell id={id} />
+    </div>
+  </PageWrapper>
 };
 
 export default ShoppingListPage;

@@ -9,6 +9,10 @@ export const QUERY = gql`
     shoppingList: shoppingList(id: $id) {
       id
       name
+      shoppingListItems {
+        id
+        name
+      }
     }
   }
 `;
