@@ -2,7 +2,7 @@ export const schema = gql`
   type ShoppingList {
     id: Int!
     name: String!
-    shoppingListItems: [ShoppingListItem!]!
+    shoppingListItems: ShoppingListItems!
   }
 
   type Query {
@@ -18,9 +18,14 @@ export const schema = gql`
     name: String
   }
 
+  type BasicShoppingList {
+    id: Int!
+    name: String!
+  }
+
   type Mutation {
-    createShoppingList(input: CreateShoppingListInput!): ShoppingList! @requireAuth
-    updateShoppingList(id: Int!, input: UpdateShoppingListInput!): ShoppingList! @requireAuth
-    deleteShoppingList(id: Int!): ShoppingList! @requireAuth
+    createShoppingList(input: CreateShoppingListInput!): BasicShoppingList! @requireAuth
+    updateShoppingList(id: Int!, input: UpdateShoppingListInput!): BasicShoppingList! @requireAuth
+    deleteShoppingList(id: Int!): BasicShoppingList! @requireAuth
   }
 `;

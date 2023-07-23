@@ -10,8 +10,16 @@ export const QUERY = gql`
       id
       name
       shoppingListItems {
-        id
-        name
+        pending {
+          id
+          name
+          bought
+        }
+        bought {
+          id
+          name
+          bought
+        }
       }
     }
   }

@@ -30,3 +30,17 @@ export const createShoppingListItem: MutationResolvers['createShoppingListItem']
 
   return db.shoppingListItem.create({ data: input });
 };
+
+export const deleteAllBoughtItems: MutationResolvers['deleteAllBoughtItems'] = async ({ shoppingListId }, { context }) => {
+  const userId = context.currentUser['id'];
+  await validateAccess({ userId, shoppingListId })
+
+  await db.shoppingListItem.deleteMany({
+    where: {
+      shoppingListId,
+      bought: true,
+    }
+  })
+
+  return true;
+}

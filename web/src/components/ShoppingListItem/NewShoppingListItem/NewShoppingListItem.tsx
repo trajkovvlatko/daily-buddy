@@ -7,6 +7,7 @@ const CREATE_SHOPPING_LIST_ITEM_MUTATION = gql`
     createShoppingListItem(input: $input) {
       id
       name
+      bought
     }
   }
 `;
@@ -20,25 +21,32 @@ const NewShoppingListItem = ({ shoppingListId }: { shoppingListId: number }) => 
       toast.success('Shopping list updated');
       refName.current.value = '';
     },
-    refetchQueries: ['FindShoppingListById'],
     onError: (error) => {
       toast.error(error.message);
     },
   });
 
   const create = () => {
+    const name = refName.current.value.trim();
+    if (!name) return
+
     createShoppingListItem({
       variables: {
         input: {
           shoppingListId,
-          name: refName.current.value
+          name,
         }
-      }
+      },
+      refetchQueries: ['FindShoppingListById']
     })
   }
 
+  const onKeyUp = (e) => {
+    if (e.key === 'Enter') create()
+  }
+
   return <div className="mb-2">
-    <input ref={refName} type="text" onBlur={create} className="border-2 p-1 pl-2 ml-6 w-1/2" />
+    <input ref={refName} type="text" onBlur={create} className="border-2 p-1 pl-2 ml-6 w-1/2" placeholder="Add new item" onKeyUp={onKeyUp} />
   </div>
 }
 

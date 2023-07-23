@@ -224,6 +224,7 @@ model ShoppingList {
 model ShoppingListItem {
   id                      Int                 @id @default(autoincrement())
   name                    String
+  bought                  Boolean             @default(false)
 
   ShoppingList            ShoppingList        @relation(references: [id], fields: [shoppingListId])
   shoppingListId          Int

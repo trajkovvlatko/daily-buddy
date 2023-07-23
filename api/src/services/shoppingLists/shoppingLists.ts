@@ -7,7 +7,10 @@ export const shoppingLists: QueryResolvers['shoppingLists'] = async (_, { contex
   const userId = context.currentUser['id'];
   const accessibleIds = await getAccessibleIds({ type: "ShoppingList", userId })
 
-  return db.shoppingList.findMany({
+  const res = await db.shoppingList.findMany({
+    include: {
+      ShoppingListItem: true,
+    },
     where: {
       OR: [
         { userId },
@@ -20,13 +23,20 @@ export const shoppingLists: QueryResolvers['shoppingLists'] = async (_, { contex
     },
     orderBy: { name: 'asc' },
   });
+
+  return res.map(async (row) => {
+    return { ...row, shoppingListItems: await getShoppingListItems(row.id) }
+  })
 };
 
 export const shoppingList: QueryResolvers['shoppingList'] = async ({ id }, { context }) => {
   const userId = context.currentUser['id'];
   const accessibleId = await getAccessibleId({ id, type: "ShoppingList", userId })
 
-  return db.shoppingList.findFirst({
+  const res = await db.shoppingList.findFirst({
+    include: {
+      ShoppingListItem: true,
+    },
     where: {
       OR: [
         { id, userId },
@@ -34,6 +44,8 @@ export const shoppingList: QueryResolvers['shoppingList'] = async ({ id }, { con
       ]
     },
   });
+
+  return { ...res, shoppingListItems: await getShoppingListItems(res.id) }
 };
 
 export const createShoppingList: MutationResolvers['createShoppingList'] = ({ input }, { context }) => {
@@ -66,12 +78,33 @@ export const deleteShoppingList: MutationResolvers['deleteShoppingList'] = async
   return db.shoppingList.delete({ where: { id } });
 };
 
-export const ShoppingList: ShoppingListRelationResolvers = {
-  shoppingListItems: (obj, { root }) => {
-    return db.shoppingListItem.findMany({
+const getShoppingListItems = async (id: number) => {
+  const [pending, bought] = await Promise.all([
+    db.shoppingListItem.findMany({
       where: {
-        shoppingListId: root.id
+        shoppingListId: id,
+        bought: false,
+      },
+      orderBy: {
+        id: 'asc'
       }
-    });
+    }),
+    db.shoppingListItem.findMany({
+      where: {
+        shoppingListId: id,
+        bought: true,
+      },
+      orderBy: {
+        id: 'asc'
+      }
+    }),
+  ]);
+
+  return { pending, bought };
+}
+
+export const ShoppingList: ShoppingListRelationResolvers = {
+  shoppingListItems: async (_obj, { root }) => {
+    return getShoppingListItems(root.id)
   }
 };
