@@ -1,6 +1,6 @@
 import { useMutation } from "@redwoodjs/web";
 import { toast } from "@redwoodjs/web/dist/toast";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ShoppingListItem as ShoppingListItemType } from "types/graphql"
 
 const UPDATE_SHOPPING_LIST_ITEM_MUTATION = gql`
@@ -13,11 +13,11 @@ const UPDATE_SHOPPING_LIST_ITEM_MUTATION = gql`
 `;
 
 
-const ShoppingListItem = ({ shoppingListItem }: { shoppingListItem: ShoppingListItemType }) => {
+const ShoppingListItem = ({ shoppingListId, shoppingListItem }: { shoppingListId: number; shoppingListItem: ShoppingListItemType }) => {
   const refName = useRef<HTMLInputElement>(null)
 
   const [updateShoppingListItem] = useMutation(UPDATE_SHOPPING_LIST_ITEM_MUTATION, {
-    onCompleted: (res) => {
+    onCompleted: () => {
       toast.success('Shopping list updated');
     },
     onError: (error) => {
@@ -34,7 +34,7 @@ const ShoppingListItem = ({ shoppingListItem }: { shoppingListItem: ShoppingList
       variables: {
         id: shoppingListItem.id,
         input: {
-          shoppingListId: 1,
+          shoppingListId: shoppingListId,
           name: refName.current.value
         }
       }

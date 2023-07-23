@@ -9,7 +9,13 @@ export const schema = gql`
     name: String
   }
 
+  input CreateShoppingListItemInput {
+    shoppingListId: Int!
+    name: String!
+  }
+
   type Mutation {
     updateShoppingListItem(id: Int!, input: UpdateShoppingListItemInput!): ShoppingListItem! @requireAuth
+    createShoppingListItem(input: CreateShoppingListItemInput!): ShoppingListItem! @requireAuth
   }
 `;

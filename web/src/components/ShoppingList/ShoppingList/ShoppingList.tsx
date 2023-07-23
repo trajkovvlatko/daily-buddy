@@ -1,6 +1,7 @@
 import { Link, routes, navigate } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
+import NewShoppingListItem from 'src/components/ShoppingListItem/NewShoppingListItem/NewShoppingListItem';
 import ShoppingListItem from 'src/components/ShoppingListItem/ShoppingListItem/ShoppingListItem';
 
 import { } from 'src/lib/formatters';
@@ -41,8 +42,11 @@ const ShoppingList = ({ shoppingList }: Props) => {
       <h1 className="mb-10 text-lg font-semibold">{shoppingList.name}</h1>
       <div>
         {shoppingList.shoppingListItems.map((shoppingListItem) => {
-          return <ShoppingListItem shoppingListItem={shoppingListItem} key={shoppingListItem.id} />
+          return <ShoppingListItem shoppingListId={shoppingList.id} shoppingListItem={shoppingListItem} key={shoppingListItem.id} />
         })}
+      </div>
+      <div>
+        <NewShoppingListItem shoppingListId={shoppingList.id} />
       </div>
       <nav className="rw-button-group">
         <Link to={routes.editShoppingList({ id: shoppingList.id })} className="blue-button mr-1">
