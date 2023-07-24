@@ -49,7 +49,8 @@ export const shoppingList: QueryResolvers['shoppingList'] = async ({ id }, { con
   return {
     ...res,
     shoppingListItems: await getShoppingListItems(res.id),
-    emails: await getSharedEmails({ id, type: "ShoppingList" })
+    emails: await getSharedEmails({ id, type: "ShoppingList" }),
+    shared: res.userId !== userId,
   }
 };
 

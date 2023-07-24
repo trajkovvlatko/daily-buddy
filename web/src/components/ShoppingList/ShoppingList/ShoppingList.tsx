@@ -83,9 +83,9 @@ const ShoppingList = ({ shoppingList }: Props) => {
         {shoppingList.shoppingListItems.bought.length === 0 && <div className='mb-6'>No items.</div>}
       </div>
 
-      <div className='mb-12 md:w-1/2 mr-6'>
+      {!shoppingList.shared && <div className='mb-12 md:w-1/2 mr-6'>
         <ShareForm id={shoppingList.id} type="ShoppingList" emails={shoppingList.emails} />
-      </div>
+      </div>}
 
       <nav className="mr-6 flex justify-end">
         <button type="button" className="orange-button mr-1" onClick={deleteAllBought}>
@@ -94,9 +94,9 @@ const ShoppingList = ({ shoppingList }: Props) => {
         <Link to={routes.editShoppingList({ id: shoppingList.id })} className="blue-button mr-1">
           Edit
         </Link>
-        <button type="button" className="red-button" onClick={() => onDeleteClick(shoppingList.id)}>
+        {!shoppingList.shared && <button type="button" className="red-button" onClick={() => onDeleteClick(shoppingList.id)}>
           Delete
-        </button>
+        </button>}
       </nav>
     </div>
   );

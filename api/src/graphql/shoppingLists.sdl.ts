@@ -4,6 +4,7 @@ export const schema = gql`
     name: String!
     shoppingListItems: ShoppingListItems!
     emails: [String!]
+    shared: Boolean
   }
 
   type Query {
