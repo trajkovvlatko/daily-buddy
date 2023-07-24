@@ -42,6 +42,11 @@ const Header = () => {
         </Link>
       </li>
       <li className="md:mb-8">
+        <Link to={routes.shoppingLists()} className="text-blue-500 hover:text-blue-800">
+          <ShoppingCartIcon className="header-icon" />
+        </Link>
+      </li>
+      <li className="md:mb-8">
         <Link to={routes.groceries()}>
           <GroceryExpireCountCell />
         </Link>
