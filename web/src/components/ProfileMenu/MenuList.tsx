@@ -40,6 +40,11 @@ const MenuList = ({ callback }: { callback: () => void }) => {
             </Link>
           </li>
           <li className="menu-link">
+            <Link to={routes.shoppingLists()} onClick={onLinkClick}>
+              Shopping lists
+            </Link>
+          </li>
+          <li className="menu-link">
             <button type="button" onClick={handleLogOut}>
               Logout
             </button>

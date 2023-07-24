@@ -46,6 +46,11 @@ const Routes = () => {
         <Route path="/groceries/{id:Int}" page={GroceryGroceryPage} name="grocery" />
         <Route path="/groceries" page={GroceryGroceriesPage} name="groceries" />
 
+        <Route path="/shopping-lists/new" page={ShoppingListNewShoppingListPage} name="newShoppingList" />
+        <Route path="/shopping-lists/{id:Int}/edit" page={ShoppingListEditShoppingListPage} name="editShoppingList" />
+        <Route path="/shopping-lists/{id:Int}" page={ShoppingListShoppingListPage} name="shoppingList" />
+        <Route path="/shopping-lists" page={ShoppingListShoppingListsPage} name="shoppingLists" />
+
         <AdminPageWrapper>
           <Route path="/item-types/new" page={ItemTypeNewItemTypePage} name="newItemType" />
           <Route path="/item-types/{id:Int}/edit" page={ItemTypeEditItemTypePage} name="editItemType" />

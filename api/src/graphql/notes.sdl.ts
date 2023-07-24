@@ -3,15 +3,17 @@ export const schema = gql`
     id: Int!
     path: String!
     content: String!
+    emails: [String!]
   }
 
-  type NoteTree {
+  type NoteReference {
     id: Int!
     path: String!
   }
 
   type Query {
-    notes: [NoteTree!]! @requireAuth
+    notes: [NoteReference!]! @requireAuth
+    sharedNotes: [NoteReference!]! @requireAuth
     note(id: Int!): Note @requireAuth
   }
 

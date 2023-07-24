@@ -16,7 +16,7 @@ const toDateString = (date: Date) => {
 type Panel = 'events' | 'tasks' | 'journals' | 'streaks';
 
 const DashboardPage = () => {
-  const [panel, setPanel] = useState<Panel>('events');
+  const [panel, setPanel] = useState<Panel>('tasks');
   const today = new Date();
   const endAt = new Date(today);
 
@@ -58,11 +58,11 @@ const DashboardPage = () => {
       </div>
       <div className="fixed bottom-0 left-0 h-16 w-screen bg-white shadow-[0px_0px_20px_-5px_rgba(0,0,0,0.2)] md:hidden">
         <ul className="flex h-16 items-center justify-around ">
-          <li onClick={() => setPanel('events')}>
-            <CalendarIcon className="h-6 w-6 text-blue-500" />
-          </li>
           <li onClick={() => setPanel('tasks')}>
             <RectangleStackIcon className="h-6 w-6 text-blue-500" />
+          </li>
+          <li onClick={() => setPanel('events')}>
+            <CalendarIcon className="h-6 w-6 text-blue-500" />
           </li>
           <li onClick={() => setPanel('journals')}>
             <BookOpenIcon className="h-6 w-6 text-blue-500" />

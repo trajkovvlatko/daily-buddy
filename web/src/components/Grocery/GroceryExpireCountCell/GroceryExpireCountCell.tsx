@@ -1,4 +1,4 @@
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 
@@ -8,7 +8,7 @@ export const QUERY = gql`
   }
 `;
 
-export const Loading = () => <ShoppingCartIcon className={`header-icon text-blue-500 hover:text-blue-800`} />;
+export const Loading = () => <TrashIcon className={`header-icon text-blue-500 hover:text-blue-800`} />;
 
 export const Empty = () => <></>;
 
@@ -22,7 +22,7 @@ export const Success = ({ groceriesExpireCount }: CellSuccessProps) => {
 
   return (
     <>
-      <ShoppingCartIcon className={`header-icon ${classNames}`} />
+      <TrashIcon className={`header-icon ${classNames}`} />
     </>
   );
 };

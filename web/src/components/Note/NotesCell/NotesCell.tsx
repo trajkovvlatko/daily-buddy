@@ -18,6 +18,10 @@ export const QUERY = gql`
       id
       path
     }
+    sharedNotes {
+      id
+      path
+    }
   }
 `;
 
@@ -29,8 +33,8 @@ export const Empty = () => {
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
-export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
-  const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
+export const Success = ({ notes, sharedNotes }: CellSuccessProps<FindNotes>) => {
+  const [selectedNote, setSelectedNote] = useState<{ id: number, shared: boolean } | null>(null);
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const onUpdate = () => {
@@ -39,7 +43,7 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
 
   const onDelete = () => {
     setEditMode(false);
-    setSelectedNoteId(null);
+    setSelectedNote(null);
   };
 
   const toggleEditMode = () => {
@@ -60,26 +64,43 @@ export const Success = ({ notes }: CellSuccessProps<FindNotes>) => {
           return (
             <div className="note-menu flex flex-wrap" key={note.id}>
               <NoteLink
-                onClick={() => setSelectedNoteId(note.id)}
+                onClick={() => setSelectedNote({ id: note.id, shared: false })}
                 note={note}
-                isSelected={selectedNoteId === note.id}
+                isSelected={selectedNote?.id === note.id}
+                shouldPad={true}
               />
               <AddNewNote note={note} />
             </div>
           );
         })}
+        {!!sharedNotes.length && <>
+          <h2 className="mt-5 mb-5 pl-5 text-lg font-semibold">Shared notes</h2>
+          {sharedNotes.map((note) => {
+            return (
+              <div className="note-menu flex flex-wrap" key={note.id}>
+                <NoteLink
+                  onClick={() => setSelectedNote({ id: note.id, shared: true })}
+                  note={note}
+                  isSelected={selectedNote?.id === note.id}
+                  shouldPad={false}
+                />
+              </div>
+            );
+          })}
+        </>
+        }
       </div>
 
       <div className="main-content">
-        {selectedNoteId && (
+        {selectedNote && (
           <>
             <button onClick={toggleEditMode} className="blue-button md:float-right">
               {editMode ? 'Close' : 'Edit'}
             </button>
             {editMode ? (
-              <EditNoteCell id={selectedNoteId} onUpdate={onUpdate} onDelete={onDelete} />
+              <EditNoteCell id={selectedNote.id} shared={selectedNote.shared} onUpdate={onUpdate} onDelete={onDelete} />
             ) : (
-              <NoteCell id={selectedNoteId} />
+              <NoteCell id={selectedNote.id} />
             )}
           </>
         )}

@@ -6,6 +6,7 @@ import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import NoteForm from 'src/components/Note/NoteForm';
+import ShareForm from 'src/components/Access/ShareForm/ShareForm';
 
 const DELETE_NOTE_MUTATION = gql`
   mutation DeleteNoteMutation($id: Int!) {
@@ -21,6 +22,7 @@ export const QUERY = gql`
       id
       path
       content
+      emails
     }
   }
 `;
@@ -40,11 +42,12 @@ export const Loading = () => <div>Loading...</div>;
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 interface ExtraProps {
+  shared: boolean;
   onUpdate: () => void;
   onDelete: () => void;
 }
 
-export const Success = ({ note, onUpdate, onDelete }: CellSuccessProps<EditNoteById> & ExtraProps) => {
+export const Success = ({ note, onUpdate, onDelete, shared }: CellSuccessProps<EditNoteById> & ExtraProps) => {
   const [deleteNote] = useMutation(DELETE_NOTE_MUTATION, {
     onCompleted: () => {
       toast.success('Note deleted');
@@ -79,7 +82,13 @@ export const Success = ({ note, onUpdate, onDelete }: CellSuccessProps<EditNoteB
 
   return (
     <div>
-      <NoteForm note={note} onSave={onSave} error={error} loading={loading} />
+      <div className='mb-6'>
+        <NoteForm note={note} onSave={onSave} error={error} loading={loading} />
+      </div>
+
+      <div className='clear-both mb-6'>
+        {!shared && <ShareForm id={note.id} type="Note" emails={note.emails} />}
+      </div>
 
       <button type="button" className="red-button mt-3" onClick={() => onDeleteClick(note.id)}>
         Delete

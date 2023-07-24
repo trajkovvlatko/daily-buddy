@@ -1,4 +1,4 @@
-import type { QueryResolvers, MutationResolvers } from 'types/graphql';
+import type { MutationResolvers, QueryResolvers } from 'types/graphql';
 
 import { db } from 'src/lib/db';
 
@@ -66,7 +66,9 @@ export const deleteGrocery: MutationResolvers['deleteGrocery'] = async ({ id }, 
   const userId = context.currentUser['id'];
   await db.grocery.findFirstOrThrow({ where: { userId, id } });
 
-  return db.grocery.delete({ where: { id } });
+  const res = await db.grocery.delete({ where: { id } });
+
+  return { ...res, nearExpireDate: false }
 };
 
 export const groceriesExpireCount: QueryResolvers['groceriesExpireCount'] = (_, { context }) => {

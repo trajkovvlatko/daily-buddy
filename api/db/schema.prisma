@@ -31,6 +31,8 @@ model User {
   Item                Item[]
   Streak              Streak[]
   Grocery             Grocery[]
+  Access              Access[]
+  ShoppingList        ShoppingList[]
 }
 
 model Calendar {
@@ -67,6 +69,8 @@ model Note {
   createdAt   DateTime    @default(now())
   User        User        @relation(references: [id], fields: [userId])
   userId      Int
+
+  accesses Access[] @relation("NoteAccess")
 
   @@index([userId], name: "user")
 }
@@ -188,4 +192,40 @@ model Grocery {
   userId      Int
 
   @@index([userId], name: "user")
+}
+
+enum AccessibleType {
+  Note
+  ShoppingList
+}
+
+model Access {
+  id Int @id @default(autoincrement())
+
+  User        User        @relation(references: [id], fields: [userId])
+  userId      Int
+
+  Note Note? @relation("NoteAccess", fields: [accessibleId], references: [id], map: "note_accessibleId")
+
+  accessibleId   Int
+  accessibleType AccessibleType
+}
+
+model ShoppingList {
+  id                      Int                 @id @default(autoincrement())
+  name                    String
+
+  ShoppingListItem        ShoppingListItem[]
+
+  User                    User                @relation(references: [id], fields: [userId])
+  userId                  Int
+}
+
+model ShoppingListItem {
+  id                      Int                 @id @default(autoincrement())
+  name                    String
+  bought                  Boolean             @default(false)
+
+  ShoppingList            ShoppingList        @relation(references: [id], fields: [shoppingListId])
+  shoppingListId          Int
 }
