@@ -38,7 +38,7 @@ const ShoppingListsList = ({ shoppingLists }: FindShoppingLists) => {
   };
 
   return (
-    <div className='clear-both flex flex-wrap	lg:flex-row flex-col justify-between'>
+    <div className='clear-both flex flex-wrap	lg:flex-row flex-col'>
       {shoppingLists.map((shoppingList) => (
         <div key={shoppingList.id} className='flex flex-col mb-6 w-1/5'>
           <Link
@@ -49,9 +49,9 @@ const ShoppingListsList = ({ shoppingLists }: FindShoppingLists) => {
             <strong>{truncate(shoppingList.name)}</strong>
           </Link>
 
-          <div className='ml-6 mb-6 overflow-y-auto max-h-[60vh]'>
-            {shoppingList.shoppingListItems.map((shoppingListItem) => {
-              return <ShoppingListItem key={shoppingListItem.id} shoppingListItem={shoppingListItem} />
+          <div className='mr-6 mb-6 overflow-y-auto max-h-[60vh]'>
+            {shoppingList.shoppingListItems.pending.map((shoppingListItem) => {
+              return <div key={shoppingListItem.id}>{shoppingListItem.name}</div>
             })}
           </div>
         </div>

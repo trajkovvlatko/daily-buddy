@@ -41,12 +41,12 @@ const NewShoppingListItem = ({ shoppingListId }: { shoppingListId: number }) => 
     })
   }
 
-  const onKeyUp = (e) => {
+  const onKeyUp = (e: any) => {
     if (e.key === 'Enter') create()
   }
 
-  return <div className="mb-2">
-    <input ref={refName} type="text" onBlur={create} className="border-2 p-1 pl-2 ml-6 w-1/2" placeholder="Add new item" onKeyUp={onKeyUp} />
+  return <div className="mb-2 flex">
+    <input ref={refName} type="text" onBlur={create} className="border-2 p-1 pl-2 md:mr-0 mr-6 ml-6 grow w-1/2" placeholder="Add new item" onKeyUp={onKeyUp} />
   </div>
 }
 

@@ -61,9 +61,9 @@ const ShoppingListItem = ({ shoppingListId, shoppingListItem }: { shoppingListId
     if (e.key === 'Enter') update()
   }
 
-  return <div className="mb-2">
+  return <div className="mb-2 flex items-center">
     <input ref={refBought} type="checkbox" checked={shoppingListItem.bought} onChange={toggle} className="w-4 h-4 mr-2" />
-    <input ref={refName} type="text" defaultValue={shoppingListItem.name} onBlur={update} className="border-2 p-1 pl-2 w-1/2" onKeyUp={onKeyUp} />
+    <input ref={refName} type="text" defaultValue={shoppingListItem.name} onBlur={update} className="border-2 p-1 pl-2 grow md:mr-0 mr-6 md:w-1/2" onKeyUp={onKeyUp} />
   </div>
 }
 

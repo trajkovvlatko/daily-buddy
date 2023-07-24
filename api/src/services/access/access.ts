@@ -11,6 +11,13 @@ const getRecord = async ({ id, type, userId }: { id: number, type: string, userI
           id
         }
       })
+    case "ShoppingList":
+      return db.shoppingList.findFirst({
+        where: {
+          userId,
+          id
+        }
+      })
     default:
       return null;
   }

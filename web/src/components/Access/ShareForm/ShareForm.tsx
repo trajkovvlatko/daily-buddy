@@ -12,8 +12,12 @@ const ShareForm = ({ id, type, emails = [] }: { id: number, type: string, emails
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [setAccess] = useMutation(SET_ACCESS_MUTATION, {
-    onCompleted: () => {
-      toast.success("Successfully updated access.");
+    onCompleted: (res) => {
+      if (res.access) {
+        toast.success("Successfully updated access.");
+      } else {
+        toast.error("Error while sharing content.");
+      }
     },
     onError: (error) => {
       toast.error(error.message);
