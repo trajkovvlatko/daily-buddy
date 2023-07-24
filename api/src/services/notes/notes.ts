@@ -2,6 +2,7 @@ import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 
 import { db } from 'src/lib/db';
 import { getAccessibleIds, getAccessibleId } from 'src/helpers/getAccessibleIds';
+import { getSharedEmails } from 'src/helpers/getSharedEmails';
 
 export const notes: QueryResolvers['notes'] = async (_, { context }) => {
   const userId = context.currentUser['id'];
@@ -35,25 +36,7 @@ export const note: QueryResolvers['note'] = async ({ id }, { context }) => {
     },
   });
 
-  const access = await db.access.findMany({
-    where: {
-      accessibleId: id,
-      accessibleType: "Note",
-    }
-  })
-  const userIds = access.map((row) => row.userId)
-  const users = await db.user.findMany({
-    select: {
-      email: true
-    },
-    where: {
-      id: {
-        in: userIds
-      }
-    }
-  })
-
-  return { ...note, emails: users.map((row) => row.email) }
+  return { ...note, emails: await getSharedEmails({ id, type: "Note" }) }
 };
 
 export const createNote: MutationResolvers['createNote'] = ({ input }, { context }) => {

@@ -84,7 +84,7 @@ const ShoppingList = ({ shoppingList }: Props) => {
       </div>
 
       <div className='mb-12 md:w-1/2 mr-6'>
-        <ShareForm id={shoppingList.id} type="ShoppingList" emails={[]} />
+        <ShareForm id={shoppingList.id} type="ShoppingList" emails={shoppingList.emails} />
       </div>
 
       <nav className="mr-6 flex justify-end">

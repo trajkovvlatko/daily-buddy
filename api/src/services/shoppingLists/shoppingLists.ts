@@ -2,6 +2,7 @@ import type { QueryResolvers, MutationResolvers, ShoppingListRelationResolvers }
 
 import { db } from 'src/lib/db';
 import { getAccessibleId, getAccessibleIds } from 'src/helpers/getAccessibleIds';
+import { getSharedEmails } from 'src/helpers/getSharedEmails';
 
 export const shoppingLists: QueryResolvers['shoppingLists'] = async (_, { context }) => {
   const userId = context.currentUser['id'];
@@ -45,7 +46,11 @@ export const shoppingList: QueryResolvers['shoppingList'] = async ({ id }, { con
     },
   });
 
-  return { ...res, shoppingListItems: await getShoppingListItems(res.id) }
+  return {
+    ...res,
+    shoppingListItems: await getShoppingListItems(res.id),
+    emails: await getSharedEmails({ id, type: "ShoppingList" })
+  }
 };
 
 export const createShoppingList: MutationResolvers['createShoppingList'] = ({ input }, { context }) => {
