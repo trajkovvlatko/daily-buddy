@@ -22,7 +22,7 @@ export const shoppingLists: QueryResolvers['shoppingLists'] = async (_, { contex
         }
       ]
     },
-    orderBy: { name: 'asc' },
+    orderBy: { id: 'asc' },
   });
 
   return res.map(async (row) => {
