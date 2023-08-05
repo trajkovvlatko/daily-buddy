@@ -127,6 +127,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
       fieldMissing: '${field} is required',
       usernameTaken: 'Username `${username}` already in use',
     },
+    enabled: false,
   };
 
   const authHandler = new DbAuthHandler(event, context, {
