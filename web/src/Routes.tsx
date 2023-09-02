@@ -53,7 +53,7 @@ const Routes = () => {
           <Route path="/shopping-lists/{id:Int}" page={ShoppingListShoppingListPage} name="shoppingList" />
           <Route path="/shopping-lists" page={ShoppingListShoppingListsPage} name="shoppingLists" />
 
-          <AdminPageWrapper>
+          <Set wrap={AdminPageWrapper}>
             <Route path="/item-types/new" page={ItemTypeNewItemTypePage} name="newItemType" />
             <Route path="/item-types/{id:Int}/edit" page={ItemTypeEditItemTypePage} name="editItemType" />
             <Route path="/item-types/{id:Int}" page={ItemTypeItemTypePage} name="itemType" />
@@ -73,7 +73,7 @@ const Routes = () => {
             <Route path="/streaks/{id:Int}/edit" page={StreakEditStreakPage} name="editStreak" />
             <Route path="/streaks/{id:Int}" page={StreakStreakPage} name="streak" />
             <Route path="/streaks" page={StreakStreaksPage} name="streaks" />
-          </AdminPageWrapper>
+          </Set>
         </Set>
       </Private>
       <Route path="/daily-buddy-login" page={LoginPage} name="login" />
