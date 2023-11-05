@@ -11,8 +11,8 @@ export const parseEvent = ({ e, calendar }: ParseEventProps): ParsedEvent => {
   const jsDate = e.startDate.toJSDate();
   const isoString = jsDate.toISOString();
   const local = new Date(isoString);
-  // TODO: Fix this, convert to real local timezone
-  local.setHours(local.getHours() + 2);
+  const offset = Math.abs(local.getTimezoneOffset() / 60);
+  local.setHours(local.getHours() + offset);
   const startAt = local.toISOString();
 
   return {
