@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { ArrowPathIcon, BookOpenIcon, CalendarIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 
+import ContactCell from 'src/components/Contact/ContactCell';
 import JournalsCell from 'src/components/Journal/JournalsCell';
 import TasksCell from 'src/components/Task/TasksCell';
 import { isMobile } from 'src/lib/isMobile';
@@ -13,7 +14,7 @@ const toDateString = (date: Date) => {
   return date.toISOString().slice(0, 10);
 };
 
-type Panel = 'events' | 'tasks' | 'journals' | 'streaks';
+type Panel = 'events' | 'tasks' | 'journals' | 'streaks' | 'contact';
 
 const DashboardPage = () => {
   const [panel, setPanel] = useState<Panel>('tasks');
@@ -44,6 +45,11 @@ const DashboardPage = () => {
           </div>
         )}
         <div className="mt-0 md:col-span-4 md:mr-6 md:max-h-[95vh] md:overflow-y-auto">
+          {shouldShowPanel('contact') && (
+            <div>
+              <ContactCell />
+            </div>
+          )}
           {shouldShowPanel('streaks') && (
             <div className="bg-white p-3 shadow-lg">
               <ListStreaksCell />
@@ -68,6 +74,9 @@ const DashboardPage = () => {
             <BookOpenIcon className="h-6 w-6 text-blue-500" />
           </li>
           <li onClick={() => setPanel('streaks')}>
+            <ArrowPathIcon className="h-6 w-6 text-blue-500" />
+          </li>
+          <li onClick={() => setPanel('contact')}>
             <ArrowPathIcon className="h-6 w-6 text-blue-500" />
           </li>
         </ul>

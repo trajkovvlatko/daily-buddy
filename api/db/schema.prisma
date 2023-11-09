@@ -33,6 +33,8 @@ model User {
   Grocery             Grocery[]
   Access              Access[]
   ShoppingList        ShoppingList[]
+  Person              Person[]
+  CallLog             CallLog[]
 }
 
 model Calendar {
@@ -228,4 +230,30 @@ model ShoppingListItem {
 
   ShoppingList            ShoppingList        @relation(references: [id], fields: [shoppingListId])
   shoppingListId          Int
+}
+
+model Person {
+  id                      Int                 @id @default(autoincrement())
+  name                    String
+
+  User                    User                @relation(references: [id], fields: [userId])
+  userId                  Int
+
+  CallLog                 CallLog[]
+
+  @@index([userId], name: "user")
+}
+
+model CallLog {
+  id                      Int                 @id @default(autoincrement())
+  note                    String              @db.Text
+
+  Person                  Person              @relation(references: [id], fields: [personId])
+  personId                Int
+
+  User                    User                @relation(references: [id], fields: [userId])
+  userId                  Int
+
+  @@index([personId], name: "person")
+  @@index([userId], name: "user")
 }
