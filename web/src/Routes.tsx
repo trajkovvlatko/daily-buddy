@@ -73,6 +73,16 @@ const Routes = () => {
             <Route path="/streaks/{id:Int}/edit" page={StreakEditStreakPage} name="editStreak" />
             <Route path="/streaks/{id:Int}" page={StreakStreakPage} name="streak" />
             <Route path="/streaks" page={StreakStreaksPage} name="streaks" />
+
+            <Route path="/people/new" page={PersonNewPersonPage} name="newPerson" />
+            <Route path="/people/{id:Int}/edit" page={PersonEditPersonPage} name="editPerson" />
+            <Route path="/people/{id:Int}" page={PersonPersonPage} name="person" />
+            <Route path="/people" page={PersonPeoplePage} name="people" />
+
+            <Route path="/person/{personId:Int}/call-logs/new" page={CallLogNewCallLogPage} name="newCallLog" />
+            <Route path="/person/{personId:Int}/call-logs/{id:Int}/edit" page={CallLogEditCallLogPage} name="editCallLog" />
+            <Route path="/person/{personId:Int}/call-logs/{id:Int}" page={CallLogCallLogPage} name="callLog" />
+            <Route path="/person/{personId:Int}/call-logs" page={CallLogCallLogsPage} name="callLogs" />
           </Set>
         </Set>
       </Private>
