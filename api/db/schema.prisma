@@ -4,10 +4,11 @@ generator client {
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
+
 
 // Define your own datamodels here and run `yarn redwood prisma migrate dev`
 // to create migrations for them and apply to your dev DB.
@@ -46,7 +47,7 @@ model Calendar {
   createdAt DateTime @default(now())
   userId    Int
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "calendar_user")
 }
 
 model Task {
@@ -60,7 +61,7 @@ model Task {
   User        User        @relation(references: [id], fields: [userId])
   userId      Int
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "task_user")
   @@index([userId, dueDate, completed], name: "user_id_due_date_completed")
 }
 
@@ -74,7 +75,7 @@ model Note {
 
   accesses Access[] @relation("NoteAccess")
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "note_user")
 }
 
 model Journal {
@@ -85,8 +86,8 @@ model Journal {
   User        User        @relation(references: [id], fields: [userId])
   userId      Int
 
-  @@index([userId], name: "user")
-  @@index([forDate], name: "forDate")
+  @@index([userId], name: "journal_user")
+  @@index([forDate], name: "for_date")
 }
 
 model Color {
@@ -97,7 +98,7 @@ model Color {
   userId      Int
   Item        Item[]
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "color_user")
 }
 
 model ItemType {
@@ -108,7 +109,7 @@ model ItemType {
   userId      Int
   Item        Item[]
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "item_type_user")
 }
 
 model Room {
@@ -119,7 +120,7 @@ model Room {
   userId      Int
   StorageUnit StorageUnit[]
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "room_user")
 }
 
 model StorageUnit {
@@ -132,7 +133,7 @@ model StorageUnit {
   userId      Int
   Drawer      Drawer[]
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "storage_unit_user")
   @@index([roomId], name: "room")
 }
 
@@ -147,8 +148,8 @@ model Drawer {
   userId             Int
   Item               Item[]
 
-  @@index([userId], name: "user")
-  @@index([storageUnitId], name: "storageUnit")
+  @@index([userId], name: "drawer_user")
+  @@index([storageUnitId], name: "storage_unit")
 }
 
 model Item {
@@ -167,10 +168,10 @@ model Item {
   ItemType           ItemType    @relation(references: [id], fields: [itemTypeId])
   itemTypeId         Int
 
-  @@index([userId], name: "user")
-  @@index([drawerId], name: "drawer")
-  @@index([colorId], name: "color")
-  @@index([itemTypeId], name: "itemType")
+  @@index([userId], name: "item_user")
+  @@index([drawerId], name: "item_drawer")
+  @@index([colorId], name: "item_color")
+  @@index([itemTypeId], name: "item_item_type")
 }
 
 model Streak {
@@ -181,7 +182,7 @@ model Streak {
   User        User        @relation(references: [id], fields: [userId])
   userId      Int
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "streak_user")
 }
 
 model Grocery {
@@ -193,7 +194,7 @@ model Grocery {
   User        User        @relation(references: [id], fields: [userId])
   userId      Int
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "grocery_user")
 }
 
 enum AccessibleType {
@@ -241,7 +242,7 @@ model Person {
 
   CallLog                 CallLog[]
 
-  @@index([userId], name: "user")
+  @@index([userId], name: "person_user")
 }
 
 model CallLog {
@@ -254,6 +255,6 @@ model CallLog {
   User                    User                @relation(references: [id], fields: [userId])
   userId                  Int
 
-  @@index([personId], name: "person")
-  @@index([userId], name: "user")
+  @@index([personId], name: "call_log_person")
+  @@index([userId], name: "call_log_user")
 }

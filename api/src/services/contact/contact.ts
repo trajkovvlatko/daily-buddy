@@ -13,7 +13,7 @@ export const contact = async (_: any, { context }) => {
   const response = cache.get(`${CACHE_KEY}-${userId}`);
   if (response) return response;
 
-  const id = await db.$queryRaw`SELECT id FROM Person WHERE userId = ${userId} ORDER BY RAND() LIMIT 1`;
+  const id = await db.$queryRaw`SELECT id FROM "Person" WHERE "userId" = ${userId} ORDER BY random() LIMIT 1`;
 
   const data = await db.person.findFirst({
     select: { id: true, name: true },
