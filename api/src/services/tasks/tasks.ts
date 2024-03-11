@@ -6,12 +6,11 @@ export const tasks: QueryResolvers['tasks'] = async (_, { context }) => {
   const userId = context.currentUser['id'];
 
   const today = new Date();
-  today.setHours(23);
-  today.setMinutes(59);
-  today.setSeconds(59);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
   const todaysAgendaPromise = db.task.findMany({
-    where: { userId, dueDate: { lt: today }, completed: false },
+    where: { userId, dueDate: { lt: tomorrow }, completed: false },
     orderBy: { dueDate: 'asc' },
     take: 20,
   });
