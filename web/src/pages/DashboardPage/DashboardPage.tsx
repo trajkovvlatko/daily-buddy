@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ArrowPathIcon, BookOpenIcon, CalendarIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
+import { PhoneIcon, ArrowPathIcon, BookOpenIcon, CalendarIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 
 import ContactCell from 'src/components/Contact/ContactCell';
 import JournalsCell from 'src/components/Journal/JournalsCell';
@@ -77,7 +77,7 @@ const DashboardPage = () => {
             <ArrowPathIcon className="h-6 w-6 text-blue-500" />
           </li>
           <li onClick={() => setPanel('contact')}>
-            <ArrowPathIcon className="h-6 w-6 text-blue-500" />
+            <PhoneIcon className="h-6 w-6 text-blue-500" />
           </li>
         </ul>
       </div>

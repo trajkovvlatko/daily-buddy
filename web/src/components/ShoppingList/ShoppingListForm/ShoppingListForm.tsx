@@ -1,6 +1,6 @@
-import { Form, FormError, FieldError, Label, TextField, NumberField, Submit } from '@redwoodjs/forms';
-
 import type { EditShoppingListById, UpdateShoppingListInput } from 'types/graphql';
+
+import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
 
 type FormShoppingList = NonNullable<EditShoppingListById['shoppingList']>;

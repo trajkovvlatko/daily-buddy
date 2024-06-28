@@ -6,11 +6,13 @@ type ShoppingListPageProps = {
 };
 
 const ShoppingListPage = ({ id }: ShoppingListPageProps) => {
-  return <PageWrapper>
-    <div className='col-span-12 pl-6'>
-      <ShoppingListCell id={id} />
-    </div>
-  </PageWrapper>
+  return (
+    <PageWrapper>
+      <div className="col-span-12 pl-6">
+        <ShoppingListCell id={id} />
+      </div>
+    </PageWrapper>
+  );
 };
 
 export default ShoppingListPage;

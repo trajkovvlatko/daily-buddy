@@ -1,5 +1,5 @@
 export const schema = gql`
   type Query {
-    contact: Person! @requireAuth
+    contact: Person @requireAuth
   }
 `;

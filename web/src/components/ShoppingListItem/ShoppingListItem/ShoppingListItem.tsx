@@ -1,7 +1,9 @@
-import { useMutation } from "@redwoodjs/web";
-import { toast } from "@redwoodjs/web/dist/toast";
-import { useRef } from "react";
-import { ShoppingListItem as ShoppingListItemType } from "types/graphql"
+import { useRef } from 'react';
+
+import { ShoppingListItem as ShoppingListItemType } from 'types/graphql';
+
+import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/dist/toast';
 
 const UPDATE_SHOPPING_LIST_ITEM_MUTATION = gql`
   mutation UpdateShoppingListItemMutation($id: Int!, $input: UpdateShoppingListItemInput!) {
@@ -13,10 +15,15 @@ const UPDATE_SHOPPING_LIST_ITEM_MUTATION = gql`
   }
 `;
 
-
-const ShoppingListItem = ({ shoppingListId, shoppingListItem }: { shoppingListId: number; shoppingListItem: ShoppingListItemType }) => {
-  const refName = useRef<HTMLInputElement>(null)
-  const refBought = useRef<HTMLInputElement>(null)
+const ShoppingListItem = ({
+  shoppingListId,
+  shoppingListItem,
+}: {
+  shoppingListId: number;
+  shoppingListItem: ShoppingListItemType;
+}) => {
+  const refName = useRef<HTMLInputElement>(null);
+  const refBought = useRef<HTMLInputElement>(null);
 
   const [updateShoppingListItem] = useMutation(UPDATE_SHOPPING_LIST_ITEM_MUTATION, {
     onCompleted: () => {
@@ -36,11 +43,11 @@ const ShoppingListItem = ({ shoppingListId, shoppingListItem }: { shoppingListId
         input: {
           shoppingListId: shoppingListId,
           bought,
-        }
+        },
       },
-      refetchQueries: ['FindShoppingListById']
-    })
-  }
+      refetchQueries: ['FindShoppingListById'],
+    });
+  };
 
   const update = () => {
     const name = refName.current.value.trim();
@@ -52,19 +59,34 @@ const ShoppingListItem = ({ shoppingListId, shoppingListItem }: { shoppingListId
         input: {
           shoppingListId: shoppingListId,
           name,
-        }
-      }
-    })
-  }
+        },
+      },
+    });
+  };
 
   const onKeyUp = (e: any) => {
-    if (e.key === 'Enter') update()
-  }
+    if (e.key === 'Enter') update();
+  };
 
-  return <div className="mb-2 flex items-center">
-    <input ref={refBought} type="checkbox" checked={shoppingListItem.bought} onChange={toggle} className="w-4 h-4 mr-2" />
-    <input ref={refName} type="text" defaultValue={shoppingListItem.name} onBlur={update} className="border-2 p-1 pl-2 grow md:mr-0 mr-6 md:w-1/2" onKeyUp={onKeyUp} />
-  </div>
-}
+  return (
+    <div className="mb-2 flex items-center">
+      <input
+        ref={refBought}
+        type="checkbox"
+        checked={shoppingListItem.bought}
+        onChange={toggle}
+        className="mr-2 h-4 w-4"
+      />
+      <input
+        ref={refName}
+        type="text"
+        defaultValue={shoppingListItem.name}
+        onBlur={update}
+        className="mr-6 grow border-2 p-1 pl-2 md:mr-0 md:w-1/2"
+        onKeyUp={onKeyUp}
+      />
+    </div>
+  );
+};
 
-export default ShoppingListItem
+export default ShoppingListItem;

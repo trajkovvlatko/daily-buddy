@@ -1,8 +1,8 @@
 import type { QueryResolvers, MutationResolvers } from 'types/graphql';
 
-import { db } from 'src/lib/db';
 import { getAccessibleIds, getAccessibleId } from 'src/helpers/getAccessibleIds';
 import { getSharedEmails } from 'src/helpers/getSharedEmails';
+import { db } from 'src/lib/db';
 
 export const notes: QueryResolvers['notes'] = async (_, { context }) => {
   const userId = context.currentUser['id'];
@@ -15,7 +15,7 @@ export const notes: QueryResolvers['notes'] = async (_, { context }) => {
 
 export const sharedNotes: QueryResolvers['sharedNotes'] = async (_, { context }) => {
   const userId = context.currentUser['id'];
-  const accessibleIds = await getAccessibleIds({ type: "Note", userId })
+  const accessibleIds = await getAccessibleIds({ type: 'Note', userId });
 
   return db.note.findMany({
     where: { id: { in: accessibleIds } },
@@ -25,18 +25,15 @@ export const sharedNotes: QueryResolvers['sharedNotes'] = async (_, { context })
 
 export const note: QueryResolvers['note'] = async ({ id }, { context }) => {
   const userId = context.currentUser['id'];
-  const accessibleId = await getAccessibleId({ id, type: "Note", userId })
+  const accessibleId = await getAccessibleId({ id, type: 'Note', userId });
 
   const note = await db.note.findFirst({
     where: {
-      OR: [
-        { id, userId },
-        { id: accessibleId }
-      ]
+      OR: [{ id, userId }, { id: accessibleId }],
     },
   });
 
-  return { ...note, emails: await getSharedEmails({ id, type: "Note" }) }
+  return { ...note, emails: await getSharedEmails({ id, type: 'Note' }) };
 };
 
 export const createNote: MutationResolvers['createNote'] = ({ input }, { context }) => {
@@ -49,14 +46,11 @@ export const createNote: MutationResolvers['createNote'] = ({ input }, { context
 
 export const updateNote: MutationResolvers['updateNote'] = async ({ id, input }, { context }) => {
   const userId = context.currentUser['id'];
-  const accessibleId = (await getAccessibleIds({ type: "Note", userId })).find((row) => row === id)
+  const accessibleId = (await getAccessibleIds({ type: 'Note', userId })).find((row) => row === id);
   await db.note.findFirstOrThrow({
     where: {
-      OR: [
-        { id, userId },
-        { id: accessibleId }
-      ]
-    }
+      OR: [{ id, userId }, { id: accessibleId }],
+    },
   });
 
   return db.note.update({ data: input, where: { id } });

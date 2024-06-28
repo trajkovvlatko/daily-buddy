@@ -8,4 +8,4 @@ export const schema = gql`
   type Mutation {
     access(input: SetAccessInput!): Boolean! @requireAuth
   }
-`
+`;

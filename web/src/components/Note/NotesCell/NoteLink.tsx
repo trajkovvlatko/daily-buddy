@@ -7,7 +7,7 @@ interface Props {
   shouldPad: boolean;
 }
 
-const defaultPadding = 20
+const defaultPadding = 20;
 
 export const NoteLink = ({ note, onClick, isSelected, shouldPad }: Props) => {
   const list = note.path.split('/').filter(Boolean);

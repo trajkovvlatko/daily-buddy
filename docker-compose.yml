@@ -1,18 +1,14 @@
-version: '3.9'
 services:
   database:
-    image: mariadb:10.5.8
-    restart: always
-    environment:
-      MYSQL_DATABASE: 'daily_buddy_development'
-      MYSQL_USER: 'vlatko'
-      MYSQL_PASSWORD: 'vlatkodev'
-      MYSQL_ROOT_PASSWORD: 'vlatkodev'
-    ports:
-      - '13306:3306'
-    expose:
-      - '3306'
+    image: postgres:13
     volumes:
-      - mysql_database:/var/lib/mysql
+      - database-data:/var/opt/daily-buddy-database/data
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=daily_buddy_development
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "12345:5432"
 volumes:
-  mysql_database:
+  database-data:
