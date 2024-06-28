@@ -1,10 +1,10 @@
+import type { CreateShoppingListInput } from 'types/graphql';
+
 import { navigate, routes } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import ShoppingListForm from 'src/components/ShoppingList/ShoppingListForm';
-
-import type { CreateShoppingListInput } from 'types/graphql';
 
 const CREATE_SHOPPING_LIST_MUTATION = gql`
   mutation CreateShoppingListMutation($input: CreateShoppingListInput!) {

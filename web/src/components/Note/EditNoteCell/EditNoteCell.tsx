@@ -5,8 +5,8 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
-import NoteForm from 'src/components/Note/NoteForm';
 import ShareForm from 'src/components/Access/ShareForm/ShareForm';
+import NoteForm from 'src/components/Note/NoteForm';
 
 const DELETE_NOTE_MUTATION = gql`
   mutation DeleteNoteMutation($id: Int!) {
@@ -82,13 +82,11 @@ export const Success = ({ note, onUpdate, onDelete, shared }: CellSuccessProps<E
 
   return (
     <div>
-      <div className='mb-6'>
+      <div className="mb-6">
         <NoteForm note={note} onSave={onSave} error={error} loading={loading} />
       </div>
 
-      <div className='clear-both mb-6'>
-        {!shared && <ShareForm id={note.id} type="Note" emails={note.emails} />}
-      </div>
+      <div className="clear-both mb-6">{!shared && <ShareForm id={note.id} type="Note" emails={note.emails} />}</div>
 
       <button type="button" className="red-button mt-3" onClick={() => onDeleteClick(note.id)}>
         Delete

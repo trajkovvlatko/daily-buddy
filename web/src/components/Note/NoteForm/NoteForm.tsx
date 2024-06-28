@@ -1,12 +1,12 @@
-import { useState } from 'react';
-
-import MarkdownEditor from '@uiw/react-markdown-editor';
+import { BlockNoteView } from '@blocknote/mantine';
+import { useCreateBlockNote } from '@blocknote/react';
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
 
-import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
+import { Form, FormError, FieldError, Label, Submit, TextField } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
 
-import { toolbars } from 'src/shared';
+import '@blocknote/core/fonts/inter.css';
+import '@blocknote/mantine/style.css';
 
 type FormNote = NonNullable<EditNoteById['note']>;
 
@@ -18,10 +18,16 @@ interface NoteFormProps {
 }
 
 const NoteForm = (props: NoteFormProps) => {
-  const [value, setMarkdown] = useState(props.note?.content ?? '');
+  const editor = useCreateBlockNote({ initialContent: [{ id: 'note' }] });
 
-  const onSubmit = (data: FormNote) => {
-    props.onSave({ ...data, content: value }, props?.note?.id);
+  editor.tryParseMarkdownToBlocks(props.note?.content ?? '').then((parsed) => {
+    editor.insertBlocks(parsed, { id: 'note' });
+  });
+
+  const onSubmit = async (data: FormNote) => {
+    const content = await editor.blocksToMarkdownLossy();
+
+    props.onSave({ ...data, content }, props?.note?.id);
   };
 
   return (
@@ -46,7 +52,7 @@ const NoteForm = (props: NoteFormProps) => {
         Content
       </Label>
 
-      <MarkdownEditor value={value} onChange={(value) => setMarkdown(value)} enableScroll={true} toolbars={toolbars} />
+      <BlockNoteView editor={editor} />
 
       <FieldError name="content" className="rw-field-error" />
 

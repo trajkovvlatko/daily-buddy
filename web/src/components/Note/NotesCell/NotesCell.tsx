@@ -34,7 +34,7 @@ export const Empty = () => {
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 export const Success = ({ notes, sharedNotes }: CellSuccessProps<FindNotes>) => {
-  const [selectedNote, setSelectedNote] = useState<{ id: number, shared: boolean } | null>(null);
+  const [selectedNote, setSelectedNote] = useState<{ id: number; shared: boolean } | null>(null);
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const onUpdate = () => {
@@ -73,22 +73,23 @@ export const Success = ({ notes, sharedNotes }: CellSuccessProps<FindNotes>) => 
             </div>
           );
         })}
-        {!!sharedNotes.length && <>
-          <h2 className="mt-5 mb-5 pl-5 text-lg font-semibold">Shared notes</h2>
-          {sharedNotes.map((note) => {
-            return (
-              <div className="note-menu flex flex-wrap" key={note.id}>
-                <NoteLink
-                  onClick={() => setSelectedNote({ id: note.id, shared: true })}
-                  note={note}
-                  isSelected={selectedNote?.id === note.id}
-                  shouldPad={false}
-                />
-              </div>
-            );
-          })}
-        </>
-        }
+        {!!sharedNotes.length && (
+          <>
+            <h2 className="mb-5 mt-5 pl-5 text-lg font-semibold">Shared notes</h2>
+            {sharedNotes.map((note) => {
+              return (
+                <div className="note-menu flex flex-wrap" key={note.id}>
+                  <NoteLink
+                    onClick={() => setSelectedNote({ id: note.id, shared: true })}
+                    note={note}
+                    isSelected={selectedNote?.id === note.id}
+                    shouldPad={false}
+                  />
+                </div>
+              );
+            })}
+          </>
+        )}
       </div>
 
       <div className="main-content">

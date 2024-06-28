@@ -14,6 +14,7 @@ export const contact = async (_: any, { context }) => {
   if (response) return response;
 
   const id = await db.$queryRaw`SELECT id FROM "Person" WHERE "userId" = ${userId} ORDER BY random() LIMIT 1`;
+  if ((id as any).length === 0) return null;
 
   const data = await db.person.findFirst({
     select: { id: true, name: true },

@@ -1,12 +1,12 @@
 import type { QueryResolvers, MutationResolvers, ShoppingListRelationResolvers } from 'types/graphql';
 
-import { db } from 'src/lib/db';
 import { getAccessibleId, getAccessibleIds } from 'src/helpers/getAccessibleIds';
 import { getSharedEmails } from 'src/helpers/getSharedEmails';
+import { db } from 'src/lib/db';
 
 export const shoppingLists: QueryResolvers['shoppingLists'] = async (_, { context }) => {
   const userId = context.currentUser['id'];
-  const accessibleIds = await getAccessibleIds({ type: "ShoppingList", userId })
+  const accessibleIds = await getAccessibleIds({ type: 'ShoppingList', userId });
 
   const res = await db.shoppingList.findMany({
     include: {
@@ -17,41 +17,38 @@ export const shoppingLists: QueryResolvers['shoppingLists'] = async (_, { contex
         { userId },
         {
           id: {
-            in: accessibleIds
-          }
-        }
-      ]
+            in: accessibleIds,
+          },
+        },
+      ],
     },
     orderBy: { id: 'asc' },
   });
 
   return res.map(async (row) => {
-    return { ...row, shoppingListItems: await getShoppingListItems(row.id) }
-  })
+    return { ...row, shoppingListItems: await getShoppingListItems(row.id) };
+  });
 };
 
 export const shoppingList: QueryResolvers['shoppingList'] = async ({ id }, { context }) => {
   const userId = context.currentUser['id'];
-  const accessibleId = await getAccessibleId({ id, type: "ShoppingList", userId })
+  const accessibleId = await getAccessibleId({ id, type: 'ShoppingList', userId });
 
   const res = await db.shoppingList.findFirst({
     include: {
       ShoppingListItem: true,
     },
     where: {
-      OR: [
-        { id, userId },
-        { id: accessibleId }
-      ]
+      OR: [{ id, userId }, { id: accessibleId }],
     },
   });
 
   return {
     ...res,
     shoppingListItems: await getShoppingListItems(res.id),
-    emails: await getSharedEmails({ id, type: "ShoppingList" }),
+    emails: await getSharedEmails({ id, type: 'ShoppingList' }),
     shared: res.userId !== userId,
-  }
+  };
 };
 
 export const createShoppingList: MutationResolvers['createShoppingList'] = ({ input }, { context }) => {
@@ -64,15 +61,12 @@ export const createShoppingList: MutationResolvers['createShoppingList'] = ({ in
 
 export const updateShoppingList: MutationResolvers['updateShoppingList'] = async ({ id, input }, { context }) => {
   const userId = context.currentUser['id'];
-  const accessibleId = (await getAccessibleIds({ type: "ShoppingList", userId })).find((row) => row === id)
+  const accessibleId = (await getAccessibleIds({ type: 'ShoppingList', userId })).find((row) => row === id);
   await db.shoppingList.findFirstOrThrow({
     where: {
-      OR: [
-        { id, userId },
-        { id: accessibleId }
-      ]
-    }
-  })
+      OR: [{ id, userId }, { id: accessibleId }],
+    },
+  });
 
   return db.shoppingList.update({ data: input, where: { id } });
 };
@@ -92,8 +86,8 @@ const getShoppingListItems = async (id: number) => {
         bought: false,
       },
       orderBy: {
-        id: 'asc'
-      }
+        id: 'asc',
+      },
     }),
     db.shoppingListItem.findMany({
       where: {
@@ -101,16 +95,16 @@ const getShoppingListItems = async (id: number) => {
         bought: true,
       },
       orderBy: {
-        id: 'asc'
-      }
+        id: 'asc',
+      },
     }),
   ]);
 
   return { pending, bought };
-}
+};
 
 export const ShoppingList: ShoppingListRelationResolvers = {
   shoppingListItems: async (_obj, { root }) => {
-    return getShoppingListItems(root.id)
-  }
+    return getShoppingListItems(root.id);
+  },
 };

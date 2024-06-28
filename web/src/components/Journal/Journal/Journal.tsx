@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Journal = ({ journal, onEditCallback }: Props) => {
-  const html = marked.parse(journal.content);
+  const html = marked.parse(journal.content.replaceAll('\\[', '['));
 
   const onEdit = () => {
     if (onEditCallback) {

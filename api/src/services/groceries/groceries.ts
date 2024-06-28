@@ -68,7 +68,7 @@ export const deleteGrocery: MutationResolvers['deleteGrocery'] = async ({ id }, 
 
   const res = await db.grocery.delete({ where: { id } });
 
-  return { ...res, nearExpireDate: false }
+  return { ...res, nearExpireDate: false };
 };
 
 export const groceriesExpireCount: QueryResolvers['groceriesExpireCount'] = (_, { context }) => {
