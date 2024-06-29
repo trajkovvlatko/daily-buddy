@@ -1,15 +1,15 @@
 import { NoteReference } from 'types/graphql';
 
+import { Link, routes } from '@redwoodjs/router';
+
 interface Props {
   note: NoteReference;
-  onClick: () => void;
-  isSelected: boolean;
   shouldPad: boolean;
 }
 
 const defaultPadding = 20;
 
-export const NoteLink = ({ note, onClick, isSelected, shouldPad }: Props) => {
+export const NoteLink = ({ note, shouldPad }: Props) => {
   const list = note.path.split('/').filter(Boolean);
 
   const res = list.reduce(
@@ -21,16 +21,14 @@ export const NoteLink = ({ note, onClick, isSelected, shouldPad }: Props) => {
   );
 
   return (
-    <div
-      onClick={onClick}
+    <Link
+      to={routes.note({ id: note.id })}
       className={`w-5/6 cursor-pointer truncate pb-3 pt-3 hover:text-gray-500`}
       style={{
         paddingLeft: shouldPad ? res.count : defaultPadding,
-        fontWeight: isSelected ? 'bold' : 'normal',
-        backgroundColor: isSelected ? 'rgb(243, 244, 246)' : 'transparent',
       }}
     >
       {res.label}
-    </div>
+    </Link>
   );
 };

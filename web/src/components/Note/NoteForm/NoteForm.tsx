@@ -18,10 +18,11 @@ interface NoteFormProps {
 }
 
 const NoteForm = (props: NoteFormProps) => {
-  const editor = useCreateBlockNote({ initialContent: [{ id: 'note' }] });
+  const rand = Math.random().toString(36).substring(7);
+  const editor = useCreateBlockNote({ initialContent: [{ id: `note-${rand}` }] });
 
   editor.tryParseMarkdownToBlocks(props.note?.content ?? '').then((parsed) => {
-    editor.insertBlocks(parsed, { id: 'note' });
+    editor.insertBlocks(parsed, { id: `note-${rand}` });
   });
 
   const onSubmit = async (data: FormNote) => {

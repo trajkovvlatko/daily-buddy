@@ -1,6 +1,7 @@
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
 import type { DeleteNoteMutationVariables } from 'types/graphql';
 
+import { navigate, routes } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
@@ -41,17 +42,11 @@ export const Loading = () => <div>Loading...</div>;
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
-interface ExtraProps {
-  shared: boolean;
-  onUpdate: () => void;
-  onDelete: () => void;
-}
-
-export const Success = ({ note, onUpdate, onDelete, shared }: CellSuccessProps<EditNoteById> & ExtraProps) => {
+export const Success = ({ note }: CellSuccessProps<EditNoteById>) => {
   const [deleteNote] = useMutation(DELETE_NOTE_MUTATION, {
     onCompleted: () => {
       toast.success('Note deleted');
-      onDelete();
+      navigate(routes.notes());
     },
     refetchQueries: ['FindNotes'],
     onError: (error) => {
@@ -62,7 +57,7 @@ export const Success = ({ note, onUpdate, onDelete, shared }: CellSuccessProps<E
   const [updateNote, { loading, error }] = useMutation(UPDATE_NOTE_MUTATION, {
     onCompleted: () => {
       toast.success('Note updated');
-      onUpdate();
+      navigate(routes.note({ id: note.id }));
     },
     refetchQueries: ['FindNotes'],
     onError: (error) => {
@@ -86,7 +81,9 @@ export const Success = ({ note, onUpdate, onDelete, shared }: CellSuccessProps<E
         <NoteForm note={note} onSave={onSave} error={error} loading={loading} />
       </div>
 
-      <div className="clear-both mb-6">{!shared && <ShareForm id={note.id} type="Note" emails={note.emails} />}</div>
+      <div className="clear-both mb-6">
+        <ShareForm id={note.id} type="Note" emails={note.emails} />
+      </div>
 
       <button type="button" className="red-button mt-3" onClick={() => onDeleteClick(note.id)}>
         Delete
