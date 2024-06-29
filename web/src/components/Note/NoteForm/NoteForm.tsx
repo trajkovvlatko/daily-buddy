@@ -53,7 +53,7 @@ const NoteForm = (props: NoteFormProps) => {
         Content
       </Label>
 
-      <BlockNoteView editor={editor} />
+      <BlockNoteView editor={editor} theme="light" />
 
       <FieldError name="content" className="rw-field-error" />
 

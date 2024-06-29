@@ -80,7 +80,7 @@ const JournalForm = (props: JournalFormProps) => {
         <Label name="content" className="rw-label" errorClassName="rw-label rw-label-error">
           Content
         </Label>
-        <BlockNoteView editor={editor} />
+        <BlockNoteView editor={editor} theme="light" />
         <div className="float-right mt-6">
           <Submit disabled={props.loading} className="blue-button">
             Save
