@@ -1,4 +1,4 @@
-FROM node:16-slim as base
+FROM node:20-slim as base
 
 RUN apt-get update
 RUN apt-get install -y openssl
@@ -36,7 +36,7 @@ RUN yarn rw build api
 
 # Start app
 
-FROM node:16-slim
+FROM node:20-slim
 
 WORKDIR /app
 
