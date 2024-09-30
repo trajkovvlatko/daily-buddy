@@ -1,7 +1,7 @@
 import type { FindStreaks } from 'types/graphql';
 
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
-import { toast } from '@redwoodjs/web/dist/toast';
+import { toast } from '@redwoodjs/web/toast';
 
 import StreakRow from '../StreakRow/StreakRow';
 

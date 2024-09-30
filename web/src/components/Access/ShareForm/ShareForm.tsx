@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import { useMutation } from '@redwoodjs/web';
-import { toast } from '@redwoodjs/web/dist/toast';
+import { toast } from '@redwoodjs/web/toast';
 
 const SET_ACCESS_MUTATION = gql`
   mutation SetAccessMutation($input: SetAccessInput!) {
