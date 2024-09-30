@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { ShoppingListItem as ShoppingListItemType } from 'types/graphql';
 
 import { useMutation } from '@redwoodjs/web';
-import { toast } from '@redwoodjs/web/dist/toast';
+import { toast } from '@redwoodjs/web/toast';
 
 const UPDATE_SHOPPING_LIST_ITEM_MUTATION = gql`
   mutation UpdateShoppingListItemMutation($id: Int!, $input: UpdateShoppingListItemInput!) {

@@ -1,7 +1,7 @@
 import { Streak } from 'types/graphql';
 
 import { useMutation } from '@redwoodjs/web';
-import { toast } from '@redwoodjs/web/dist/toast';
+import { toast } from '@redwoodjs/web/toast';
 
 const dateDiffInDays = (a: Date, b: Date) => {
   const _MS_PER_DAY = 1000 * 60 * 60 * 24;
