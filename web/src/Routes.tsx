@@ -7,7 +7,7 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { Private, PrivateSet } from '@redwoodjs/router';
+import { PrivateSet } from '@redwoodjs/router';
 import { Set, Router, Route } from '@redwoodjs/router';
 
 import ScaffoldLayout from 'src/layouts/ScaffoldLayout';
@@ -53,6 +53,10 @@ const Routes = () => {
         <Route path="/shopping-lists/{id:Int}/edit" page={ShoppingListEditShoppingListPage} name="editShoppingList" />
         <Route path="/shopping-lists/{id:Int}" page={ShoppingListShoppingListPage} name="shoppingList" />
         <Route path="/shopping-lists" page={ShoppingListShoppingListsPage} name="shoppingLists" />
+
+        <Route path="/projects/new" page={ProjectNewProjectPage} name="newProject" />
+        <Route path="/projects/{id:Int}/edit" page={ProjectEditProjectPage} name="editProject" />
+        {/* <Route path="/projects" page={ProjectProjectsPage} name="projects" /> */}
 
         <Set wrap={AdminPageWrapper}>
           <Route path="/item-types/new" page={ItemTypeNewItemTypePage} name="newItemType" />
