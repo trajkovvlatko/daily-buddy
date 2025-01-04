@@ -6,7 +6,9 @@ import { toast } from '@redwoodjs/web/toast';
 
 import ProjectForm from 'src/components/Project/ProjectForm';
 
-export const QUERY = gql`
+import { registerFragment } from '@redwoodjs/web/apollo';
+
+registerFragment(gql`
   fragment Project on Project {
     id
     name
@@ -20,13 +22,17 @@ export const QUERY = gql`
         id
         name
         description
+        dueDate
         sortOrder
         labels
         status
+        projectStageId
       }
     }
   }
+`);
 
+export const QUERY = gql`
   query EditProjectById($id: Int!) {
     project: project(id: $id) {
       ...Project

@@ -23,6 +23,7 @@ export const schema = gql`
     sortOrder: Int!
     dueDate: DateTime
     labels: [String!]!
+    projectStageId: Int!
   }
 
   type Query {
