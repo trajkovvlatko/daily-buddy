@@ -1,9 +1,47 @@
-import type { UpdateProjectInput, Project } from 'types/graphql';
+import type { UpdateProjectInput, Project, ProjectTask, ProjectStage } from 'types/graphql';
 
 import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
 
 type FormProject = NonNullable<Project>;
+
+const Task = ({ task }: { task: ProjectTask }) => {
+  return (
+    <div className="bg-white shadow-md rounded-lg p-4 mb-4">
+      <h3 className="text-lg font-semibold">{task.name}</h3>
+      <p>{task.description}</p>
+    </div>
+  );
+};
+
+const Tasks = ({ tasks }: { tasks: ProjectTask[] }) => {
+  return (
+    <div className="flex flex-col w-64 m-2 flex-shrink-0">
+      {tasks.map((task, index) => (
+        <Task key={index} task={task} />
+      ))}
+    </div>
+  );
+};
+
+const Stage = ({ stage }: { stage: ProjectStage }) => {
+  return (
+    <div className="flex flex-col w-64 m-2 flex-shrink-0">
+      <h2 className="text-2xl font-semibold">{stage.name}</h2>
+      <Tasks tasks={stage.tasks} />
+    </div>
+  );
+};
+
+const Stages = ({ stages }: { stages: ProjectStage[] }) => {
+  return (
+    <div className="flex overflow-auto">
+      {stages.map((stage, index) => (
+        <Stage key={index} stage={stage} />
+      ))}
+    </div>
+  );
+};
 
 interface ProjectFormProps {
   project?: Project;
@@ -61,6 +99,8 @@ const ProjectForm = (props: ProjectFormProps) => {
           </Submit>
         </div>
       </Form>
+
+      {props.project?.stages?.length > 0 && <Stages stages={props.project.stages} />}
     </div>
   );
 };

@@ -7,24 +7,29 @@ import { toast } from '@redwoodjs/web/toast';
 import ProjectForm from 'src/components/Project/ProjectForm';
 
 export const QUERY = gql`
-  query EditProjectById($id: Int!) {
-    project: project(id: $id) {
+  fragment Project on Project {
+    id
+    name
+    description
+    stages {
       id
       name
-      description
-      stages {
+      sortOrder
+      color
+      tasks {
         id
         name
+        description
         sortOrder
-        color
-        tasks {
-          id
-          name
-          sortOrder
-          labels
-          status
-        }
+        labels
+        status
       }
+    }
+  }
+
+  query EditProjectById($id: Int!) {
+    project: project(id: $id) {
+      ...Project
     }
   }
 `;
@@ -32,22 +37,7 @@ export const QUERY = gql`
 const UPDATE_PROJECT_MUTATION = gql`
   mutation UpdateProjectMutation($id: Int!, $input: UpdateProjectInput!) {
     updateProject(id: $id, input: $input) {
-      id
-      name
-      description
-      stages {
-        id
-        name
-        sortOrder
-        color
-        tasks {
-          id
-          name
-          sortOrder
-          labels
-          status
-        }
-      }
+      ...Project
     }
   }
 `;

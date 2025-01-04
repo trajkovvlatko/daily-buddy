@@ -3,6 +3,8 @@ import type {
   MutationResolvers,
   ProjectRelationResolvers,
   ProjectStageRelationResolvers,
+  ProjectTask,
+  CreateProjectTaskInput,
 } from 'types/graphql';
 
 import { db } from 'src/lib/db';
@@ -24,12 +26,58 @@ export const project: QueryResolvers['project'] = ({ id }, { context }) => {
   });
 };
 
-export const createProject: MutationResolvers['createProject'] = ({ input }, { context }) => {
+export const createProject: MutationResolvers['createProject'] = async ({ input }, { context }) => {
   const userId = context.currentUser['id'];
 
-  return db.project.create({
+  const project = await db.project.create({
     data: { ...input, userId },
   });
+
+  const stages = ['Inbox', 'Pending', 'In progress', 'Testing', 'Done'];
+  for (const [index, stage] of stages.entries()) {
+    await db.projectStage.create({
+      data: {
+        name: stage,
+        sortOrder: index,
+        projectId: project.id,
+      },
+    });
+  }
+
+  const firstStage = await db.projectStage.findFirst({
+    where: { projectId: project.id },
+    orderBy: { sortOrder: 'asc' },
+  });
+
+  if (firstStage) {
+    const tasks: CreateProjectTaskInput[] = [
+      {
+        name: 'Check project stages',
+        description: 'Make sure you the default project stages match with the newly created project',
+        labels: ['demo', 'task'],
+        sortOrder: 0,
+        status: 'pending',
+      },
+      {
+        name: 'Remove demo tasks',
+        description: 'These tasks are just examples, remove them when they are not needed any more.',
+        labels: ['demo', 'clean up'],
+        sortOrder: 1,
+        status: 'pending',
+      },
+    ];
+
+    for (const task of tasks) {
+      await db.projectTask.create({
+        data: {
+          ...task,
+          projectStageId: firstStage.id,
+        },
+      });
+    }
+  }
+
+  return project;
 };
 
 export const updateProject: MutationResolvers['updateProject'] = async ({ id, input }, { context }) => {
