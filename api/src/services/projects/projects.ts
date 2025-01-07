@@ -3,7 +3,6 @@ import type {
   MutationResolvers,
   ProjectRelationResolvers,
   ProjectStageRelationResolvers,
-  ProjectTask,
   CreateProjectTaskInput,
 } from 'types/graphql';
 

@@ -47,12 +47,14 @@ export const schema = gql`
     name: String!
     sortOrder: Int!
     color: String
+    projectId: Int!
   }
 
   input UpdateProjectStageInput {
     name: String
     sortOrder: Int
     color: String
+    projectId: Int!
   }
 
   input CreateProjectTaskInput {
