@@ -13,6 +13,7 @@ export const schema = gql`
     sortOrder: Int!
     color: String
     tasks: [ProjectTask!]!
+    projectId: Int!
   }
 
   type ProjectTask {
@@ -83,6 +84,7 @@ export const schema = gql`
     createProjectStage(input: CreateProjectStageInput!): ProjectStage! @requireAuth
     updateProjectStage(id: Int!, input: UpdateProjectStageInput!): ProjectStage! @requireAuth
     deleteProjectStage(id: Int!): ProjectStage! @requireAuth
+    updateProjectStagesSortOrder(projectId: Int!, sortOrder: [Int!]!): [ProjectStage!]! @requireAuth
 
     createProjectTask(input: CreateProjectTaskInput!): ProjectTask! @requireAuth
     updateProjectTask(id: Int!, input: UpdateProjectTaskInput!): ProjectTask! @requireAuth

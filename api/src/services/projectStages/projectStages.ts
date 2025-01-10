@@ -60,3 +60,22 @@ export const deleteProjectStage: MutationResolvers['deleteProjectStage'] = async
     where: { id },
   });
 };
+
+export const updateProjectStagesSortOrder: MutationResolvers['updateProjectStagesSortOrder'] = async (
+  { projectId, sortOrder },
+  { context }
+) => {
+  const userId = context.currentUser['id'];
+  await db.project.findFirstOrThrow({ where: { userId, id: projectId } });
+
+  const stages = sortOrder.map((order, index) => ({
+    id: order,
+    sortOrder: index,
+  }));
+
+  for (const stage of stages) {
+    await db.projectStage.update({ data: { sortOrder: stage.sortOrder }, where: { id: stage.id } });
+  }
+
+  return db.projectStage.findMany({ where: { projectId } });
+};

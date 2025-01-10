@@ -9,25 +9,38 @@ import ProjectForm from 'src/components/Project/ProjectForm';
 import { registerFragment } from '@redwoodjs/web/apollo';
 
 registerFragment(gql`
+  fragment ProjectTask on ProjectTask {
+    id
+    name
+    description
+    dueDate
+    sortOrder
+    labels
+    status
+    projectStageId
+  }
+`);
+
+registerFragment(gql`
+  fragment ProjectStage on ProjectStage {
+    id
+    name
+    sortOrder
+    color
+    projectId
+    tasks {
+      ...ProjectTask
+    }
+  }
+`);
+
+registerFragment(gql`
   fragment Project on Project {
     id
     name
     description
     stages {
-      id
-      name
-      sortOrder
-      color
-      tasks {
-        id
-        name
-        description
-        dueDate
-        sortOrder
-        labels
-        status
-        projectStageId
-      }
+      ...ProjectStage
     }
   }
 `);
