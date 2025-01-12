@@ -8,8 +8,7 @@ import { gql } from '@apollo/client';
 const DELETE_PROJECT_STAGE_MUTATION = gql`
   mutation DeleteProjectStageMutation($id: Int!) {
     deleteProjectStage(id: $id) {
-      id
-      sortOrder
+      ...ProjectStage
     }
   }
 `;
@@ -17,8 +16,7 @@ const DELETE_PROJECT_STAGE_MUTATION = gql`
 const UPDATE_PROJECT_STAGES_SORT_ORDER_MUTATION = gql`
   mutation UpdateProjectStagesSortOrderMutation($projectId: Int!, $sortOrder: [Int!]!) {
     updateProjectStagesSortOrder(projectId: $projectId, sortOrder: $sortOrder) {
-      id
-      sortOrder
+      ...ProjectStage
     }
   }
 `;
@@ -26,10 +24,10 @@ const UPDATE_PROJECT_STAGES_SORT_ORDER_MUTATION = gql`
 const Stage = ({ stage, allStages }: { stage: ProjectStage; allStages: AllStages }) => {
   const [deleteProjectStage] = useMutation(DELETE_PROJECT_STAGE_MUTATION, {
     variables: { id: stage.id },
-    refetchQueries: ['EditProjectById'],
+    refetchQueries: ['EditProjectById'], // TODO: use cachek instead of refetch
   });
   const [updateProjectStagesSortOrder] = useMutation(UPDATE_PROJECT_STAGES_SORT_ORDER_MUTATION, {
-    refetchQueries: ['EditProjectById'],
+    refetchQueries: ['EditProjectById'], // TODO: use cachek instead of refetch
   });
 
   const handleDelete = () => {
@@ -79,7 +77,7 @@ const Stage = ({ stage, allStages }: { stage: ProjectStage; allStages: AllStages
           </button>
         </div>
         <div className="flex flex-col flex-grow">
-          <Tasks tasks={stage.tasks} allStages={allStages} />
+          <Tasks tasks={stage.tasks} allStages={allStages} projectStageId={stage.id} />
         </div>
         <div className="flex justify-between p-3">
           {stage.sortOrder !== 0 ? (

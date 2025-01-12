@@ -55,25 +55,24 @@ export const schema = gql`
     name: String
     sortOrder: Int
     color: String
-    projectId: Int!
   }
 
   input CreateProjectTaskInput {
     name: String!
     description: String
     status: String!
-    sortOrder: Int!
     dueDate: DateTime
     labels: [String!]!
+    projectStageId: Int!
   }
 
   input UpdateProjectTaskInput {
     name: String
     description: String
     status: String
-    sortOrder: Int
     dueDate: DateTime
     labels: [String!]
+    projectStageId: Int
   }
 
   type Mutation {
@@ -89,5 +88,6 @@ export const schema = gql`
     createProjectTask(input: CreateProjectTaskInput!): ProjectTask! @requireAuth
     updateProjectTask(id: Int!, input: UpdateProjectTaskInput!): ProjectTask! @requireAuth
     deleteProjectTask(id: Int!): ProjectTask! @requireAuth
+    updateProjectTasksSortOrder(projectStageId: Int!, sortOrder: [Int!]!): [ProjectTask!]! @requireAuth
   }
 `;

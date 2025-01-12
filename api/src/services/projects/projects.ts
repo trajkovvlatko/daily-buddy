@@ -54,15 +54,15 @@ export const createProject: MutationResolvers['createProject'] = async ({ input 
         name: 'Check project stages',
         description: 'Make sure you the default project stages match with the newly created project',
         labels: ['demo', 'task'],
-        sortOrder: 0,
         status: 'pending',
+        projectStageId: firstStage.id,
       },
       {
         name: 'Remove demo tasks',
         description: 'These tasks are just examples, remove them when they are not needed any more.',
         labels: ['demo', 'clean up'],
-        sortOrder: 1,
         status: 'pending',
+        projectStageId: firstStage.id,
       },
     ];
 

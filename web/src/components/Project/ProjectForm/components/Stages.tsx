@@ -44,11 +44,11 @@ const NewProjectStageForm = ({ projectId }: { projectId: number }) => {
 
   return (
     <div className="flex flex-col w-64 m-2 flex-shrink-0">
-      <h2 className="text-2xl font-semibold">New Stage</h2>
+      <h3 className="text-xl font-semibold">New Stage</h3>
       <input
         type="text"
-        placeholder="Stage Name"
-        className="rw-input"
+        placeholder="Add a new stage"
+        className="rw-input mb-2"
         value={stageName}
         onChange={(e) => setStageName(e.target.value)}
       />
