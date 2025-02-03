@@ -7,6 +7,8 @@ import { toast } from '@redwoodjs/web/toast';
 import ProjectForm from 'src/components/Project/ProjectForm';
 
 import { registerFragment } from '@redwoodjs/web/apollo';
+import PageWrapper from 'src/components/PageWrapper/PageWrapper';
+import Stages from '../ProjectForm/components/Stages';
 
 registerFragment(gql`
   fragment ProjectTask on ProjectTask {
@@ -80,12 +82,13 @@ export const Success = ({ project }: CellSuccessProps<EditProjectById>) => {
   };
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">Edit Project {project?.id}</h2>
-      </header>
-      <div className="rw-segment-main">
+    <div className="flex flex-col">
+      <div className="bg-white shadow-lg ml-6 mr-6 p-6 relative top-6 w-1/2 mb-6">
         <ProjectForm project={project} onSave={onSave} error={error} loading={loading} />
+      </div>
+
+      <div className="bg-white shadow-lg ml-6 mr-6 p-6 relative top-6">
+        {project?.stages?.length > 0 && <Stages stages={project.stages} projectId={project.id} />}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormError, FieldError, Label, TextField, Submit } from '@redwoodjs/forms';
+import { Form, FormError, FieldError, Label, TextField, Submit, TextAreaField } from '@redwoodjs/forms';
 import type { UpdateProjectInput, Project } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
 import Stages from './components/Stages';
@@ -44,7 +44,7 @@ const ProjectForm = (props: ProjectFormProps) => {
           Description
         </Label>
 
-        <TextField
+        <TextAreaField
           name="description"
           defaultValue={props.project?.description}
           className="rw-input"
@@ -54,14 +54,12 @@ const ProjectForm = (props: ProjectFormProps) => {
 
         <FieldError name="description" className="rw-field-error" />
 
-        <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
+        <div className="flex justify-end mt-6">
+          <Submit disabled={props.loading} className="blue-button">
             Save
           </Submit>
         </div>
       </Form>
-
-      {props.project?.stages?.length > 0 && <Stages stages={props.project.stages} projectId={props.project.id} />}
     </div>
   );
 };

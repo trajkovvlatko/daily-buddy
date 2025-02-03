@@ -52,7 +52,7 @@ const NewProjectStageForm = ({ projectId }: { projectId: number }) => {
         value={stageName}
         onChange={(e) => setStageName(e.target.value)}
       />
-      <button className="rw-button rw-button-blue" onClick={handleAddStage} disabled={loading}>
+      <button className="blue-button" onClick={handleAddStage} disabled={loading}>
         Add Stage
       </button>
       {error && <div className="rw-text-red">{error.message}</div>}

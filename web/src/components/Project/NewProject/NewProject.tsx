@@ -26,13 +26,9 @@ const NewProject = () => {
   };
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">New Project</h2>
-      </header>
-      <div className="rw-segment-main">
-        <ProjectForm onSave={onSave} loading={loading} error={error} />
-      </div>
+    <div className="bg-white shadow-lg ml-6 mr-6 p-6 relative top-6 w-1/2">
+      <h2 className="text-2xl font-bold mb-12">New Project</h2>
+      <ProjectForm onSave={onSave} loading={loading} error={error} />
     </div>
   );
 };

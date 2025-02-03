@@ -3,6 +3,7 @@ import Task from './Task';
 import type { ProjectTask } from 'types/graphql';
 import type { AllStages } from './types';
 import { useMutation } from '@redwoodjs/web';
+import { toast } from '@redwoodjs/web/toast';
 
 const CREATE_PROJECT_TASK_MUTATION = gql`
   mutation CreateProjectTaskMutation($input: CreateProjectTaskInput!) {
@@ -12,13 +13,16 @@ const CREATE_PROJECT_TASK_MUTATION = gql`
   }
 `;
 
-const NewProjectTaskForm = ({ projectStageId }: { projectStageId: number }) => {
+const NewProjectTaskForm = ({ projectStageId, closeForm }: { projectStageId: number; closeForm: () => void }) => {
   const [createProjectTask] = useMutation(CREATE_PROJECT_TASK_MUTATION);
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
 
   const handleAddTask = () => {
-    if (!taskName || !taskDescription) return;
+    if (!taskName || !taskDescription) {
+      toast.error('Task name and description are required');
+      return;
+    }
 
     createProjectTask({
       variables: {
@@ -34,6 +38,7 @@ const NewProjectTaskForm = ({ projectStageId }: { projectStageId: number }) => {
       onCompleted: () => {
         setTaskName('');
         setTaskDescription('');
+        closeForm();
       },
     });
   };
@@ -53,9 +58,14 @@ const NewProjectTaskForm = ({ projectStageId }: { projectStageId: number }) => {
         value={taskDescription}
         onChange={(e) => setTaskDescription(e.target.value)}
       />
-      <button className="rw-button rw-button-blue" onClick={handleAddTask}>
-        Add Task
-      </button>
+      <div className="flex justify-between">
+        <button className="red-button" onClick={closeForm}>
+          Cancel
+        </button>
+        <button className="blue-button" onClick={handleAddTask}>
+          Add Task
+        </button>
+      </div>
     </div>
   );
 };
@@ -69,14 +79,29 @@ const Tasks = ({
   allStages: AllStages;
   projectStageId: number;
 }) => {
+  const [showNewTaskForm, setShowNewTaskForm] = React.useState(false);
+
+  const toggleNewTaskForm = () => {
+    setShowNewTaskForm((prev) => !prev);
+  };
+
   return (
     <div className="flex flex-col m-2 flex-shrink-0 h-full">
       {tasks.map((task) => (
         <Task key={task.id} task={task} allStages={allStages} />
       ))}
-      <div className="mt-auto">
-        <NewProjectTaskForm projectStageId={projectStageId} />
-      </div>
+
+      {showNewTaskForm && (
+        <div className="flex flex-col">
+          <NewProjectTaskForm projectStageId={projectStageId} closeForm={toggleNewTaskForm} />
+        </div>
+      )}
+
+      {!showNewTaskForm && (
+        <button className="blue-outline-button" onClick={toggleNewTaskForm}>
+          Add a task
+        </button>
+      )}
     </div>
   );
 };
