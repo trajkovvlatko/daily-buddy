@@ -30,6 +30,11 @@ const MenuList = ({ callback }: { callback: () => void }) => {
             </Link>
           </li>
           <li className="menu-link">
+            <Link to={routes.projects()} onClick={onLinkClick}>
+              Projects
+            </Link>
+          </li>
+          <li className="menu-link">
             <Link to={routes.colors()} onClick={onLinkClick}>
               Colors
             </Link>

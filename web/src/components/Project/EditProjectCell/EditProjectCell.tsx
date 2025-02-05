@@ -10,6 +10,7 @@ import { registerFragment } from '@redwoodjs/web/apollo';
 import PageWrapper from 'src/components/PageWrapper/PageWrapper';
 import Stages from '../ProjectForm/components/Stages';
 import { useState } from 'react';
+import { Link, navigate, routes } from '@redwoodjs/router';
 
 registerFragment(gql`
   fragment ProjectTask on ProjectTask {
@@ -64,6 +65,14 @@ const UPDATE_PROJECT_MUTATION = gql`
   }
 `;
 
+const DELETE_PROJECT_MUTATION = gql`
+  mutation DeleteProjectMutation($id: Int!) {
+    deleteProject(id: $id) {
+      id
+    }
+  }
+`;
+
 export const Loading = () => <div>Loading...</div>;
 
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
@@ -89,11 +98,33 @@ export const Success = ({ project }: CellSuccessProps<EditProjectById>) => {
     setShowProjectForm(false);
   };
 
+  const [deleteProject] = useMutation(DELETE_PROJECT_MUTATION, {
+    onCompleted: () => {
+      toast.success('Project deleted');
+      navigate(routes.projects());
+    },
+  });
+
+  const onDelete = (id: EditProjectById['project']['id']) => {
+    console.log('deleteProject', id);
+    deleteProject({ variables: { id } });
+  };
+
   return (
     <div className="flex flex-col">
       <div className="bg-white shadow-lg ml-6 mr-6 p-6 relative top-6 w-1/2 mb-6">
+        <Link to={routes.projects()} className="mb-3 block">
+          <div className="rw-button-icon text-sm">← Back to projects</div>
+        </Link>
         {showProjectForm ? (
-          <ProjectForm project={project} onSave={onSave} error={error} loading={loading} onCancel={onCancel} />
+          <ProjectForm
+            project={project}
+            onSave={onSave}
+            error={error}
+            loading={loading}
+            onCancel={onCancel}
+            onDelete={onDelete}
+          />
         ) : (
           <div className="flex justify-between">
             <div>

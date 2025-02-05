@@ -10,6 +10,7 @@ interface ProjectFormProps {
   error: RWGqlError;
   loading: boolean;
   onCancel: () => void;
+  onDelete: (id: Project['id']) => void;
 }
 
 const ProjectForm = (props: ProjectFormProps) => {
@@ -19,6 +20,12 @@ const ProjectForm = (props: ProjectFormProps) => {
 
   const onCancel = () => {
     props.onCancel();
+  };
+
+  const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log('deleteProject', props?.project?.id);
+    props.onDelete(props?.project?.id);
   };
 
   return (
@@ -59,13 +66,18 @@ const ProjectForm = (props: ProjectFormProps) => {
 
         <FieldError name="description" className="rw-field-error" />
 
-        <div className="flex justify-end mt-6">
-          <button className="orange-button mr-2 w-24" onClick={onCancel}>
-            Cancel
+        <div className="flex justify-between mt-6">
+          <button className="red-button w-24" onClick={onDelete}>
+            Delete
           </button>
-          <Submit disabled={props.loading} className="blue-button w-24">
-            Save
-          </Submit>
+          <div>
+            <button className="orange-button mr-2 w-24" onClick={onCancel}>
+              Cancel
+            </button>
+            <Submit disabled={props.loading} className="blue-button w-24">
+              Save
+            </Submit>
+          </div>
         </div>
       </Form>
     </div>

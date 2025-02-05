@@ -90,6 +90,13 @@ export const deleteProject: MutationResolvers['deleteProject'] = async ({ id }, 
   const userId = context.currentUser['id'];
   await db.project.findFirstOrThrow({ where: { userId, id } });
 
+  const projectStages = await db.projectStage.findMany({ where: { projectId: id } });
+  for (const stage of projectStages) {
+    await db.projectTask.deleteMany({ where: { projectStageId: stage.id } });
+  }
+
+  await db.projectStage.deleteMany({ where: { projectId: id } });
+
   return db.project.delete({ where: { id } });
 };
 

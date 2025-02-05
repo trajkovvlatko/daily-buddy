@@ -44,6 +44,8 @@ const Routes = () => {
 
         <Route path="/scratch-pad" page={ScratchPadPage} name="scratchPad" />
 
+        <Route path="/projects" page={ProjectProjectsPage} name="projects" />
+
         <Route path="/groceries/new" page={GroceryNewGroceryPage} name="newGrocery" />
         <Route path="/groceries/{id:Int}/edit" page={GroceryEditGroceryPage} name="editGrocery" />
         <Route path="/groceries/{id:Int}" page={GroceryGroceryPage} name="grocery" />

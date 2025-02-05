@@ -24,8 +24,10 @@ const Task = ({ task, allStages }: { task: ProjectTask; allStages: AllStages }) 
         )}
         {task.labels.length > 0 && (
           <div className="flex flex-wrap">
-            {task.labels.map((label) => (
-              <p className="text-sm text-gray-500 bg-gray-100 rounded-full px-2 py-1 mr-2">{label}</p>
+            {task.labels.map((label, index) => (
+              <p key={label + index} className="text-sm text-gray-500 bg-gray-100 rounded-full px-2 py-1 mr-2">
+                {label}
+              </p>
             ))}
           </div>
         )}
