@@ -9,6 +9,7 @@ import ProjectForm from 'src/components/Project/ProjectForm';
 import { registerFragment } from '@redwoodjs/web/apollo';
 import PageWrapper from 'src/components/PageWrapper/PageWrapper';
 import Stages from '../ProjectForm/components/Stages';
+import { useState } from 'react';
 
 registerFragment(gql`
   fragment ProjectTask on ProjectTask {
@@ -68,9 +69,12 @@ export const Loading = () => <div>Loading...</div>;
 export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-error">{error?.message}</div>;
 
 export const Success = ({ project }: CellSuccessProps<EditProjectById>) => {
+  const [showProjectForm, setShowProjectForm] = useState(false);
+
   const [updateProject, { loading, error }] = useMutation(UPDATE_PROJECT_MUTATION, {
     onCompleted: () => {
       toast.success('Project updated');
+      setShowProjectForm(false);
     },
     onError: (error) => {
       toast.error(error.message);
@@ -81,13 +85,31 @@ export const Success = ({ project }: CellSuccessProps<EditProjectById>) => {
     updateProject({ variables: { id, input } });
   };
 
+  const onCancel = () => {
+    setShowProjectForm(false);
+  };
+
   return (
     <div className="flex flex-col">
       <div className="bg-white shadow-lg ml-6 mr-6 p-6 relative top-6 w-1/2 mb-6">
-        <ProjectForm project={project} onSave={onSave} error={error} loading={loading} />
+        {showProjectForm ? (
+          <ProjectForm project={project} onSave={onSave} error={error} loading={loading} onCancel={onCancel} />
+        ) : (
+          <div className="flex justify-between">
+            <div>
+              <h2 className="text-2xl font-bold mb-6">{project?.name}</h2>
+              <p className="text-sm text-gray-500">{project?.description}</p>
+            </div>
+            <div>
+              <button className="blue-button" onClick={() => setShowProjectForm(true)}>
+                Edit
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="bg-white shadow-lg ml-6 mr-6 p-6 relative top-6">
+      <div className="bg-white shadow-lg ml-6 mr-6 p-3 relative top-6">
         {project?.stages?.length > 0 && <Stages stages={project.stages} projectId={project.id} />}
       </div>
     </div>

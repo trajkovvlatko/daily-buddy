@@ -65,14 +65,11 @@ const Stage = ({ stage, allStages }: { stage: ProjectStage; allStages: AllStages
   };
 
   return (
-    <div className="flex flex-col w-64 m-2 flex-shrink-0 border">
+    <div className="flex flex-col w-64 m-2 flex-shrink-0 border rounded-lg bg-gray-100 bg-opacity-30">
       <div className="flex flex-col h-full">
         <div className="flex justify-between items-center p-3">
-          <h2 className="text-2xl font-semibold">{stage.name}</h2>
-          <button
-            onClick={handleDelete}
-            className="ml-4 border border-gray-300 rounded-sm w-8 h-8 flex bg-gray-200 items-center justify-center"
-          >
+          <h3 className="text-lg font-semibold">{stage.name}</h3>
+          <button onClick={handleDelete} className="grey-outline-button">
             &times;
           </button>
         </div>
@@ -81,20 +78,14 @@ const Stage = ({ stage, allStages }: { stage: ProjectStage; allStages: AllStages
         </div>
         <div className="flex justify-between p-3">
           {stage.sortOrder !== 0 ? (
-            <button
-              onClick={handleMoveLeft}
-              className="border border-gray-300 rounded-sm w-8 h-8 flex bg-gray-200 items-center justify-center"
-            >
+            <button onClick={handleMoveLeft} className="grey-outline-button">
               &larr;
             </button>
           ) : (
             <div />
           )}
           {stage.sortOrder !== allStages.length - 1 ? (
-            <button
-              onClick={handleMoveRight}
-              className="border border-gray-300 rounded-sm w-8 h-8 flex bg-gray-200 items-center justify-center"
-            >
+            <button onClick={handleMoveRight} className="grey-outline-button">
               &rarr;
             </button>
           ) : (

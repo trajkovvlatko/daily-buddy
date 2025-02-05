@@ -70,6 +70,10 @@ ul {
     @apply rounded bg-orange-500 py-2 px-4 font-semibold text-white text-sm hover:bg-orange-700;
   }
 
+  .grey-outline-button {
+    @apply ml-4 border border-gray-300 rounded-sm w-8 h-8 flex items-center justify-center hover:bg-gray-300
+  }
+
   .header-icon {
     @apply h-6 w-6 text-blue-500;
   }

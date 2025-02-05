@@ -9,11 +9,16 @@ interface ProjectFormProps {
   onSave: (data: UpdateProjectInput, id?: Project['id']) => void;
   error: RWGqlError;
   loading: boolean;
+  onCancel: () => void;
 }
 
 const ProjectForm = (props: ProjectFormProps) => {
   const onSubmit = (data: Project) => {
     props.onSave(data, props?.project?.id);
+  };
+
+  const onCancel = () => {
+    props.onCancel();
   };
 
   return (
@@ -55,7 +60,10 @@ const ProjectForm = (props: ProjectFormProps) => {
         <FieldError name="description" className="rw-field-error" />
 
         <div className="flex justify-end mt-6">
-          <Submit disabled={props.loading} className="blue-button">
+          <button className="orange-button mr-2 w-24" onClick={onCancel}>
+            Cancel
+          </button>
+          <Submit disabled={props.loading} className="blue-button w-24">
             Save
           </Submit>
         </div>
