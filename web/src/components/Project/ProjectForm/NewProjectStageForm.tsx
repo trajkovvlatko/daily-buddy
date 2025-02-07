@@ -1,6 +1,4 @@
 import React from 'react';
-import Stage from './Stage';
-import type { ProjectStage } from 'types/graphql';
 import { useMutation } from '@redwoodjs/web';
 import { gql } from '@apollo/client';
 import { toast } from 'react-hot-toast';
@@ -60,17 +58,4 @@ const NewProjectStageForm = ({ projectId }: { projectId: number }) => {
   );
 };
 
-const Stages = ({ stages, projectId }: { stages: ProjectStage[]; projectId: number }) => {
-  const allStages = stages.map((stage) => ({ id: stage.id, name: stage.name }));
-
-  return (
-    <div className="flex overflow-auto">
-      {stages.map((stage, index) => (
-        <Stage key={index} stage={stage} allStages={allStages} />
-      ))}
-      <NewProjectStageForm projectId={projectId} />
-    </div>
-  );
-};
-
-export default Stages;
+export default NewProjectStageForm;

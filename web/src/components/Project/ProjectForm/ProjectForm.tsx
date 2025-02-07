@@ -2,15 +2,14 @@ import React from 'react';
 import { Form, FormError, FieldError, Label, TextField, Submit, TextAreaField } from '@redwoodjs/forms';
 import type { UpdateProjectInput, Project } from 'types/graphql';
 import type { RWGqlError } from '@redwoodjs/forms';
-import Stages from './components/Stages';
 
 interface ProjectFormProps {
   project?: Project;
   onSave: (data: UpdateProjectInput, id?: Project['id']) => void;
   error: RWGqlError;
   loading: boolean;
-  onCancel: () => void;
-  onDelete: (id: Project['id']) => void;
+  onCancel?: () => void;
+  onDelete?: (id: Project['id']) => void;
 }
 
 const ProjectForm = (props: ProjectFormProps) => {
@@ -24,7 +23,6 @@ const ProjectForm = (props: ProjectFormProps) => {
 
   const onDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('deleteProject', props?.project?.id);
     props.onDelete(props?.project?.id);
   };
 
@@ -67,13 +65,17 @@ const ProjectForm = (props: ProjectFormProps) => {
         <FieldError name="description" className="rw-field-error" />
 
         <div className="flex justify-between mt-6">
-          <button className="red-button w-24" onClick={onDelete}>
-            Delete
-          </button>
-          <div>
-            <button className="orange-button mr-2 w-24" onClick={onCancel}>
-              Cancel
+          {props.onDelete && (
+            <button className="red-button w-24" onClick={onDelete}>
+              Delete
             </button>
+          )}
+          <div>
+            {props.onCancel && (
+              <button className="orange-button mr-2 w-24" onClick={onCancel}>
+                Cancel
+              </button>
+            )}
             <Submit disabled={props.loading} className="blue-button w-24">
               Save
             </Submit>

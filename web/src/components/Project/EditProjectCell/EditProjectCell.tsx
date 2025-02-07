@@ -7,8 +7,7 @@ import { toast } from '@redwoodjs/web/toast';
 import ProjectForm from 'src/components/Project/ProjectForm';
 
 import { registerFragment } from '@redwoodjs/web/apollo';
-import PageWrapper from 'src/components/PageWrapper/PageWrapper';
-import Stages from '../ProjectForm/components/Stages';
+import Stages from '../ProjectForm/Stages';
 import { useState } from 'react';
 import { Link, navigate, routes } from '@redwoodjs/router';
 
@@ -106,13 +105,12 @@ export const Success = ({ project }: CellSuccessProps<EditProjectById>) => {
   });
 
   const onDelete = (id: EditProjectById['project']['id']) => {
-    console.log('deleteProject', id);
     deleteProject({ variables: { id } });
   };
 
   return (
     <div className="flex flex-col">
-      <div className="bg-white shadow-lg ml-6 mr-6 p-6 relative top-6 w-1/2 mb-6">
+      <div className="bg-white shadow-lg md:ml-6 md:mr-6 p-6 relative top-6 md:w-1/2 mb-6">
         <Link to={routes.projects()} className="mb-3 block">
           <div className="rw-button-icon text-sm">← Back to projects</div>
         </Link>
@@ -140,7 +138,7 @@ export const Success = ({ project }: CellSuccessProps<EditProjectById>) => {
         )}
       </div>
 
-      <div className="bg-white shadow-lg ml-6 mr-6 p-3 relative top-6">
+      <div className="bg-white shadow-lg md:ml-6 md:mr-6 p-3 relative top-6">
         {project?.stages?.length > 0 && <Stages stages={project.stages} projectId={project.id} />}
       </div>
     </div>

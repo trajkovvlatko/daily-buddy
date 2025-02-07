@@ -59,7 +59,7 @@ const TaskModal = ({ task, onClose, allStages }: { task: ProjectTask; onClose: (
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="fixed flex flex-col top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md rounded-lg p-4 w-[50vw] h-[50vh]">
+      <div className="fixed flex flex-col top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md rounded-lg p-4 w-[90vw] md:w-[50vw] md:h-[50vh] h:[70vh]">
         <h3 className="text-2xl font-semibold mb-6">Edit task</h3>
         <button
           onClick={onClose}
@@ -83,7 +83,7 @@ const TaskModal = ({ task, onClose, allStages }: { task: ProjectTask; onClose: (
           rows={10}
           className="mt-1 mb-4 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
         />
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <div className="flex items-center mb-4">
             <label
               htmlFor="projectStage"
@@ -143,17 +143,18 @@ const TaskModal = ({ task, onClose, allStages }: { task: ProjectTask; onClose: (
                 onDelete();
               }
             }}
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            className="red-button w-24"
           >
             Delete
           </button>
-          <button
-            type="submit"
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={onSave}
-          >
-            Save
-          </button>
+          <div className="flex justify-end">
+            <button className="orange-button mr-2 w-24" onClick={onClose}>
+              Cancel
+            </button>
+            <button type="submit" className="blue-button w-24" onClick={onSave}>
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>

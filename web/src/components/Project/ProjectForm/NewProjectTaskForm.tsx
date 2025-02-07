@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import Task from './Task';
-import type { ProjectTask } from 'types/graphql';
-import type { AllStages } from './types';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
@@ -59,7 +56,7 @@ const NewProjectTaskForm = ({ projectStageId, closeForm }: { projectStageId: num
         onChange={(e) => setTaskDescription(e.target.value)}
       />
       <div className="flex justify-between">
-        <button className="red-button" onClick={closeForm}>
+        <button className="orange-button" onClick={closeForm}>
           Cancel
         </button>
         <button className="blue-button" onClick={handleAddTask}>
@@ -70,40 +67,4 @@ const NewProjectTaskForm = ({ projectStageId, closeForm }: { projectStageId: num
   );
 };
 
-const Tasks = ({
-  tasks,
-  allStages,
-  projectStageId,
-}: {
-  tasks: ProjectTask[];
-  allStages: AllStages;
-  projectStageId: number;
-}) => {
-  const [showNewTaskForm, setShowNewTaskForm] = React.useState(false);
-
-  const toggleNewTaskForm = () => {
-    setShowNewTaskForm((prev) => !prev);
-  };
-
-  return (
-    <div className="flex flex-col m-2 flex-shrink-0 h-full">
-      {tasks.map((task) => (
-        <Task key={task.id} task={task} allStages={allStages} />
-      ))}
-
-      {showNewTaskForm && (
-        <div className="flex flex-col">
-          <NewProjectTaskForm projectStageId={projectStageId} closeForm={toggleNewTaskForm} />
-        </div>
-      )}
-
-      {!showNewTaskForm && (
-        <button className="blue-outline-button" onClick={toggleNewTaskForm}>
-          Add a task
-        </button>
-      )}
-    </div>
-  );
-};
-
-export default Tasks;
+export default NewProjectTaskForm;

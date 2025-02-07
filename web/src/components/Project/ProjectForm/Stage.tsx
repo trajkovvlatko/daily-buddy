@@ -24,10 +24,10 @@ const UPDATE_PROJECT_STAGES_SORT_ORDER_MUTATION = gql`
 const Stage = ({ stage, allStages }: { stage: ProjectStage; allStages: AllStages }) => {
   const [deleteProjectStage] = useMutation(DELETE_PROJECT_STAGE_MUTATION, {
     variables: { id: stage.id },
-    refetchQueries: ['EditProjectById'], // TODO: use cachek instead of refetch
+    refetchQueries: ['EditProjectById'], // TODO: use cache instead of refetch
   });
   const [updateProjectStagesSortOrder] = useMutation(UPDATE_PROJECT_STAGES_SORT_ORDER_MUTATION, {
-    refetchQueries: ['EditProjectById'], // TODO: use cachek instead of refetch
+    refetchQueries: ['EditProjectById'], // TODO: use cache instead of refetch
   });
 
   const handleDelete = () => {

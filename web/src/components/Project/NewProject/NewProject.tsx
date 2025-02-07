@@ -26,7 +26,7 @@ const NewProject = () => {
   };
 
   return (
-    <div className="bg-white shadow-lg ml-6 mr-6 p-6 relative top-6 w-1/2">
+    <div className="bg-white shadow-lg p-6 md:ml-6 relative top-6 w-full h-full md:w-1/2 md:h-auto">
       <h2 className="text-2xl font-bold mb-12">New Project</h2>
       <ProjectForm onSave={onSave} loading={loading} error={error} />
     </div>

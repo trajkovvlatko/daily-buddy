@@ -71,7 +71,7 @@ ul {
   }
 
   .grey-outline-button {
-    @apply ml-4 border border-gray-300 rounded-sm w-8 h-8 flex items-center justify-center hover:bg-gray-300
+    @apply border border-gray-300 rounded-sm w-8 h-8 flex items-center justify-center hover:bg-gray-300
   }
 
   .header-icon {
