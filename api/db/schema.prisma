@@ -6,7 +6,6 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
 
 
@@ -36,6 +35,7 @@ model User {
   ShoppingList        ShoppingList[]
   Person              Person[]
   CallLog             CallLog[]
+  Project             Project[]
 }
 
 model Calendar {
@@ -257,4 +257,53 @@ model CallLog {
 
   @@index([personId], name: "call_log_person")
   @@index([userId], name: "call_log_user")
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  completedAt DateTime?
+
+  User        User     @relation(references: [id], fields: [userId])
+  userId      Int
+
+  ProjectStage ProjectStage[]
+
+  @@index([userId], name: "project_user")
+}
+
+model ProjectStage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  sortOrder Int      @default(0)
+  color     String?
+
+  Project   Project  @relation(references: [id], fields: [projectId])
+  projectId Int
+
+  ProjectTask ProjectTask[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId], name: "project_stage_project")
+}
+
+model ProjectTask {
+  id            Int         @id @default(autoincrement())
+  name          String
+  description   String?
+  status        String
+  sortOrder     Int         @default(0)
+  dueDate       DateTime?
+  labels        String[]    // Array of strings for labels/tags
+
+  ProjectStage  ProjectStage @relation(references: [id], fields: [projectStageId])
+  projectStageId Int
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([projectStageId], name: "project_task_project_stage")
 }

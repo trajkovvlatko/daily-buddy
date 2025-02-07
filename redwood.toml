@@ -16,3 +16,6 @@
   port = 8911
 [browser]
   open = false
+
+[graphql]
+  fragments = true

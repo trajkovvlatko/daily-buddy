@@ -32,7 +32,7 @@ const NewGrocery = () => {
 
   return (
     <div className="bg-white p-3">
-      <h2 className="h-12 text-lg font-semibold">Add groceries</h2>
+      <h2 className="h-2 text-lg font-semibold">Add groceries</h2>
       <div>
         <GroceryForm onSave={onSave} loading={loading} error={error} />
       </div>
