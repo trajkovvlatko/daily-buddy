@@ -6,7 +6,7 @@
 # https://redwoodjs.com/docs/app-configuration-redwood-toml
 
 [web]
-  title = "Redwood App"
+  title = "Daily Buddy"
   port = 8910
   apiUrl = "/api"
   # any ENV vars that should be available to the web side,
@@ -16,6 +16,5 @@
   port = 8911
 [browser]
   open = false
-
 [graphql]
   fragments = true

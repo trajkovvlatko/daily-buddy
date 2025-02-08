@@ -1,56 +1,162 @@
-FROM node:20-slim as base
+# base
+# ----
+FROM node:20-bookworm-slim as base
 
-RUN apt-get update
-RUN apt-get install -y openssl
+RUN corepack enable
 
-WORKDIR /app
+# We tried to make the Dockerfile as lean as possible. In some cases, that means we excluded a dependency your project needs.
+# By far the most common is Python. If you're running into build errors because `python3` isn't available,
+# add `python3 make gcc \` before the `openssl \` line below and in other stages as necessary:
+RUN apt-get update && apt-get install -y \
+  openssl \
+  && rm -rf /var/lib/apt/lists/*
 
+USER node
+WORKDIR /home/node/app
 
-# Install dependencies
+COPY --chown=node:node .yarnrc.yml .
+COPY --chown=node:node package.json .
+COPY --chown=node:node api/package.json api/
+COPY --chown=node:node web/package.json web/
+COPY --chown=node:node yarn.lock .
 
-COPY package.json package.json
-COPY web/package.json web/package.json
-COPY api/package.json api/package.json
-COPY yarn.lock yarn.lock
-RUN yarn install
+RUN mkdir -p /home/node/.yarn/berry/index
+RUN mkdir -p /home/node/.cache
 
-COPY redwood.toml .
-COPY graphql.config.js .
+RUN --mount=type=cache,target=/home/node/.yarn/berry/cache,uid=1000 \
+  --mount=type=cache,target=/home/node/.cache,uid=1000 \
+  CI=1 yarn install
 
+COPY --chown=node:node redwood.toml .
+COPY --chown=node:node graphql.config.js .
+COPY --chown=node:node .env.defaults .env.defaults
 
-# Build web
-
-FROM base as web_build
-
-COPY web web
-RUN yarn rw build web
-
-
-# Build api
-
+# api build
+# ---------
 FROM base as api_build
 
-COPY api api
+# If your api side build relies on build-time environment variables,
+# specify them here as ARGs. (But don't put secrets in your Dockerfile!)
+#
+# ARG MY_BUILD_TIME_ENV_VAR
+
+COPY --chown=node:node api api
 RUN yarn rw build api
 
+# web prerender build
+# -------------------
+FROM api_build as web_build_with_prerender
 
-# Start app
+ARG FILESTACK_KEY
+ARG FILESTACK_HOST
+ARG IMAGE_FORMAT
 
-FROM node:20-slim
+COPY --chown=node:node web web
+RUN yarn rw build web
 
-WORKDIR /app
+# web build
+# ---------
+FROM base as web_build
 
-COPY api/package.json .
+ARG FILESTACK_KEY
+ARG FILESTACK_HOST
+ARG IMAGE_FORMAT
 
-RUN yarn install && yarn add react react-dom @redwoodjs/api-server @redwoodjs/internal prisma
+COPY --chown=node:node web web
+RUN yarn rw build web --no-prerender
 
-COPY graphql.config.js .
-COPY redwood.toml .
-COPY api api
+# api serve
+# ---------
+FROM node:20-bookworm-slim as api_serve
 
-COPY --from=web_build /app/web/dist /app/web/dist
-COPY --from=api_build /app/api/dist /app/api/dist
-COPY --from=api_build /app/api/db /app/api/db
-COPY --from=api_build /app/node_modules/.prisma /app/node_modules/.prisma
+RUN corepack enable
 
-CMD [ "yarn", "rw-server", "--port", "8910" ]
+RUN apt-get update && apt-get install -y \
+  openssl \
+  && rm -rf /var/lib/apt/lists/*
+
+USER node
+WORKDIR /home/node/app
+
+COPY --chown=node:node .yarnrc.yml .
+COPY --chown=node:node package.json .
+COPY --chown=node:node api/package.json api/
+COPY --chown=node:node yarn.lock .
+
+RUN mkdir -p /home/node/.yarn/berry/index
+RUN mkdir -p /home/node/.cache
+
+RUN --mount=type=cache,target=/home/node/.yarn/berry/cache,uid=1000 \
+  --mount=type=cache,target=/home/node/.cache,uid=1000 \
+  CI=1 yarn workspaces focus api --production
+
+COPY --chown=node:node redwood.toml .
+COPY --chown=node:node graphql.config.js .
+COPY --chown=node:node .env.defaults .env.defaults
+
+COPY --chown=node:node --from=api_build /home/node/app/api/dist /home/node/app/api/dist
+COPY --chown=node:node --from=api_build /home/node/app/api/db /home/node/app/api/db
+COPY --chown=node:node --from=api_build /home/node/app/node_modules/.prisma /home/node/app/node_modules/.prisma
+
+ENV NODE_ENV=production
+
+# default api serve command
+# ---------
+# If you are using a custom server file, you must use the following
+# command to launch your server instead of the default api-server below.
+# This is important if you intend to configure GraphQL to use Realtime.
+#
+# CMD [ "./api/dist/server.js" ]
+CMD [ "node_modules/.bin/rw-server", "api" ]
+
+# web serve
+# ---------
+FROM node:20-bookworm-slim as web_serve
+
+RUN corepack enable
+
+USER node
+WORKDIR /home/node/app
+
+COPY --chown=node:node .yarnrc.yml .
+COPY --chown=node:node package.json .
+COPY --chown=node:node web/package.json web/
+COPY --chown=node:node yarn.lock .
+
+RUN mkdir -p /home/node/.yarn/berry/index
+RUN mkdir -p /home/node/.cache
+
+RUN --mount=type=cache,target=/home/node/.yarn/berry/cache,uid=1000 \
+  --mount=type=cache,target=/home/node/.cache,uid=1000 \
+  CI=1 yarn workspaces focus web --production
+
+COPY --chown=node:node redwood.toml .
+COPY --chown=node:node graphql.config.js .
+COPY --chown=node:node .env.defaults .env.defaults
+
+COPY --chown=node:node --from=web_build /home/node/app/web/dist /home/node/app/web/dist
+
+ENV NODE_ENV=production \
+  API_PROXY_TARGET=http://api:8911
+
+# We use the shell form here for variable expansion.
+CMD "node_modules/.bin/rw-web-server" "--api-proxy-target" "$API_PROXY_TARGET"
+
+# console
+# -------
+FROM base as console
+
+# To add more packages:
+#
+# ```
+# USER root
+#
+# RUN apt-get update && apt-get install -y \
+#     curl
+#
+# USER node
+# ```
+
+COPY --chown=node:node api api
+COPY --chown=node:node web web
+COPY --chown=node:node scripts scripts
