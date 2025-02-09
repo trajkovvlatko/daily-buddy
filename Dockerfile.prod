@@ -39,10 +39,7 @@ FROM base as api_build
 #
 # ARG MY_BUILD_TIME_ENV_VAR
 
-
 COPY --chown=node:node api api
-COPY --chown=node:node web web
-COPY --chown=node:node scripts ./scripts/
 RUN yarn rw build api
 
 # web prerender build
@@ -53,7 +50,6 @@ ARG FILESTACK_KEY
 ARG FILESTACK_HOST
 ARG IMAGE_FORMAT
 
-COPY --chown=node:node api api
 COPY --chown=node:node web web
 RUN yarn rw build web
 
@@ -65,7 +61,6 @@ ARG FILESTACK_KEY
 ARG FILESTACK_HOST
 ARG IMAGE_FORMAT
 
-COPY --chown=node:node api api
 COPY --chown=node:node web web
 RUN yarn rw build web --no-prerender
 

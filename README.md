@@ -1,20 +1,21 @@
-# README
+## Local development using Docker
 
-Install dependencies:
-
-```
-yarn
-```
-
-Start dev server:
+Start dev server with docker compose:
 
 ```
-yarn rw dev
+docker compose -f docker-compose.dev.yml up
+```
+
+On first run or when adding a new migration, connect to the container and run migrations:
+
+```
+docker compose -f ./docker-compose.dev.yml run --rm -it console /bin/bash
+root@...:/home/node/app# yarn rw prisma migrate dev
 ```
 
 ## Database
 
-### Local
+### Adding a new migration
 
 Update schema:
 
@@ -28,53 +29,12 @@ Run migration locally:
 yarn rw prisma migrate dev
 ```
 
-### Planetscale
-
-Create a branch here: https://app.planetscale.com/trajkovvlatko/daily_production/branches
-
-
-Login to planetscale and pick branch:
-
-```
-pscale connect daily_production
-```
-
-Get local address from `pscale`'s output and use as `DATABASE_URL` in `.env`. For ex.:
-```
-DATABASE_URL="mysql://root@127.0.0.1:32893/daily_production"
-```
-
-Open a new terminal tab and push db changes:
-```
-npx prisma db push --schema api/db/schema.prisma
-```
-
-Go to Planetscale and refresh schema in deploy request: https://app.planetscale.com/trajkovvlatko/daily_production/branches
-
-Apply and delete branch.
-
-
-Mark any failed migrations as resolved:
-```
-npx prisma migrate resolve --applied "20221114194730_create_note" --schema api/db/schema.prisma
-```
-
-Redeploy on Vercel if needed.
-
-
 ## Scaffold
 
+Generate a CRUD scaffold:
+
 ```
-yarn redwood g scaffold post
+yarn rw g scaffold post
 ```
 
 ## Deployment
-
-```
-yarn rw setup deploy --help
-```
-
-
-```
-yarn rw setup auth --help
-```

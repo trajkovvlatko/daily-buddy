@@ -17,6 +17,7 @@ services:
       - DATABASE_URL=postgresql://redwood:redwood@db:5432/redwood
       - TEST_DATABASE_URL=postgresql://redwood:redwood@db:5432/redwood_test
       - SESSION_SECRET=super_secret_session_key_change_me_in_production_please
+      - FILESTACK_KEY=123
 
   web:
     build:
@@ -29,6 +30,7 @@ services:
       - api
     environment:
       - API_PROXY_TARGET=http://api:8911
+      - FILESTACK_KEY=123
 
   db:
     image: postgres:16-bookworm
