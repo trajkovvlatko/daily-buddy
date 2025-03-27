@@ -1,56 +1,31 @@
-FROM node:20-slim as base
+FROM node:20-bookworm-slim
 
-RUN apt-get update
-RUN apt-get install -y openssl
+RUN corepack enable
 
-WORKDIR /app
+RUN apt-get update && apt-get install -y \
+  openssl \
+  && rm -rf /var/lib/apt/lists/*
 
+USER node
+WORKDIR /home/node/app
 
-# Install dependencies
+COPY --chown=node:node .yarnrc.yml .
+COPY --chown=node:node package.json .
+COPY --chown=node:node api/package.json api/
+COPY --chown=node:node web/package.json web/
+COPY --chown=node:node yarn.lock .
+COPY --chown=node:node api api
+COPY --chown=node:node web web
+COPY --chown=node:node scripts ./scripts/
+COPY --chown=node:node redwood.toml .
+COPY --chown=node:node graphql.config.js .
 
-COPY package.json package.json
-COPY web/package.json web/package.json
-COPY api/package.json api/package.json
-COPY yarn.lock yarn.lock
+RUN mkdir -p /home/node/.yarn/berry/index
+RUN mkdir -p /home/node/.cache
+
+ENV NODE_ENV=production
+
 RUN yarn install
+RUN yarn build
 
-COPY redwood.toml .
-COPY graphql.config.js .
-
-
-# Build web
-
-FROM base as web_build
-
-COPY web web
-RUN yarn rw build web
-
-
-# Build api
-
-FROM base as api_build
-
-COPY api api
-RUN yarn rw build api
-
-
-# Start app
-
-FROM node:20-slim
-
-WORKDIR /app
-
-COPY api/package.json .
-
-RUN yarn install && yarn add react react-dom @redwoodjs/api-server @redwoodjs/internal prisma
-
-COPY graphql.config.js .
-COPY redwood.toml .
-COPY api api
-
-COPY --from=web_build /app/web/dist /app/web/dist
-COPY --from=api_build /app/api/dist /app/api/dist
-COPY --from=api_build /app/api/db /app/api/db
-COPY --from=api_build /app/node_modules/.prisma /app/node_modules/.prisma
-
-CMD [ "yarn", "rw-server", "--port", "8910" ]
+CMD [ "yarn", "start" ]

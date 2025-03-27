@@ -1,9 +1,21 @@
-# README
+## Local development
 
-Install dependencies:
+Create a .env file and set the environment variables
+
+```
+cp .env.example .env
+```
+
+Install required packages:
 
 ```
 yarn
+```
+
+Run migrations:
+
+```
+yarn rw prisma migrate dev
 ```
 
 Start dev server:
@@ -12,9 +24,48 @@ Start dev server:
 yarn rw dev
 ```
 
+## Local development using Docker compose
+
+Start dev server with docker compose:
+
+```
+docker compose -f docker-compose.dev.yml up
+```
+
+On first run or when adding a new migration, connect to the container and run migrations:
+
+Start a bash in the container:
+```
+docker compose -f ./docker-compose.dev.yml run --rm -it console /bin/bash
+```
+
+In the container:
+```
+yarn rw prisma migrate dev
+```
+
+## Run a container from a prebuilt image (suitable for self-hosting)
+
+Pull a docker image from docker hub:
+
+```
+docker pull trajkovvlatko/daily-buddy:latest
+```
+
+Start a container (make sure to set correct values for the environment variables):
+
+```
+docker run \
+  -p 8910:8910 \
+  -e ENABLE_REGISTRATIONS=true \
+  -e SESSION_SECRET=super_secret_session_key_change_me_in_production_please \
+  -e DATABASE_URL=postgres://redwood:redwood@192.168.10.171:5432/redwood \
+trajkovvlatko/daily-buddy:latest
+```
+
 ## Database
 
-### Local
+### Adding a new migration
 
 Update schema:
 
@@ -28,53 +79,14 @@ Run migration locally:
 yarn rw prisma migrate dev
 ```
 
-### Planetscale
-
-Create a branch here: https://app.planetscale.com/trajkovvlatko/daily_production/branches
-
-
-Login to planetscale and pick branch:
-
-```
-pscale connect daily_production
-```
-
-Get local address from `pscale`'s output and use as `DATABASE_URL` in `.env`. For ex.:
-```
-DATABASE_URL="mysql://root@127.0.0.1:32893/daily_production"
-```
-
-Open a new terminal tab and push db changes:
-```
-npx prisma db push --schema api/db/schema.prisma
-```
-
-Go to Planetscale and refresh schema in deploy request: https://app.planetscale.com/trajkovvlatko/daily_production/branches
-
-Apply and delete branch.
-
-
-Mark any failed migrations as resolved:
-```
-npx prisma migrate resolve --applied "20221114194730_create_note" --schema api/db/schema.prisma
-```
-
-Redeploy on Vercel if needed.
-
-
 ## Scaffold
 
-```
-yarn redwood g scaffold post
-```
+Create a new database table, by editing api/db/schema.prisma.
 
-## Deployment
+Run the migration.
 
-```
-yarn rw setup deploy --help
-```
-
+Generate a CRUD scaffold:
 
 ```
-yarn rw setup auth --help
+yarn rw g scaffold post
 ```

@@ -1,7 +1,9 @@
 .idea
 .DS_Store
 .env
+.env.development
 .env.defaults
+.env.production
 .netlify
 .redwood
 dev.db*
@@ -22,3 +24,5 @@ api/src/lib/generateGraphiQLHeader.*
 !.yarn/versions
 .vscode
 .vercel
+
+postgres
