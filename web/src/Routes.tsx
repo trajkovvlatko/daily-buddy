@@ -7,8 +7,8 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { PrivateSet } from '@redwoodjs/router';
-import { Set, Router, Route } from '@redwoodjs/router';
+import { Set, PrivateSet } from '@redwoodjs/router';
+import { Router, Route } from '@redwoodjs/router';
 
 import ScaffoldLayout from 'src/layouts/ScaffoldLayout';
 
@@ -45,6 +45,8 @@ const Routes = () => {
         <Route path="/scratch-pad" page={ScratchPadPage} name="scratchPad" />
 
         <Route path="/projects" page={ProjectProjectsPage} name="projects" />
+        <Route path="/projects/new" page={ProjectNewProjectPage} name="newProject" />
+        <Route path="/projects/{id:Int}/edit" page={ProjectEditProjectPage} name="editProject" />
 
         <Route path="/groceries/new" page={GroceryNewGroceryPage} name="newGrocery" />
         <Route path="/groceries/{id:Int}/edit" page={GroceryEditGroceryPage} name="editGrocery" />
@@ -56,11 +58,7 @@ const Routes = () => {
         <Route path="/shopping-lists/{id:Int}" page={ShoppingListShoppingListPage} name="shoppingList" />
         <Route path="/shopping-lists" page={ShoppingListShoppingListsPage} name="shoppingLists" />
 
-        <Route path="/projects/new" page={ProjectNewProjectPage} name="newProject" />
-        <Route path="/projects/{id:Int}/edit" page={ProjectEditProjectPage} name="editProject" />
-        {/* <Route path="/projects" page={ProjectProjectsPage} name="projects" /> */}
-
-        <Set wrap={AdminPageWrapper}>
+        <PrivateSet unauthenticated="home" wrap={AdminPageWrapper}>
           <Route path="/item-types/new" page={ItemTypeNewItemTypePage} name="newItemType" />
           <Route path="/item-types/{id:Int}/edit" page={ItemTypeEditItemTypePage} name="editItemType" />
           <Route path="/item-types/{id:Int}" page={ItemTypeItemTypePage} name="itemType" />
@@ -90,7 +88,11 @@ const Routes = () => {
           <Route path="/person/{personId:Int}/call-logs/{id:Int}/edit" page={CallLogEditCallLogPage} name="editCallLog" />
           <Route path="/person/{personId:Int}/call-logs/{id:Int}" page={CallLogCallLogPage} name="callLog" />
           <Route path="/person/{personId:Int}/call-logs" page={CallLogCallLogsPage} name="callLogs" />
-        </Set>
+
+          <Route path="/settings/new" page={SettingNewSettingPage} name="newSetting" />
+          <Route path="/settings/{id:Int}/edit" page={SettingEditSettingPage} name="editSetting" />
+          <Route path="/settings" page={SettingSettingsPage} name="settings" />
+        </PrivateSet>
       </PrivateSet>
       <Route path="/daily-buddy-login" page={LoginPage} name="login" />
       <Route path="/daily-buddy-signup" page={SignupPage} name="signup" />
