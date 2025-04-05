@@ -55,11 +55,11 @@ export const Failure = ({ error }: CellFailureProps) => <div style={{ color: 're
 export const Success = (props: CellSuccessProps<EventsQuery>) => {
   const {
     getEvents: events,
-    queryResult: { refetch, variables },
+    queryResult: { refetch },
   } = props;
   const onRefresh = async () => {
     try {
-      await refetch({ ...variables, clearCache: true });
+      await refetch({ clearCache: true });
       toast.success('Agenda ready');
     } catch (e) {
       toast.error('Cannot refresh agenda');

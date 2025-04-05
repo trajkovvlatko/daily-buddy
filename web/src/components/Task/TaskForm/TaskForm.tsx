@@ -9,6 +9,36 @@ import { getDefaultDate } from 'src/lib/getDefaultDate';
 
 type FormTask = NonNullable<EditTaskById['task']>;
 
+export const QUERY = gql`
+  query EditTaskById($id: Int!) {
+    task: task(id: $id) {
+      id
+      title
+      dueDate
+      priority
+      completed
+      completedAt
+      createdAt
+      userId
+    }
+  }
+`;
+
+export const UPDATE_TASK_MUTATION = gql`
+  mutation UpdateTaskMutation($id: Int!, $input: UpdateTaskInput!) {
+    updateTask(id: $id, input: $input) {
+      id
+      title
+      dueDate
+      priority
+      completed
+      completedAt
+      createdAt
+      userId
+    }
+  }
+`;
+
 interface TaskFormProps {
   task?: EditTaskById['task'];
   onSave: (data: UpdateTaskInput, id?: FormTask['id']) => void;

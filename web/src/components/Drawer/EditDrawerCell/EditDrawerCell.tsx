@@ -1,6 +1,7 @@
 import type { EditDrawerById, UpdateDrawerInput } from 'types/graphql';
 
 import { navigate, routes } from '@redwoodjs/router';
+import { back } from '@redwoodjs/router';
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
@@ -36,7 +37,7 @@ export const Success = ({ drawer }: CellSuccessProps<EditDrawerById>) => {
   const [updateDrawer, { loading, error }] = useMutation(UPDATE_DRAWER_MUTATION, {
     onCompleted: () => {
       toast.success('Drawer updated');
-      navigate(routes.drawers());
+      back();
     },
     onError: (error) => {
       toast.error(error.message);
