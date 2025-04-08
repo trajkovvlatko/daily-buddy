@@ -73,8 +73,6 @@ model Note {
   User        User        @relation(references: [id], fields: [userId])
   userId      Int
 
-  accesses Access[] @relation("NoteAccess")
-
   @@index([userId], name: "note_user")
 }
 
@@ -207,8 +205,6 @@ model Access {
 
   User        User        @relation(references: [id], fields: [userId])
   userId      Int
-
-  Note Note? @relation("NoteAccess", fields: [accessibleId], references: [id], map: "note_accessibleId")
 
   accessibleId   Int
   accessibleType AccessibleType
