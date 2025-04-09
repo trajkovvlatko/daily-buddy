@@ -4,6 +4,9 @@ import { routes, navigate, back } from '@redwoodjs/router';
 import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
+export const FILESTACK_HOST = "https://api.filestackapi.com";
+export const FILESTACK_CDN_HOST = "https://cdn.filestackcontent.com";
+
 const DELETE_ITEM_MUTATION = gql`
   mutation DeleteItemMutation($id: Int!) {
     deleteItem(id: $id) {
@@ -34,7 +37,7 @@ const Item = ({ item }: Props) => {
     }
   };
 
-  const imageUrl = `${process.env.FILESTACK_HOST}/${item.imageHandle}`;
+  const imageUrl = `${FILESTACK_CDN_HOST}/${item.imageHandle}`;
 
   return (
     <div className="px-6 pb-6">

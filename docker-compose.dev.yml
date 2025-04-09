@@ -18,8 +18,6 @@ services:
       - CI=
       - NODE_ENV=development
       - REDWOOD_API_HOST=0.0.0.0
-      - FILESTACK_HOST=https://api.filestackapi.com
-      - IMAGE_FORMAT=png
 
   db:
     image: postgres:16-bookworm

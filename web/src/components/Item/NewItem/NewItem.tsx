@@ -12,7 +12,7 @@ import { FileStackContext } from 'src/contexts/FileStackContext';
 import { UPDATE_ITEM_MUTATION } from '../EditItemCell';
 import FileUploadForm from '../FileUploadForm/FileUploadForm';
 import WebCamForm from '../WebCamForm/WebCamForm';
-
+import { FILESTACK_HOST } from '../Item/Item';
 const CREATE_ITEM_MUTATION = gql`
   mutation CreateItemMutation($input: CreateItemInput!) {
     createItem(input: $input) {
@@ -46,7 +46,7 @@ const NewItem = ({ drawerId }: { drawerId: number; callback: () => void }) => {
 
   const onSave = async (input: CreateItemInput) => {
     const newRecord = (await createItem({ variables: { input } })).data.createItem;
-    const imageFilename = `${newRecord.id}.${process.env.IMAGE_FORMAT}`;
+    const imageFilename = `${newRecord.id}.png`;
 
     const uploadImageData = async () => {
       return (await fileStackClient.upload(imageData, {}, { filename: imageFilename }, {})).handle;
@@ -54,7 +54,7 @@ const NewItem = ({ drawerId }: { drawerId: number; callback: () => void }) => {
     const getImageDetailsFromUpload = async () => imageRecord.handle;
 
     const imageHandle = await (uploader === 'camera' ? uploadImageData() : getImageDetailsFromUpload());
-    const imageUrl = `${process.env.FILESTACK_HOST}/${imageHandle}`;
+    const imageUrl = `${FILESTACK_HOST}/${imageHandle}`;
 
     await updateItem({
       variables: { id: newRecord.id, input: { imageFilename, imageHandle, imageUrl } },

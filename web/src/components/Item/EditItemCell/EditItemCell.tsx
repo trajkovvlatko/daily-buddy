@@ -12,6 +12,7 @@ import { FileStackContext } from 'src/contexts/FileStackContext';
 
 import FileUploadForm from '../FileUploadForm/FileUploadForm';
 import WebCamForm from '../WebCamForm/WebCamForm';
+import { FILESTACK_HOST } from '../Item/Item';
 
 export const QUERY = gql`
   query EditItemById($id: Int!) {
@@ -43,7 +44,7 @@ export const Failure = ({ error }: CellFailureProps) => <div className="rw-cell-
 export const Success = ({ item }: CellSuccessProps<EditItemById>) => {
   const [uploader, setUploader] = useState<'camera' | 'file'>('camera');
   const { fileStackClient } = useContext(FileStackContext);
-  const url = item.imageHandle ? `${process.env.FILESTACK_HOST}/${item.imageHandle}` : null;
+  const url = item.imageHandle ? `${FILESTACK_HOST}/${item.imageHandle}` : null;
   const [imageRecord, setImageRecord] = useState<any>();
   const [imageData, setImageData] = useState(url);
 
@@ -57,7 +58,7 @@ export const Success = ({ item }: CellSuccessProps<EditItemById>) => {
   });
 
   const onSave = async (input: UpdateItemInput, id: EditItemById['item']['id']) => {
-    const imageFilename = `${id}.${process.env.IMAGE_FORMAT}`;
+    const imageFilename = `${id}.png`;
     let imageHandle: string;
 
     if (imageData && uploader === 'camera') {
