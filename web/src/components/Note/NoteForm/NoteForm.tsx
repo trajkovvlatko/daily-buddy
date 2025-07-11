@@ -1,12 +1,9 @@
-import { BlockNoteView } from '@blocknote/mantine';
-import { useCreateBlockNote } from '@blocknote/react';
 import type { EditNoteById, UpdateNoteInput } from 'types/graphql';
-
 import { Form, FormError, FieldError, Label, Submit, TextField } from '@redwoodjs/forms';
 import type { RWGqlError } from '@redwoodjs/forms';
-
-import '@blocknote/core/fonts/inter.css';
-import '@blocknote/mantine/style.css';
+import { Editor } from 'src/components/Editor/Editor';
+import { MDXEditorMethods } from '@mdxeditor/editor';
+import { useRef } from 'react';
 
 type FormNote = NonNullable<EditNoteById['note']>;
 
@@ -18,15 +15,10 @@ interface NoteFormProps {
 }
 
 const NoteForm = (props: NoteFormProps) => {
-  const rand = Math.random().toString(36).substring(7);
-  const editor = useCreateBlockNote({ initialContent: [{ id: `note-${rand}` }] });
-
-  editor.tryParseMarkdownToBlocks(props.note?.content ?? '').then((parsed) => {
-    editor.insertBlocks(parsed, { id: `note-${rand}` });
-  });
+  const editorRef = useRef<MDXEditorMethods>(null);
 
   const onSubmit = async (data: FormNote) => {
-    const content = await editor.blocksToMarkdownLossy();
+    const content = editorRef.current?.getMarkdown();
 
     props.onSave({ ...data, content }, props?.note?.id);
   };
@@ -34,11 +26,9 @@ const NoteForm = (props: NoteFormProps) => {
   return (
     <Form<FormNote> onSubmit={onSubmit} error={props.error}>
       <FormError error={props.error} />
-
       <Label name="path" className="rw-label" errorClassName="rw-label rw-label-error">
         Path
       </Label>
-
       <TextField
         name="path"
         defaultValue={props.note?.path}
@@ -46,17 +36,14 @@ const NoteForm = (props: NoteFormProps) => {
         errorClassName="rw-input rw-input-error"
         validation={{ required: true }}
       />
-
       <FieldError name="path" className="rw-field-error" />
-
       <Label name="content" className="rw-label" errorClassName="rw-label rw-label-error">
         Content
       </Label>
 
-      <BlockNoteView editor={editor} theme="light" />
+      <Editor content={props.note?.content ?? ''} editorRef={editorRef} />
 
       <FieldError name="content" className="rw-field-error" />
-
       <div className="float-right">
         <Submit disabled={props.loading} className="blue-button mt-3">
           Save

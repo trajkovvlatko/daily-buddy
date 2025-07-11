@@ -29,9 +29,6 @@
     "start": "yarn rw serve"
   },
   "dependencies": {
-    "@blocknote/core": "^0.14.1",
-    "@blocknote/mantine": "^0.14.1",
-    "@blocknote/react": "^0.14.1",
     "@heroicons/react": "^2.0.18",
     "filestack-js": "^3.25.0",
     "node-cache": "^5.1.2",

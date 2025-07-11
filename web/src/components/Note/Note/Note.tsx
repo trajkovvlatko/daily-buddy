@@ -7,8 +7,15 @@ interface Props {
   note: NonNullable<FindNoteById['note']>;
 }
 
+const renderer = new marked.Renderer();
+renderer.link = function(href, title, text) {
+  const link = marked.Renderer.prototype.link.call(this, href, title, text);
+  return link.replace("<a","<a target='_blank' rel='noopener noreferrer' ");
+};
+
 marked.setOptions({
   breaks: true,
+  renderer
 });
 
 const Note = ({ note }: Props) => {

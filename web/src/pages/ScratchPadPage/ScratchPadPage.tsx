@@ -1,36 +1,29 @@
-import { useEffect } from 'react';
-
-import { BlockNoteView } from '@blocknote/mantine';
-import { useCreateBlockNote } from '@blocknote/react';
+import { MDXEditorMethods } from '@mdxeditor/editor';
+import { useEffect, useRef } from 'react';
+import { Editor } from 'src/components/Editor/Editor';
 
 const key = 'scratch-pad';
 const get = () => localStorage.getItem(key) ?? '';
 const set = (value: string) => localStorage.setItem(key, value);
 
 const ScratchPadPage = () => {
-  const editor = useCreateBlockNote({ initialContent: [{ id: 'scratchPad' }] });
-
-  useEffect(() => {
-    editor.tryParseMarkdownToBlocks(get()).then((parsed) => {
-      editor.insertBlocks(parsed, { id: 'scratchPad' });
-    });
-  }, [editor]);
+  const editorRef = useRef<MDXEditorMethods>(null);
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      const value = await editor.blocksToMarkdownLossy(editor.document);
+      const value = editorRef.current?.getMarkdown();
       if (value === get()) return;
 
       set(value);
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [editor]);
+  }, [editorRef]);
 
   return (
     <div className="ml-3 mr-3 bg-gray-100 pt-0 md:ml-6 md:mr-6 md:min-h-screen">
       <div className="mb-6 h-[90vh] bg-white p-6 shadow-lg md:grid md:h-[95vh]">
-        <BlockNoteView editor={editor} theme="light" />
+        <Editor content={get()} editorRef={editorRef} />
       </div>
     </div>
   );

@@ -13,10 +13,12 @@
     ]
   },
   "dependencies": {
+    "@mdxeditor/editor": "^3.39.0",
     "@redwoodjs/forms": "8.4.2",
     "@redwoodjs/router": "8.4.2",
     "@redwoodjs/web": "8.4.2",
     "@redwoodjs/web-server": "8.4.2",
+    "@tailwindcss/typography": "^0.5.16",
     "humanize-string": "2.1.0",
     "marked": "^4.2.2",
     "react": "18.3.1",

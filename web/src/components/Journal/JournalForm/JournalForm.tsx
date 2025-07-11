@@ -1,5 +1,3 @@
-import { BlockNoteView } from '@blocknote/mantine';
-import { useCreateBlockNote } from '@blocknote/react';
 import type { DeleteJournalMutationVariables, EditJournalById, UpdateJournalInput } from 'types/graphql';
 
 import { DateField, Form, FormError, Label, Submit } from '@redwoodjs/forms';
@@ -9,9 +7,9 @@ import { useMutation } from '@redwoodjs/web';
 import { toast } from '@redwoodjs/web/toast';
 
 import { getDefaultDate } from 'src/lib/getDefaultDate';
-
-import '@blocknote/core/fonts/inter.css';
-import '@blocknote/mantine/style.css';
+import { MDXEditorMethods } from '@mdxeditor/editor';
+import { useRef } from 'react';
+import { Editor } from 'src/components/Editor/Editor';
 
 type FormJournal = NonNullable<EditJournalById['journal']>;
 
@@ -31,11 +29,7 @@ interface JournalFormProps {
 }
 
 const JournalForm = (props: JournalFormProps) => {
-  const editor = useCreateBlockNote({ initialContent: [{ id: 'journal' }] });
-
-  editor.tryParseMarkdownToBlocks(props.journal?.content ?? '').then((parsed) => {
-    editor.insertBlocks(parsed, { id: 'journal' });
-  });
+  const editorRef = useRef<MDXEditorMethods>(null);
 
   const [deleteJournal] = useMutation(DELETE_JOURNAL_MUTATION, {
     onCompleted: () => {
@@ -48,7 +42,7 @@ const JournalForm = (props: JournalFormProps) => {
   });
 
   const onSubmit = async (data: FormJournal) => {
-    const value = await editor.blocksToMarkdownLossy(editor.document);
+    const value = editorRef.current?.getMarkdown();
 
     props.onSave({ ...data, content: value }, props?.journal?.id);
   };
@@ -80,7 +74,9 @@ const JournalForm = (props: JournalFormProps) => {
         <Label name="content" className="rw-label" errorClassName="rw-label rw-label-error">
           Content
         </Label>
-        <BlockNoteView editor={editor} theme="light" />
+
+        <Editor content={props.journal?.content ?? ''} editorRef={editorRef} />
+
         <div className="float-right mt-6">
           <Submit disabled={props.loading} className="blue-button">
             Save
