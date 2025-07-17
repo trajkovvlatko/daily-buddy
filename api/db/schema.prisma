@@ -36,6 +36,7 @@ model User {
   Person              Person[]
   CallLog             CallLog[]
   Project             Project[]
+  Recipe              Recipe[]
 }
 
 model Calendar {
@@ -311,4 +312,75 @@ model Setting {
 
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+}
+
+model Recipe {
+  id               Int                @id @default(autoincrement())
+  name             String
+  description      String?            @db.Text
+  tags             String[]           // Array of strings for tags
+  thumbnailUrl     String?            // Default thumbnail image URL
+  imageUrls        String[]           // Array of image URLs (up to 5)
+  imageHandles     String[]           // Array of Filestack handles
+  preparationSteps String             @db.Text // MDX content
+
+  User             User               @relation(references: [id], fields: [userId])
+  userId           Int
+
+  RecipeIngredient RecipeIngredient[]
+
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  @@index([userId], name: "recipe_user")
+}
+
+model Ingredient {
+  id                Int                @id @default(autoincrement())
+  name              String             @unique
+  standardUnit      String             // e.g., "grams", "ml", "cups"
+  category          String?            // e.g., "dairy", "meat", "vegetables"
+
+  NutritionData     NutritionData?
+  RecipeIngredient  RecipeIngredient[]
+
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@index([name], name: "ingredient_name")
+}
+
+model RecipeIngredient {
+  id            Int        @id @default(autoincrement())
+  amount        Float
+  unit          String     // Can be different from standardUnit
+
+  Recipe        Recipe     @relation(references: [id], fields: [recipeId])
+  recipeId      Int
+
+  Ingredient    Ingredient @relation(references: [id], fields: [ingredientId])
+  ingredientId  Int
+
+  @@index([recipeId], name: "recipe_ingredient_recipe")
+  @@index([ingredientId], name: "recipe_ingredient_ingredient")
+}
+
+model NutritionData {
+  id             Int        @id @default(autoincrement())
+  calories       Float      // per unit
+  protein        Float      // grams per unit
+  carbohydrates  Float      // grams per unit
+  fat            Float      // grams per unit
+  saturatedFat   Float      // grams per unit
+  fiber          Float?     // grams per unit
+  sugar          Float?     // grams per unit
+  sodium         Float?     // mg per unit
+
+  Ingredient     Ingredient @relation(references: [id], fields: [ingredientId])
+  ingredientId   Int        @unique
+
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([ingredientId], name: "nutrition_data_ingredient")
 }

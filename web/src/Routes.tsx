@@ -89,6 +89,11 @@ const Routes = () => {
           <Route path="/person/{personId:Int}/call-logs/{id:Int}" page={CallLogCallLogPage} name="callLog" />
           <Route path="/person/{personId:Int}/call-logs" page={CallLogCallLogsPage} name="callLogs" />
 
+          <Route path="/recipes/new" page={RecipeNewRecipePage} name="newRecipe" />
+          <Route path="/recipes/{id:Int}/edit" page={RecipeEditRecipePage} name="editRecipe" />
+          <Route path="/recipes/{id:Int}" page={RecipeRecipePage} name="recipe" />
+          <Route path="/recipes" page={RecipeRecipesPage} name="recipes" />
+
           <Route path="/settings/new" page={SettingNewSettingPage} name="newSetting" />
           <Route path="/settings/{id:Int}/edit" page={SettingEditSettingPage} name="editSetting" />
           <Route path="/settings" page={SettingSettingsPage} name="settings" />
